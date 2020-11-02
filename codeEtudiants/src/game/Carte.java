@@ -1,3 +1,5 @@
+package game;
+
 public class Carte {
     private int tailleCases;
     private int nbLignes;
@@ -39,6 +41,14 @@ public class Carte {
             return this.plateau[src.getLigne()][src.getColonne()];
         }
         return null; //TODO ERRRREEEEEUUUUR
+    }
+
+    public void setTailleCases(int tailleCases) {
+        this.tailleCases = tailleCases;
+    }
+
+    public Case[][] getPlateau() {
+        return plateau;
     }
 
     public boolean voisinExiste(Case src, Direction dir) {

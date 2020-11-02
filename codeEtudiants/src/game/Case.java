@@ -1,3 +1,5 @@
+package game;
+
 public class Case {
     private int ligne;
     private int colonne;
@@ -19,5 +21,18 @@ public class Case {
 
     public NatureTerrain getNature() {
         return nature;
+    }
+
+    public void setNature(NatureTerrain nature) {
+        this.nature = nature;
+    }
+
+    @Override
+    public String toString() {
+        return "Case{" +
+                "ligne=" + ligne +
+                ", colonne=" + colonne +
+                ", nature=" + nature +
+                '}';
     }
 }
