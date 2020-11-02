@@ -101,12 +101,10 @@ public class LecteurDonnees {
             int nbLignes = scanner.nextInt();
             int nbColonnes = scanner.nextInt();
 
-            donneesSimulation.setCarte(new Carte(nbLignes, nbColonnes));
-
 
             int tailleCases = scanner.nextInt();    // en m
-            donneesSimulation.getCarte().setTailleCases(tailleCases);
 
+            donneesSimulation.setCarte(new Carte(nbLignes, nbColonnes, tailleCases));
 
             //System.out.println("game.Carte " + nbLignes + "x" + nbColonnes
             //        + "; taille des cases = " + tailleCases);

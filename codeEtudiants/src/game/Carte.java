@@ -8,10 +8,10 @@ public class Carte {
     private Case[][] plateau;
 
 
-    public Carte(int nbLignes, int nbColonnes) {
+    public Carte(int nbLignes, int nbColonnes, int tailleCases) {
         this.nbLignes = nbLignes;
         this.nbColonnes = nbColonnes;
-        this.tailleCases = 1;
+        this.tailleCases = tailleCases;
         this.plateau = new Case[nbLignes][nbColonnes];
         for (int i = 0; i < nbLignes; i++) {
             for (int j = 0; j < nbColonnes; j++) {
@@ -41,10 +41,6 @@ public class Carte {
             return this.plateau[src.getLigne()][src.getColonne()];
         }
         return null; //TODO ERRRREEEEEUUUUR
-    }
-
-    public void setTailleCases(int tailleCases) {
-        this.tailleCases = tailleCases;
     }
 
     public Case[][] getPlateau() {
