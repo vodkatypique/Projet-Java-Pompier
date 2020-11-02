@@ -23,10 +23,6 @@ public class Case {
         return nature;
     }
 
-    public void setNature(NatureTerrain nature) {
-        this.nature = nature;
-    }
-
     @Override
     public String toString() {
         return "Case{" +

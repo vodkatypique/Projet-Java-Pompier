@@ -13,11 +13,6 @@ public class Carte {
         this.nbColonnes = nbColonnes;
         this.tailleCases = tailleCases;
         this.plateau = new Case[nbLignes][nbColonnes];
-        for (int i = 0; i < nbLignes; i++) {
-            for (int j = 0; j < nbColonnes; j++) {
-                this.plateau[i][j] = new Case(i, j, NatureTerrain.FORET);
-            }
-        }
     }
 
     public int getTailleCases() {

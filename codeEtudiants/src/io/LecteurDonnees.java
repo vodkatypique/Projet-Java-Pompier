@@ -141,7 +141,7 @@ public class LecteurDonnees {
             verifieLigneTerminee();
 
             //System.out.print("nature = " + chaineNature);
-            donneesSimulation.getCarte().getCase(lig, col).setNature(NatureTerrain.valueOf(chaineNature));
+            donneesSimulation.getCarte().getPlateau()[lig][col] = new Case(lig, col, NatureTerrain.valueOf(chaineNature));
 
         } catch (NoSuchElementException e) {
             throw new DataFormatException("format de case invalide. "
