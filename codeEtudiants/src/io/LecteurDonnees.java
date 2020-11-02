@@ -245,29 +245,36 @@ public class LecteurDonnees {
 
             //System.out.print("\t type = " + type);
 
-            Robot robot;
-            if (type.equals("DRONE")) {
-                robot = new Drone(donneesSimulation.getCarte().getCase(lig, col));
-            } else if (type.equals("ROUES")) {
-                robot = new Roue(donneesSimulation.getCarte().getCase(lig, col));
-            } else if (type.equals("PATTES")) {
-                robot = new Patte(donneesSimulation.getCarte().getCase(lig, col));
-            } else { //chenilles
-                robot = new Chenille(donneesSimulation.getCarte().getCase(lig, col));
-            }
-
 
             // lecture eventuelle d'une vitesse du robot (entier)
             //System.out.print("; \t vitesse = ");
             String s = scanner.findInLine("(\\d+)");    // 1 or more digit(s) ?
             // pour lire un flottant:    ("(\\d+(\\.\\d+)?)");
 
+            Robot robot;
             if (s == null) {
                 //System.out.print("valeur par defaut");
+                if (type.equals("DRONE")) {
+                    robot = new Drone(donneesSimulation.getCarte().getCase(lig, col));
+                } else if (type.equals("ROUES")) {
+                    robot = new Roue(donneesSimulation.getCarte().getCase(lig, col));
+                } else if (type.equals("PATTES")) {
+                    robot = new Patte(donneesSimulation.getCarte().getCase(lig, col));
+                } else { //chenilles
+                    robot = new Chenille(donneesSimulation.getCarte().getCase(lig, col));
+                }
             } else {
                 int vitesse = Integer.parseInt(s);
-                System.out.print(vitesse);
-                robot.setVitesse(vitesse);
+                //System.out.print(vitesse);
+                if (type.equals("DRONE")) {
+                    robot = new Drone(donneesSimulation.getCarte().getCase(lig, col), vitesse);
+                } else if (type.equals("ROUES")) {
+                    robot = new Roue(donneesSimulation.getCarte().getCase(lig, col), vitesse);
+                } else if (type.equals("PATTES")) {
+                    robot = new Patte(donneesSimulation.getCarte().getCase(lig, col));
+                } else { //chenilles
+                    robot = new Chenille(donneesSimulation.getCarte().getCase(lig, col), vitesse);
+                }
             }
 
             donneesSimulation.getRobots().add(robot);

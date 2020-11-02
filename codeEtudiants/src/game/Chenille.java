@@ -7,6 +7,11 @@ public class Chenille extends Robot {
         this.vitesse = 60;
     }
 
+    public Chenille(Case position, double vitesse) {
+        super();
+        this.vitesse = vitesse;
+    }
+
     @Override
     public void deverserEau(int vol) {
 

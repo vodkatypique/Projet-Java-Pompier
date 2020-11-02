@@ -20,8 +20,4 @@ public class Patte extends Robot {
         return super.getVitesse(nature);
     }
 
-    @Override
-    public void setVitesse(double vitesse) {
-        this.vitesse = this.vitesse;
-    }
 }

@@ -7,6 +7,11 @@ public class Roue extends Robot {
         this.vitesse = 80;
     }
 
+    public Roue(Case position, double vitesse) {
+        super();
+        this.vitesse = vitesse;
+    }
+
     @Override
     public void deverserEau(int vol) {
 

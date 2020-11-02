@@ -24,9 +24,6 @@ public abstract class Robot {
 
 	public abstract void deverserEau(int vol);
 
-	public void setVitesse(double vitesse) {
-		this.vitesse = vitesse;
-	}
 
 	@Override
 	public String toString() {

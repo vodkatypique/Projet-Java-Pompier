@@ -11,10 +11,6 @@ public class DonneesSimulation {
         return incendies;
     }
 
-    public void setIncendies(ArrayList<Incendie> incendies) {
-        this.incendies = incendies;
-    }
-
     public void initIncendies() {
         this.incendies = new ArrayList<Incendie>();
     }
@@ -25,10 +21,6 @@ public class DonneesSimulation {
 
     public ArrayList<Robot> getRobots() {
         return robots;
-    }
-
-    public void setRobots(ArrayList<Robot> robots) {
-        this.robots = robots;
     }
 
     public Carte getCarte() {

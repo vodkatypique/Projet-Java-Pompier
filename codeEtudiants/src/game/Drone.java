@@ -7,6 +7,11 @@ public class Drone extends Robot {
         this.vitesse = 100;
     }
 
+    public Drone(Case position, double vitesse) {
+        super();
+        this.vitesse = vitesse;
+    }
+
     @Override
     public void deverserEau(int vol) {
 
