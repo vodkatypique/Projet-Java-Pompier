@@ -1,6 +1,4 @@
-import game.DonneesSimulation;
-import game.Incendie;
-import game.Robot;
+package game;
 import gui.GUISimulator;
 import gui.Simulable;
 

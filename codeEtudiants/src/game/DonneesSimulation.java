@@ -14,11 +14,13 @@ public class DonneesSimulation {
     public void initIncendies() {
         this.incendies = new ArrayList<Incendie>();
     }
-
+    
     public void initRobots() {
         this.robots = new ArrayList<Robot>();
     }
-
+    public void addRobot(Robot robot) {
+    	this.robots.add(robot);
+	}
     public ArrayList<Robot> getRobots() {
         return robots;
     }

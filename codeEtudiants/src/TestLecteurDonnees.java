@@ -2,6 +2,7 @@
 import game.DonneesSimulation;
 import game.Incendie;
 import game.Robot;
+import game.Simulateur;
 import gui.GUISimulator;
 import io.LecteurDonnees;
 
