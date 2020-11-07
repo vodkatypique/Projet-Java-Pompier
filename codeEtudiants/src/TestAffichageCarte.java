@@ -31,6 +31,10 @@ public class TestAffichageCarte  {
 
 
 		sim.ajouteEvenement(new Deplacement(1, Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation));
+		sim.ajouteEvenement(new Deplacement(2, Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation));
+		sim.ajouteEvenement(new Deplacement(3, Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation));
+		sim.ajouteEvenement(new Deplacement(4, Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation));
+
 		sim.start();
 	}
 }

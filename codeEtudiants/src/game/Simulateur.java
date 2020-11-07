@@ -65,12 +65,12 @@ public class Simulateur implements Simulable {
 						break;
 					case ROCHE:
 						gui.addGraphicalElement(new gui.Rectangle(j * tailleCase, i * tailleCase, Color.DARK_GRAY,
-							Color.DARK_GRAY, tailleCase));
-					break;
-				case EAU:
-					gui.addGraphicalElement(
-							new gui.Rectangle(j * tailleCase, i * tailleCase, Color.BLUE, Color.BLUE, tailleCase));
-					break;
+								Color.DARK_GRAY, tailleCase));
+						break;
+					case EAU:
+						gui.addGraphicalElement(
+								new gui.Rectangle(j * tailleCase, i * tailleCase, Color.BLUE, Color.BLUE, tailleCase));
+						break;
 				}
 			}
 			cptY++;

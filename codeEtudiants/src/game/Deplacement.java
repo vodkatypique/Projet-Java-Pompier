@@ -32,6 +32,7 @@ public class Deplacement extends Evenement {
 		}
 		if(lig>donneesSimulation.getCarte().getNbLignes()|| lig<0||col>donneesSimulation.getCarte().getNbLignes()||col<0) {
 			System.err.println("Erreur, Position invalide après un déplacement");
+			System.exit(-1);
 			return;
 		}
 		
