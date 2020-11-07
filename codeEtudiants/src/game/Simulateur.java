@@ -44,27 +44,27 @@ public class Simulateur implements Simulable {
 	private void draw() {
 		gui.setSimulable(this);
 		gui.reset(); // clear the window
-
+		System.out.println("-------------------------");
 		int cptX = 0;
 		int cptY = 0;
 
 		for (int i = 0; i < donneesSimulation.getCarte().getNbLignes(); i++) {
 			for (int j = 0; j < donneesSimulation.getCarte().getNbColonnes(); j++) {
 				switch (donneesSimulation.getCarte().getCase(i, j).getNature()) {
-				case FORET:
-					gui.addGraphicalElement(
-							new gui.Rectangle(j * tailleCase, i * tailleCase, Color.GREEN, Color.GREEN, tailleCase));
-					break;
-				case TERRAIN_LIBRE:
-					gui.addGraphicalElement(
-							new gui.Rectangle(j * tailleCase, i * tailleCase, Color.WHITE, Color.WHITE, tailleCase));
-					break;
-				case HABITAT:
-					gui.addGraphicalElement(
-							new gui.Rectangle(j * tailleCase, i * tailleCase, Color.CYAN, Color.CYAN, tailleCase));
-					break;
-				case ROCHE:
-					gui.addGraphicalElement(new gui.Rectangle(j * tailleCase, i * tailleCase, Color.DARK_GRAY,
+					case FORET:
+						gui.addGraphicalElement(
+								new gui.Rectangle(j * tailleCase, i * tailleCase, Color.GREEN, Color.GREEN, tailleCase));
+						break;
+					case TERRAIN_LIBRE:
+						gui.addGraphicalElement(
+								new gui.Rectangle(j * tailleCase, i * tailleCase, Color.WHITE, Color.WHITE, tailleCase));
+						break;
+					case HABITAT:
+						gui.addGraphicalElement(
+								new gui.Rectangle(j * tailleCase, i * tailleCase, Color.CYAN, Color.CYAN, tailleCase));
+						break;
+					case ROCHE:
+						gui.addGraphicalElement(new gui.Rectangle(j * tailleCase, i * tailleCase, Color.DARK_GRAY,
 							Color.DARK_GRAY, tailleCase));
 					break;
 				case EAU:

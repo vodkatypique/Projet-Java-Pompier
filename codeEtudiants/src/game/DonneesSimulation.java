@@ -7,6 +7,12 @@ public class DonneesSimulation {
     private Carte carte;
     private ArrayList<Robot> robots;
 
+    public DonneesSimulation(ArrayList incendies, ArrayList robots, Carte carte) {
+        this.incendies = incendies;
+        this.carte = carte;
+        this.robots = robots;
+    }
+
     public ArrayList<Incendie> getIncendies() {
         return incendies;
     }
@@ -14,7 +20,7 @@ public class DonneesSimulation {
     public void initIncendies() {
         this.incendies = new ArrayList<Incendie>();
     }
-    
+
     public void initRobots() {
         this.robots = new ArrayList<Robot>();
     }

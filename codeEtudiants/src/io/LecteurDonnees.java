@@ -4,6 +4,7 @@ import game.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -56,15 +57,17 @@ public class LecteurDonnees {
         scanner.close();
         System.out.println("\n == Lecture terminee");
     }*/
-    public static DonneesSimulation creeDonnees(String fichierDonnees, DonneesSimulation donneesSimulation)
+    public static DonneesSimulation creeDonnees(String fichierDonnees)
             throws FileNotFoundException, DataFormatException {
         System.out.println("\n == Lecture du fichier" + fichierDonnees);
         LecteurDonnees lecteur = new LecteurDonnees(fichierDonnees);
 
 
-        lecteur.lireCarte(donneesSimulation);
-        lecteur.lireIncendies(donneesSimulation);
-        lecteur.lireRobots(donneesSimulation);
+        Carte carte = lecteur.lireCarte();
+        ArrayList<Incendie> incendies = lecteur.lireIncendies(carte);
+        ArrayList<Robot> robots = lecteur.lireRobots(carte);
+
+        DonneesSimulation donneesSimulation = new DonneesSimulation(incendies, robots, carte);
         scanner.close();
 
 
@@ -95,7 +98,7 @@ public class LecteurDonnees {
      *
      * @throws ExceptionFormatDonnees
      */
-    private void lireCarte(DonneesSimulation donneesSimulation) throws DataFormatException {
+    private Carte lireCarte() throws DataFormatException {
         ignorerCommentaires();
         try {
             int nbLignes = scanner.nextInt();
@@ -104,16 +107,17 @@ public class LecteurDonnees {
 
             int tailleCases = scanner.nextInt();    // en m
 
-            donneesSimulation.setCarte(new Carte(nbLignes, nbColonnes, tailleCases));
+            Carte carte = new Carte(nbLignes, nbColonnes, tailleCases);
 
             //System.out.println("game.Carte " + nbLignes + "x" + nbColonnes
             //        + "; taille des cases = " + tailleCases);
 
             for (int lig = 0; lig < nbLignes; lig++) {
                 for (int col = 0; col < nbColonnes; col++) {
-                    lireCase(lig, col, donneesSimulation);
+                    lireCase(lig, col, carte);
                 }
             }
+            return carte;
 
         } catch (NoSuchElementException e) {
             throw new DataFormatException("Format invalide. "
@@ -126,7 +130,7 @@ public class LecteurDonnees {
     /**
      * Lit et affiche les donnees d'une case.
      */
-    private void lireCase(int lig, int col, DonneesSimulation donneesSimulation) throws DataFormatException {
+    private void lireCase(int lig, int col, Carte carte) throws DataFormatException {
         ignorerCommentaires();
         //System.out.print("game.Case (" + lig + "," + col + "): ");
         String chaineNature = new String();
@@ -141,7 +145,7 @@ public class LecteurDonnees {
             verifieLigneTerminee();
 
             //System.out.print("nature = " + chaineNature);
-            donneesSimulation.getCarte().getPlateau()[lig][col] = new Case(lig, col, NatureTerrain.valueOf(chaineNature));
+            carte.getPlateau()[lig][col] = new Case(lig, col, NatureTerrain.valueOf(chaineNature));
 
         } catch (NoSuchElementException e) {
             throw new DataFormatException("format de case invalide. "
@@ -155,17 +159,19 @@ public class LecteurDonnees {
     /**
      * Lit et affiche les donnees des incendies.
      */
-    private void lireIncendies(DonneesSimulation donneesSimulation) throws DataFormatException {
+    private ArrayList<Incendie> lireIncendies(Carte carte) throws DataFormatException {
         ignorerCommentaires();
         try {
             int nbIncendies = scanner.nextInt();
 
-            donneesSimulation.initIncendies();
+            ArrayList<Incendie> incendies = new ArrayList<Incendie>();
 
-            System.out.println("Nb d'incendies = " + nbIncendies);
+            //System.out.println("Nb d'incendies = " + nbIncendies);
             for (int i = 0; i < nbIncendies; i++) {
-                lireIncendie(i, donneesSimulation);
+                lireIncendie(incendies, carte);
             }
+
+            return incendies;
 
         } catch (NoSuchElementException e) {
             throw new DataFormatException("Format invalide. "
@@ -179,7 +185,7 @@ public class LecteurDonnees {
      *
      * @param i
      */
-    private void lireIncendie(int i, DonneesSimulation donneesSimulation) throws DataFormatException {
+    private void lireIncendie(ArrayList<Incendie> incendies, Carte carte) throws DataFormatException {
         ignorerCommentaires();
         //System.out.print("game.Incendie " + i + ": ");
 
@@ -188,15 +194,14 @@ public class LecteurDonnees {
             int col = scanner.nextInt();
             int intensite = scanner.nextInt();
             if (intensite <= 0) {
-                throw new DataFormatException("incendie " + i
-                        + "nb litres pour eteindre doit etre > 0");
+                throw new DataFormatException("nb litres pour eteindre doit etre > 0");
             }
             verifieLigneTerminee();
 
-            System.out.println("position = (" + lig + "," + col
-                    + ");\t intensite = " + intensite);
-            Incendie incendie = new Incendie(donneesSimulation.getCarte().getCase(lig, col), intensite);
-            donneesSimulation.getIncendies().add(incendie);
+            //System.out.println("position = (" + lig + "," + col
+            //        + ");\t intensite = " + intensite);
+            Incendie incendie = new Incendie(carte.getCase(lig, col), intensite);
+            incendies.add(incendie);
 
         } catch (NoSuchElementException e) {
             throw new DataFormatException("format d'incendie invalide. "
@@ -208,16 +213,18 @@ public class LecteurDonnees {
     /**
      * Lit et affiche les donnees des robots.
      */
-    private void lireRobots(DonneesSimulation donneesSimulation) throws DataFormatException {
+    private ArrayList<Robot> lireRobots(Carte carte) throws DataFormatException {
         ignorerCommentaires();
         try {
             int nbRobots = scanner.nextInt();
-            donneesSimulation.initRobots();
+            ArrayList<Robot> robots = new ArrayList<Robot>();
 
             //System.out.println("Nb de robots = " + nbRobots);
             for (int i = 0; i < nbRobots; i++) {
-                lireRobot(i, donneesSimulation);
+                lireRobot(robots, carte);
             }
+
+            return robots;
 
         } catch (NoSuchElementException e) {
             throw new DataFormatException("Format invalide. "
@@ -231,9 +238,8 @@ public class LecteurDonnees {
      *
      * @param i
      */
-    private void lireRobot(int i, DonneesSimulation donneesSimulation) throws DataFormatException {
+    private void lireRobot(ArrayList<Robot> robots, Carte carte) throws DataFormatException {
         ignorerCommentaires();
-        System.out.print("game.Robot " + i + ": ");
 
         try {
             int lig = scanner.nextInt();
@@ -253,29 +259,29 @@ public class LecteurDonnees {
             if (s == null) {
                 //System.out.print("valeur par defaut");
                 if (type.equals("DRONE")) {
-                    robot = new Drone(donneesSimulation.getCarte().getCase(lig, col));
+                    robot = new Drone(carte.getCase(lig, col));
                 } else if (type.equals("ROUES")) {
-                    robot = new Roue(donneesSimulation.getCarte().getCase(lig, col));
+                    robot = new Roue(carte.getCase(lig, col));
                 } else if (type.equals("PATTES")) {
-                    robot = new Patte(donneesSimulation.getCarte().getCase(lig, col));
+                    robot = new Patte(carte.getCase(lig, col));
                 } else { //chenilles
-                    robot = new Chenille(donneesSimulation.getCarte().getCase(lig, col));
+                    robot = new Chenille(carte.getCase(lig, col));
                 }
             } else {
                 int vitesse = Integer.parseInt(s);
                 //System.out.print(vitesse);
                 if (type.equals("DRONE")) {
-                    robot = new Drone(donneesSimulation.getCarte().getCase(lig, col), vitesse);
+                    robot = new Drone(carte.getCase(lig, col), vitesse);
                 } else if (type.equals("ROUES")) {
-                    robot = new Roue(donneesSimulation.getCarte().getCase(lig, col), vitesse);
+                    robot = new Roue(carte.getCase(lig, col), vitesse);
                 } else if (type.equals("PATTES")) {
-                    robot = new Patte(donneesSimulation.getCarte().getCase(lig, col));
+                    robot = new Patte(carte.getCase(lig, col));
                 } else { //chenilles
-                    robot = new Chenille(donneesSimulation.getCarte().getCase(lig, col), vitesse);
+                    robot = new Chenille(carte.getCase(lig, col), vitesse);
                 }
             }
 
-            donneesSimulation.getRobots().add(robot);
+            robots.add(robot);
 
 
             verifieLigneTerminee();
