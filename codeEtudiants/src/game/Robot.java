@@ -6,15 +6,20 @@ public abstract class Robot {
 	private double reservoir;
 	protected double volumeIntervention;
 
-	public Robot(Case position,double vitesse) {
-		this.position=position;
+	public Robot(Case position, int vitesse) {
+		this.position = position;
 		setVitesse(vitesse);
+		setResevoir(getReservoirMax());
 	}
-	 void RemplirReservoir() {
+
+	void RemplirReservoir() {
 		tempRemplissage();//utiliser ça
 	}
+
 	abstract double getVitesseMax();//justification : https://stackoverflow.com/questions/11896955/force-subclasses-to-include-constant-in-abstract-java-class
+
 	abstract double getReservoirMax();
+
 	abstract double tempRemplissage();
 	public Case getPosition() {
 		return this.position;

@@ -1,19 +1,17 @@
 package game;
+
 public class Drone extends Robot {
-	
-    public Drone(Case position) {
-    	this(position, 100);
-    }
 
-    public Drone(Case position, double vitesse) {
-    	super(position, vitesse);
-    	setResevoir(getReservoirMax());
-    }
+	public Drone(Case position, Integer vitesse) {
+		super(position, vitesse != null ? vitesse : 100);
 
-    @Override
-    public void deverserEau(int vol) {
-    	//TODO derverser
-    }
+	}
+
+
+	@Override
+	public void deverserEau(int vol) {
+		//TODO derverser
+	}
 
 	@Override
 	double getVitesseMax() {

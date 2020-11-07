@@ -1,23 +1,20 @@
 package game;
 
 public class Patte extends Robot {
-    public Patte(Case position) {
-    	this(position, 30);
-    }
-    public Patte(Case position, double vitesse) {
-	super(position, vitesse);
-}
+	public Patte(Case position, Integer vitesse) {
+		super(position, vitesse != null ? vitesse : 30);
+	}
 
+	@Override
+	public void deverserEau(int vol) {
 
-    @Override
-    public void deverserEau(int vol) {
+	}
 
-    }
-@Override
-void setVitesse(double vitesse) {//la vitesse ne varie pas pour ce type de robot
-	// TODO Auto-generated method stub
-	super.setVitesse(30);
-}
+	@Override
+	void setVitesse(double vitesse) {//la vitesse ne varie pas pour ce type de robot
+		// TODO Auto-generated method stub
+		super.setVitesse(30);
+	}
     @Override
     public double getVitesse(NatureTerrain nature) {
         if (nature == NatureTerrain.ROCHE) {

@@ -1,20 +1,16 @@
 package game;
 
 public class Roue extends Robot {
-    public Roue(Case position) {
-    	this(position, 80);
+	public Roue(Case position, Integer vitesse) {
+		super(position, vitesse != null ? vitesse : 80);
 
-    }
 
-    public Roue(Case position, double vitesse) {
-    	super(position, vitesse);
-    	setResevoir(getReservoirMax());
-    }
+	}
 
-    @Override
-    public void deverserEau(int vol) {
-    	// TODO Auto-generated method stub
-    }
+	@Override
+	public void deverserEau(int vol) {
+		// TODO Auto-generated method stub
+	}
 
 
 	@Override

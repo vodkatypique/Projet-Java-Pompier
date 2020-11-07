@@ -1,7 +1,5 @@
-import game.Deplacement;
-import game.Direction;
-import game.DonneesSimulation;
-import game.Simulateur;
+import game.Robot;
+import game.*;
 import gui.GUISimulator;
 import io.LecteurDonnees;
 
@@ -19,6 +17,10 @@ public class TestAffichageCarte  {
 
 		DonneesSimulation donneesSimulation = LecteurDonnees.creeDonnees(args[0]);
 
+		for (Robot r :
+				donneesSimulation.getRobots()) {
+			System.out.println(r);
+		}
 
 		GUISimulator gui = new GUISimulator(
 				donneesSimulation.getCarte().getNbLignes() * 20,

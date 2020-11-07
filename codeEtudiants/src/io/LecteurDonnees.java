@@ -4,6 +4,7 @@ import game.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.NoSuchElementException;
@@ -255,31 +256,31 @@ public class LecteurDonnees {
             String s = scanner.findInLine("(\\d+)");    // 1 or more digit(s) ?
             // pour lire un flottant:    ("(\\d+(\\.\\d+)?)");
 
-            Robot robot;
-            if (s == null) {
-                //System.out.print("valeur par defaut");
-                if (type.equals("DRONE")) {
-                    robot = new Drone(carte.getCase(lig, col));
-                } else if (type.equals("ROUES")) {
-                    robot = new Roue(carte.getCase(lig, col));
-                } else if (type.equals("PATTES")) {
-                    robot = new Patte(carte.getCase(lig, col));
-                } else { //chenilles
-                    robot = new Chenille(carte.getCase(lig, col));
-                }
-            } else {
-                int vitesse = Integer.parseInt(s);
-                //System.out.print(vitesse);
+            Integer vitesse = s == null ? null : Integer.parseInt(s);
+
+            //System.out.print(vitesse);
+            if (type.charAt(type.length() - 1) == 'S') {
+                type = type.substring(0, type.length() - 1);
+            }
+            type = type.toLowerCase();
+            type = type.substring(0, 1).toUpperCase() + type.substring(1);
+
+            Robot robot = (Robot) Class
+                    .forName("game." + type)
+                    .getConstructor(Case.class, Integer.class)
+                    .newInstance(carte.getCase(lig, col), vitesse);
+
+/*
                 if (type.equals("DRONE")) {
                     robot = new Drone(carte.getCase(lig, col), vitesse);
                 } else if (type.equals("ROUES")) {
                     robot = new Roue(carte.getCase(lig, col), vitesse);
                 } else if (type.equals("PATTES")) {
-                    robot = new Patte(carte.getCase(lig, col));
+                    robot = new Patte(carte.getCase(lig, col), vitesse);
                 } else { //chenilles
+                    System.out.println(type);
                     robot = new Chenille(carte.getCase(lig, col), vitesse);
-                }
-            }
+                }*/
 
             robots.add(robot);
 
@@ -288,9 +289,15 @@ public class LecteurDonnees {
 
             System.out.println();
 
-        } catch (NoSuchElementException e) {
+        } catch (NoSuchElementException | ClassNotFoundException | NoSuchMethodException e) {
             throw new DataFormatException("format de robot invalide. "
                     + "Attendu: ligne colonne type [valeur_specifique]");
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
         }
     }
 
