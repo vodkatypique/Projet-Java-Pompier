@@ -1,30 +1,20 @@
 package game;
 
 import java.awt.Color;
+import java.io.FileNotFoundException;
+import java.util.zip.DataFormatException;
+
+import io.LecteurDonnees;
 
 import gui.GUISimulator;
-import gui.Rectangle;
-import gui.Simulable;
 
-public class TestAffichageCarte implements Simulable {
-	public static void main(String[] args) {
-		GUISimulator gui = new GUISimulator(800, 600, Color.BLACK);
-		// TODO Auto-generated method stub
-		DonneesSimulation d=new DonneesSimulation();
-		d.initRobots();
-		d.addRobot(new Chenille(new Case(5, 5, NatureTerrain.EAU)));
-		d.setCarte(new Carte(5, 5, 20));
-		new Simulateur(gui, d);
+public class TestAffichageCarte  {
+	public static void main(String[] args) throws FileNotFoundException, DataFormatException {
+		DonneesSimulation donneesSimulation=new DonneesSimulation();
+		LecteurDonnees.creeDonnees("/user/0/.base/cathelib/home/git/java/projetjava/codeEtudiants/cartes/carteSujet.map", donneesSimulation);
+		GUISimulator gui = new GUISimulator(donneesSimulation.getCarte().getNbLignes() *20, donneesSimulation.getCarte().getNbLignes() *20, Color.BLACK);
+		new Simulateur(gui, donneesSimulation);
 		}
-	@Override
-	public void next() {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void restart() {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 }

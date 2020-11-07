@@ -1,15 +1,13 @@
 package game;
-
+//vitesseMax=80
 public class Chenille extends Robot {
     public Chenille(Case position) {
-        this.position = position;
-        this.resevoir = 2000;
-        this.vitesse = 60;
+    	this(position, 60);
     }
 
     public Chenille(Case position, double vitesse) {
-        super();
-        this.vitesse = vitesse;
+    	super(position, vitesse);
+    	setResevoir(getReservoirMax());
     }
 
     @Override
@@ -24,6 +22,25 @@ public class Chenille extends Robot {
         }
         return super.getVitesse(nature);
     }
+
+
+
+	@Override
+	double getVitesseMax() {
+		return 80;
+	}
+
+	@Override
+	double getReservoirMax() {
+		// TODO Auto-generated method stub
+		return 2000;
+	}
+
+	@Override
+	double tempRemplissage() {
+		// TODO Auto-generated method stub
+		return 5;
+	}
 
 
 }

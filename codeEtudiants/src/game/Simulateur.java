@@ -1,4 +1,5 @@
 package game;
+
 import gui.GUISimulator;
 import gui.Simulable;
 
@@ -51,7 +52,7 @@ public class Simulateur implements Simulable {
 						gui.addGraphicalElement(new gui.Rectangle(j * tailleCase, i * tailleCase, Color.WHITE, Color.WHITE, tailleCase));
 						break;
 					case HABITAT:
-						gui.addGraphicalElement(new gui.Rectangle(j * tailleCase, i * tailleCase, Color.YELLOW, Color.YELLOW, tailleCase));
+						gui.addGraphicalElement(new gui.Rectangle(j * tailleCase, i * tailleCase, Color.CYAN, Color.CYAN, tailleCase));
 						break;
 					case ROCHE:
 						gui.addGraphicalElement(new gui.Rectangle(j * tailleCase, i * tailleCase, Color.DARK_GRAY, Color.DARK_GRAY, tailleCase));
