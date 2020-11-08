@@ -20,6 +20,4 @@ public abstract class EvenementDebutAbstrait extends EvenementRobotAbstrait {
 		this.simulateur = simulateur;
 	}
 
-
-
 }

@@ -9,8 +9,14 @@ public class DebutRemplissageReservoir extends EvenementDebutAbstrait {
 	}
 	@Override
 	void execute() {
-		this.getRobot().occupe=Boolean.TRUE;
-		this.getSimulateur().ajouteEvenement(new FinRemplissageRervoir(this.getDateFin(), this.getRobot(), this.volume));
+		if(this.getRobot().occupationRobot.estOccupe) {
+			this.getSimulateur().ajouteEvenement(new DebutRemplissageReservoir(this.getRobot().occupationRobot.dateFin+1, getRobot(), volume, getSimulateur()));
+			return;
+		}else {
+			this.getRobot().occupationRobot.estOccupe=Boolean.TRUE;
+			this.getRobot().occupationRobot.dateFin=this.getDateFin();
+			this.getSimulateur().ajouteEvenement(new FinRemplissageRervoir(this.getDateFin(), this.getRobot(), this.volume));
+		}
 	}
 
 }

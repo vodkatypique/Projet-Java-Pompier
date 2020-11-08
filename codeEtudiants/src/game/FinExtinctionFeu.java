@@ -12,9 +12,9 @@ public class FinExtinctionFeu extends EvenementRobotAbstrait {
 
 	@Override
 	void execute() {
-		this.getRobot().occupe=Boolean.FALSE;
+		this.getRobot().occupationRobot.estOccupe=Boolean.FALSE;
 		Incendie incendie=this.donneesSimulation.getIncendie(this.getRobot().getPosition());
-		incendie.setIntensite(this.volume);
+		incendie.setIntensite(incendie.getIntensite()-this.volume);
 		
 	}
 

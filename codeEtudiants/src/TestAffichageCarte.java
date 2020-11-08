@@ -30,10 +30,10 @@ public class TestAffichageCarte  {
 		Simulateur sim = new Simulateur(gui, donneesSimulation);
 
 
-		sim.ajouteEvenement(new Deplacement(1, Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation));
-		sim.ajouteEvenement(new Deplacement(2, Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation));
-		sim.ajouteEvenement(new Deplacement(3, Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation));
-		sim.ajouteEvenement(new Deplacement(4, Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation));
+		sim.ajouteEvenement(new DebutDeplacement(1, Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation, sim));
+		sim.ajouteEvenement(new DebutDeplacement(2, Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation, sim));
+		sim.ajouteEvenement(new DebutDeplacement(3, Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation, sim));
+		sim.ajouteEvenement(new DebutDeplacement(4, Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation, sim));
 		
 		/*sim.ajouteEvenement(new Deplacement(1, Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation));
 		sim.ajouteEvenement(new DebutExtinctionFeu(2, donneesSimulation.getRobots().get(0), donneesSimulation.getRobots().get(0).getReservoir(), sim, donneesSimulation));

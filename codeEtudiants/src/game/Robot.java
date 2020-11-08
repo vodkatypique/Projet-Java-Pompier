@@ -7,7 +7,7 @@ public abstract class Robot {
 	private double vitesse;
 	private double reservoir;
 	protected double volumeIntervention;
-	Boolean occupe=Boolean.FALSE;
+	OccupationRobot occupationRobot=new OccupationRobot(Boolean.FALSE,0);
 	public Robot(Case position, int vitesse) {
 		this.position = position;
 		setVitesse(vitesse);

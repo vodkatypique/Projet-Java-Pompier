@@ -5,7 +5,6 @@ public abstract class EvenementRobotAbstrait extends Evenement {
 	public EvenementRobotAbstrait(long date,Robot robot) {
 		super(date);
 		this.setRobot(robot);
-		// TODO Auto-generated constructor stub
 	}
 	public Robot getRobot() {
 		return robot;
@@ -13,5 +12,5 @@ public abstract class EvenementRobotAbstrait extends Evenement {
 	public void setRobot(Robot robot) {
 		this.robot = robot;
 	}
-
+	
 }

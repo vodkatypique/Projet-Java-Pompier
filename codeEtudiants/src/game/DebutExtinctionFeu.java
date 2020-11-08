@@ -8,13 +8,16 @@ public class DebutExtinctionFeu extends EvenementDebutAbstrait {
 		this.setDateFin((long) (date+robot.dureeDeversement(volumeDeverse)));
 		this.donneesSimulation=donneesSimulation;
 		this.volumeDeverse=volumeDeverse;
-		// TODO Auto-generated constructor stub
 	}
 	@Override
 	void execute() {
-		// TODO Auto-generated method stub
-		this.getRobot().occupe=Boolean.TRUE;
-		this.getSimulateur().ajouteEvenement(new FinExtinctionFeu(getDateFin(), getRobot(), donneesSimulation, volumeDeverse));
-	}
+		if(this.getRobot().occupationRobot.estOccupe) {
+			this.getSimulateur().ajouteEvenement(new DebutExtinctionFeu(this.getRobot().occupationRobot.dateFin+1, getRobot(), volumeDeverse, getSimulateur(), donneesSimulation));
+			return;
+		}else {
+			this.getRobot().occupationRobot.estOccupe=Boolean.TRUE;
+			this.getRobot().occupationRobot.dateFin=this.getDateFin();
+			this.getSimulateur().ajouteEvenement(new FinExtinctionFeu(getDateFin(), getRobot(), donneesSimulation, volumeDeverse));	
+		}	}
 
 }

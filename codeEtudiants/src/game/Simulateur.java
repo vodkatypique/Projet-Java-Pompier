@@ -90,20 +90,19 @@ public class Simulateur implements Simulable {
 
 	void incrememteDate() {
 		++this.dateSimulation;
-		Iterator<Evenement> itr=this.evenements.iterator();
-		while(itr.hasNext()) {//Execution des évènement
-			Evenement evenement=itr.next();
-			if(evenement.date<=this.dateSimulation) {
-				evenement.execute();
-				itr.remove();
-			}
+		ArrayList<Evenement> copieEvenement=new ArrayList<Evenement>();//pour éviter concurentModificationException
+		for (Evenement evenement : this.evenements) {
+			copieEvenement.add(evenement);
+		}
+		for (Evenement evenement : copieEvenement) {
+			evenement.execute();
+			this.evenements.remove(evenement);
 		}
 		this.draw();
 	}
 
 	@Override
 	public void next() {
-		System.out.println("d");
 		incrememteDate();
 		// TODO Auto-generated method stub
 

@@ -16,7 +16,9 @@ public class Incendie {
 	public Case getPosition() {
         return position;
     }
-
+	public int getIntensite() {
+		return intensite;
+	}
     @Override
     public String toString() {
         return "Incendie{" +
