@@ -7,11 +7,6 @@ public class Roue extends Robot {
 
 	}
 
-	@Override
-	public void deverserEau(int vol) {
-		// TODO Auto-generated method stub
-	}
-
 
 	@Override
 	double getVitesseMax() {
@@ -21,13 +16,16 @@ public class Roue extends Robot {
 
 	@Override
 	double getReservoirMax() {
-		// TODO Auto-generated method stub
 		return 5000;
 	}
 
 	@Override
 	double tempRemplissage() {
-		// TODO Auto-generated method stub
 		return 10;
+	}
+
+	@Override
+	double vitesseDeversement() {
+		return 100/5;
 	}
 }

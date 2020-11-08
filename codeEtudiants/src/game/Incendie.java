@@ -9,7 +9,11 @@ public class Incendie {
         this.intensite = intensite;
     }
 
-    public Case getPosition() {
+    public void setIntensite(double intensite) {
+		this.intensite -= intensite;//on décremente
+	}
+
+	public Case getPosition() {
         return position;
     }
 

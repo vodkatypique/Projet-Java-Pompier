@@ -1,6 +1,6 @@
 package game;
 
-public class Deplacement extends Evenement {
+public class Deplacement extends Evenement {//TODO début déplacement fin déplacement, vitesse
 	private Robot robot;//le robot qui se déplace
 	Direction direction;
 	DonneesSimulation donneesSimulation;

@@ -16,7 +16,16 @@ public class DonneesSimulation {
     public ArrayList<Incendie> getIncendies() {
         return incendies;
     }
-
+    public Incendie getIncendie(Case position){
+    	Incendie incendieRetour=null;
+    	for (Incendie incendie : incendies) {
+			if(incendie.getPosition().equals(position)) {
+				incendieRetour=incendie;
+				break;
+			}
+		}
+    	return incendieRetour;
+    }
     public void initIncendies() {
         this.incendies = new ArrayList<Incendie>();
     }

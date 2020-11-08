@@ -34,7 +34,12 @@ public class TestAffichageCarte  {
 		sim.ajouteEvenement(new Deplacement(2, Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation));
 		sim.ajouteEvenement(new Deplacement(3, Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation));
 		sim.ajouteEvenement(new Deplacement(4, Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation));
-
+		
+		/*sim.ajouteEvenement(new Deplacement(1, Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation));
+		sim.ajouteEvenement(new DebutExtinctionFeu(2, donneesSimulation.getRobots().get(0), donneesSimulation.getRobots().get(0).getReservoir(), sim, donneesSimulation));
+		sim.ajouteEvenement(new Deplacement(3, Direction.OUEST, donneesSimulation.getRobots().get(0), donneesSimulation));
+		sim.ajouteEvenement(new Deplacement(4, Direction.OUEST, donneesSimulation.getRobots().get(0), donneesSimulation));
+		sim.ajouteEvenement(new DebutExtinctionFeu(5, donneesSimulation.getRobots().get(0), donneesSimulation.getRobots().get(0).getReservoir(), sim, donneesSimulation));*///pas encore testé
 		sim.start();
 	}
 }

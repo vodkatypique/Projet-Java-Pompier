@@ -5,10 +5,6 @@ public class Patte extends Robot {
 		super(position, vitesse != null ? vitesse : 30);
 	}
 
-	@Override
-	public void deverserEau(int vol) {
-
-	}
 
 	@Override
 	void setVitesse(double vitesse) {//la vitesse ne varie pas pour ce type de robot
@@ -36,6 +32,12 @@ public class Patte extends Robot {
 	double tempRemplissage() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	double vitesseDeversement() {
+		// TODO Auto-generated method stub
+		return 10/1;
 	}
 
 }

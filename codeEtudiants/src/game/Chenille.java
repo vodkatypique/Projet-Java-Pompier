@@ -6,10 +6,6 @@ public class Chenille extends Robot {
 		super(position, vitesse != null ? vitesse : 60);
 	}
 
-	@Override
-	public void deverserEau(int vol) {
-
-	}
 
 	@Override
 	public double getVitesse(NatureTerrain nature) {
@@ -36,6 +32,11 @@ public class Chenille extends Robot {
 	double tempRemplissage() {
 		// TODO Auto-generated method stub
 		return 5;
+	}
+
+	@Override
+	double vitesseDeversement() {
+		return 100/8;
 	}
 
 
