@@ -90,13 +90,18 @@ public class Simulateur implements Simulable {
 
 	void incrememteDate() {
 		++this.dateSimulation;
+		System.err.println(this.dateSimulation);
+
 		ArrayList<Evenement> copieEvenement=new ArrayList<Evenement>();//pour éviter concurentModificationException
 		for (Evenement evenement : this.evenements) {
 			copieEvenement.add(evenement);
 		}
 		for (Evenement evenement : copieEvenement) {
-			evenement.execute();
-			this.evenements.remove(evenement);
+			if(this.dateSimulation>=evenement.date) {
+				evenement.execute();
+				this.evenements.remove(evenement);	
+			}
+			
 		}
 		this.draw();
 	}

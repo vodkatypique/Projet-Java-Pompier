@@ -11,7 +11,10 @@ public class DebutDeplacement extends EvenementDebutAbstrait {//TODO début dép
 		double vitesse =this.getRobot().getVitesse(this.getRobot().getPosition().getNature());
 		this.donneesSimulation.getCarte();
 		double distance=Carte.getDistanceEntreCase();
-		this.setDateFin((long) (distance/(vitesse/60)));//
+		long ldateFin=(long) (distance/((vitesse*Math.pow(10,3))/60))+this.date;
+		if(ldateFin==date)//le déplacement prend au moment 1 minute
+			++ldateFin;
+		this.setDateFin(ldateFin);//la vitesse est km/h
 	}
 	
 	@Override

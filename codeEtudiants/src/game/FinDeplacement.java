@@ -24,8 +24,10 @@ public class FinDeplacement extends EvenementRobotAbstrait {
 			break;
 		case OUEST:
 			col--;
+			break;
 		case NORD:
 			lig--;
+			break;
 		default:
 			break;
 		}
