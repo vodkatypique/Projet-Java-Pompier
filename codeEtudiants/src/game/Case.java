@@ -18,6 +18,16 @@ public class Case {
 	public int getLigne() {
 		return this.ligne;
 	}
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof Case))
+			return Boolean.FALSE;
+		Case case_obj=(Case) obj;
+		if(this.colonne==case_obj.colonne&&this.ligne==this.ligne) {
+			return Boolean.TRUE;
+		}
+		return Boolean.FALSE;
+	}
 
 	public NatureTerrain getNature() {
 		return this.nature;

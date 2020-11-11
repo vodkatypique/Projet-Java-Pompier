@@ -9,7 +9,7 @@ public class Incendie {
         this.intensite = intensite;
     }
 
-    public void setIntensite(double intensite) {
+    public void decrementeIntensite(double intensite) {
 		this.intensite -= intensite;//on décremente
 	}
 

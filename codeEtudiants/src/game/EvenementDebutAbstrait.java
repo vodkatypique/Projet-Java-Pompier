@@ -11,6 +11,8 @@ public abstract class EvenementDebutAbstrait extends EvenementRobotAbstrait {
 		return dateFin;
 	}
 	public void setDateFin(long dateFin) {
+		if(this.date==dateFin)
+			++dateFin;//toute action prend au moins 1 minutes
 		this.dateFin = dateFin;
 	}
 	public Simulateur getSimulateur() {

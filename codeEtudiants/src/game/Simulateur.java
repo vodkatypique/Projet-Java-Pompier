@@ -15,6 +15,7 @@ public class Simulateur implements Simulable {
 	private DonneesSimulation donneesSimulation;
 	private int tailleCase;
 	private long dateSimulation;
+	private int offset;
 	private ArrayList<Evenement> evenements=new ArrayList<Evenement>();
 
 	/**
@@ -28,8 +29,9 @@ public class Simulateur implements Simulable {
 	public Simulateur(GUISimulator gui, DonneesSimulation donneesSimulation) {
 		this.gui = gui;
 		this.donneesSimulation = donneesSimulation;
-		this.tailleCase = 20;
+		this.tailleCase = 50;
 		this.dateSimulation=0;
+		this.offset=50;
 	}
 	public void ajouteEvenement(Evenement evenement) {
 		if(evenement.date<this.dateSimulation) {
@@ -53,23 +55,23 @@ public class Simulateur implements Simulable {
 				switch (donneesSimulation.getCarte().getCase(i, j).getNature()) {
 					case FORET:
 						gui.addGraphicalElement(
-								new gui.Rectangle(j * tailleCase, i * tailleCase, Color.GREEN, Color.GREEN, tailleCase));
-						break;
-					case TERRAIN_LIBRE:
-						gui.addGraphicalElement(
-								new gui.Rectangle(j * tailleCase, i * tailleCase, Color.WHITE, Color.WHITE, tailleCase));
+								new gui.Rectangle(j * tailleCase+this.offset, i * tailleCase, Color.GREEN, Color.GREEN, tailleCase));
+						break;                                  
+					case TERRAIN_LIBRE:                         
+						gui.addGraphicalElement(                
+								new gui.Rectangle(j * tailleCase+this.offset, i * tailleCase, Color.WHITE, Color.WHITE, tailleCase));
 						break;
 					case HABITAT:
 						gui.addGraphicalElement(
-								new gui.Rectangle(j * tailleCase, i * tailleCase, Color.CYAN, Color.CYAN, tailleCase));
+								new gui.Rectangle(j * tailleCase+this.offset, i * tailleCase, Color.CYAN, Color.CYAN, tailleCase));
 						break;
 					case ROCHE:
-						gui.addGraphicalElement(new gui.Rectangle(j * tailleCase, i * tailleCase, Color.DARK_GRAY,
+						gui.addGraphicalElement(new gui.Rectangle(j * tailleCase+this.offset, i * tailleCase, Color.DARK_GRAY,
 								Color.DARK_GRAY, tailleCase));
 						break;
 					case EAU:
 						gui.addGraphicalElement(
-								new gui.Rectangle(j * tailleCase, i * tailleCase, Color.BLUE, Color.BLUE, tailleCase));
+								new gui.Rectangle(j * tailleCase+this.offset, i * tailleCase, Color.BLUE, Color.BLUE, tailleCase));
 						break;
 				}
 			}
@@ -77,13 +79,16 @@ public class Simulateur implements Simulable {
 		}
 
 		for (Robot robot : donneesSimulation.getRobots()) {
-			gui.addGraphicalElement(new gui.Oval(robot.getPosition().getColonne() * tailleCase,
+			gui.addGraphicalElement(new gui.Oval(robot.getPosition().getColonne() * tailleCase+this.offset,
 					robot.getPosition().getLigne() * tailleCase, Color.YELLOW, Color.YELLOW, tailleCase));
 		}
 
 		for (Incendie incendie : donneesSimulation.getIncendies()) {
-			gui.addGraphicalElement(new gui.Rectangle(incendie.getPosition().getColonne() * tailleCase,
+			gui.addGraphicalElement(new gui.Rectangle(incendie.getPosition().getColonne() * tailleCase+this.offset,
 					incendie.getPosition().getLigne() * tailleCase, Color.RED, Color.RED, tailleCase));
+			gui.addGraphicalElement(new gui.Text(incendie.getPosition().getColonne() * tailleCase+this.offset,
+					incendie.getPosition().getLigne() * tailleCase, Color.white, ""+incendie.getIntensite()));
+			
 		}
 
 	}

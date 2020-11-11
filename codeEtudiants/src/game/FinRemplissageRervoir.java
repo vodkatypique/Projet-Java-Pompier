@@ -10,7 +10,6 @@ public class FinRemplissageRervoir extends EvenementRobotAbstrait {//TODO factor
 	void execute() {
 		this.getRobot().occupationRobot.estOccupe=Boolean.FALSE;
 		this.getRobot().setResevoir(this.getRobot().getReservoir()+this.volumeAjoute);
-
 	}
 
 }

@@ -1,6 +1,5 @@
 package game;
 
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.REUtil;
 
 public abstract class Robot {
 	private Case position;
@@ -13,7 +12,7 @@ public abstract class Robot {
 		setVitesse(vitesse);
 		setResevoir(getReservoirMax());
 	}
-
+	
 	long dureeRemplissageReservoir(double volume) {// retourne la duree du remplissage
 		long dureeRemplissage = (long) ((volume / getReservoirMax()) * tempRemplissage());
 		return dureeRemplissage;
@@ -21,6 +20,15 @@ public abstract class Robot {
 	public double dureeDeversement(double vol) {//en seconde
 		return vol/vitesseDeversement();
 	}
+/*	public boolean peutRemplir() {
+		int ligne=this.position.getLigne();
+		int colonne= this.position.getColonne();
+		if()
+		
+		if () {
+			
+		}
+	}*/
 
 	abstract double getVitesseMax();//justification : https://stackoverflow.com/questions/11896955/force-subclasses-to-include-constant-in-abstract-java-class
 	abstract double getReservoirMax();

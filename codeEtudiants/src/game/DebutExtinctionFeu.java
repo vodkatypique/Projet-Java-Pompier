@@ -5,7 +5,7 @@ public class DebutExtinctionFeu extends EvenementDebutAbstrait {
 	private double volumeDeverse;
 	public DebutExtinctionFeu(long date, Robot robot, double volumeDeverse, Simulateur simulateur, DonneesSimulation donneesSimulation) {
 		super(date, robot, simulateur);
-		this.setDateFin((long) (date+robot.dureeDeversement(volumeDeverse)));
+		this.setDateFin((long) (date+(robot.dureeDeversement(volumeDeverse)/60)));
 		this.donneesSimulation=donneesSimulation;
 		this.volumeDeverse=volumeDeverse;
 	}
