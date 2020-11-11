@@ -110,11 +110,13 @@ public class Simulateur implements Simulable {
 		}
 		this.draw();
 	}
-
+	public Carte getCarte() {
+		return this.donneesSimulation.getCarte();
+		
+	}
 	@Override
 	public void next() {
 		incrememteDate();
-		// TODO Auto-generated method stub
 
 	}
 

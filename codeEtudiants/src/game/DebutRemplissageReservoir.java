@@ -9,6 +9,11 @@ public class DebutRemplissageReservoir extends EvenementDebutAbstrait {
 	}
 	@Override
 	void execute() {
+		if(!this.getRobot().peutRemplir(this.getSimulateur().getCarte())) {
+			System.err.println("Erreur, le robot ne peut pas se remplir");
+			return;
+		}
+			
 		if(this.getRobot().occupationRobot.estOccupe) {
 			this.getSimulateur().ajouteEvenement(new DebutRemplissageReservoir(this.getRobot().occupationRobot.dateFin+1, getRobot(), volume, getSimulateur()));
 			return;

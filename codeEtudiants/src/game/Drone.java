@@ -26,7 +26,13 @@ public class Drone extends Robot {
 		// en minute
 		return 30;
 	}
-
+	@Override
+	public boolean peutRemplir(Carte carte) {
+		if (carte.getCase(this.getPosition().getLigne(),this.getPosition().getColonne() ).getNature() == NatureTerrain.EAU) {
+			return Boolean.TRUE;
+		}
+		return Boolean.FALSE;
+	}
 
 	@Override
 	double vitesseDeversement() {

@@ -7,7 +7,6 @@ public class FinExtinctionFeu extends EvenementRobotAbstrait {
 		super(date, robot);
 		this.donneesSimulation=donneesSimulation;
 		this.volume=volume;
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

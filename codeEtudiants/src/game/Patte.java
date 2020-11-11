@@ -30,10 +30,13 @@ public class Patte extends Robot {
 	}
 	@Override
 	double tempRemplissage() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	@Override
+	public boolean peutRemplir(Carte carte) {
+		// TODO Auto-generated method stub
+		return Boolean.FALSE;
+	}
 	@Override
 	double vitesseDeversement() {
 		// TODO Auto-generated method stub
