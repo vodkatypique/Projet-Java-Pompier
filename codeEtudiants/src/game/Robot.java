@@ -5,15 +5,16 @@ public abstract class Robot {
 	private double vitesse;
 	private double reservoir;
 	protected double volumeIntervention;
-	OccupationRobot occupationRobot = new OccupationRobot(Boolean.FALSE, 0);
+	private OccupationRobot occupationRobot;
 
 	public Robot(Case position, int vitesse) {
 		this.position = position;
 		setVitesse(vitesse);
 		setResevoir(getReservoirMax());
+		occupationRobot = new OccupationRobot(Boolean.FALSE, 0);
 	}
 
-	long dureeRemplissageReservoir(double volume) {// retourne la duree du remplissage
+	public long dureeRemplissageReservoir(double volume) {// retourne la duree du remplissage
 		long dureeRemplissage = (long) ((volume / getReservoirMax()) * tempRemplissage());
 		return dureeRemplissage;
 	}
@@ -55,7 +56,7 @@ public abstract class Robot {
 		return this.position;
 	}
 
-	void setPosition(Case localisation) {
+	public void setPosition(Case localisation) {
 		this.position = localisation;
 	}
 
@@ -71,7 +72,7 @@ public abstract class Robot {
 		}
 	}
 
-	void setVitesse(double vitesse) {
+	public void setVitesse(double vitesse) {
 		if (vitesse < 0) {
 			System.err.println("Erreur, Vitesse négative ");
 			this.vitesse = 0;
@@ -94,5 +95,9 @@ public abstract class Robot {
 
 	public double getReservoir() {
 		return reservoir;
+	}
+	
+	public OccupationRobot getOccupationRobot() {
+		return this.occupationRobot;
 	}
 }

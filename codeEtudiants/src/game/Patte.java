@@ -7,7 +7,7 @@ public class Patte extends Robot {
 
 
 	@Override
-	void setVitesse(double vitesse) {//la vitesse ne varie pas pour ce type de robot
+	public void setVitesse(double vitesse) {//la vitesse ne varie pas pour ce type de robot
 		// TODO Auto-generated method stub
 		super.setVitesse(30);
 	}

@@ -3,6 +3,7 @@ package game;
 public class FinDeplacement extends EvenementRobotAbstrait {
 	private Direction direction;
 	private DonneesSimulation donneesSimulation;
+	
 	public FinDeplacement(long date, Robot robot,Direction direction, DonneesSimulation donneesSimulation) {
 		super(date, robot);
 		this.direction=direction;
@@ -10,8 +11,8 @@ public class FinDeplacement extends EvenementRobotAbstrait {
 	}
 
 	@Override
-	void execute() {
-		this.getRobot().occupationRobot.estOccupe=Boolean.FALSE;
+	public void execute() {
+		
 		//this.getSimulateur().ajouteEvenement(new Fin);
 		int lig=this.getRobot().getPosition().getLigne();
 		int col=this.getRobot().getPosition().getColonne();
@@ -38,6 +39,8 @@ public class FinDeplacement extends EvenementRobotAbstrait {
 		}
 		
 		this.getRobot().setPosition(donneesSimulation.getCarte().getCase(lig, col));
+		// après avoir deplacé le robot on le met en état non occupé.
+		this.getRobot().getOccupationRobot().changeState();
 	}
 
 }

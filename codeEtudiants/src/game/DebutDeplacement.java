@@ -4,6 +4,7 @@ package game;
 public class DebutDeplacement extends EvenementDebutAbstrait {//TODO début déplacement fin déplacement, vitesse
 	Direction direction;
 	DonneesSimulation donneesSimulation;
+	
 	public DebutDeplacement(long date, Direction direction, Robot robot, DonneesSimulation donneesSimulation, Simulateur simulateur) {
 		super(date, robot, simulateur);
 		this.direction=direction;
@@ -11,18 +12,19 @@ public class DebutDeplacement extends EvenementDebutAbstrait {//TODO début dép
 		double vitesse =this.getRobot().getVitesse(this.getRobot().getPosition().getNature());
 		this.donneesSimulation.getCarte();
 		double distance=Carte.getDistanceEntreCase();
-		long ldateFin=(long) (distance/((vitesse*Math.pow(10,3))/60))+this.date;//la vitesse est km/h
+		long ldateFin=(long) (distance/((vitesse*Math.pow(10,3))/60))+this.getDate();//la vitesse est km/h
 		this.setDateFin(ldateFin);
 	}
 	
 	@Override
-	void execute() {
-		if(this.getRobot().occupationRobot.estOccupe) {
-			this.getSimulateur().ajouteEvenement(new DebutDeplacement(this.getRobot().occupationRobot.dateFin+1, direction, getRobot(), donneesSimulation, getSimulateur()));
+	public void execute() { // il est occupe
+		if(this.getRobot().getOccupationRobot().getEstOccupe()) {
+			this.getSimulateur().ajouteEvenement(new DebutDeplacement(this.getRobot().getOccupationRobot().getDateFin()+1, direction, getRobot(), donneesSimulation, getSimulateur()));
 			return;
-		}else {
-			this.getRobot().occupationRobot.estOccupe=Boolean.TRUE;
-			this.getRobot().occupationRobot.dateFin=this.getDateFin();
+		}
+		else { // il n'etait pas occupe
+			this.getRobot().getOccupationRobot().changeState();
+			this.getRobot().getOccupationRobot().setDateFin(this.getDateFin());
 			this.getSimulateur().ajouteEvenement(new FinDeplacement(this.getDateFin(), getRobot(), direction, donneesSimulation));	
 		}
 	}

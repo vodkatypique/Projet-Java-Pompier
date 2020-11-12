@@ -1,13 +1,16 @@
 package game;
 
 public abstract class Evenement {
-	long date;
+	private long date;
+	
 	public Evenement(long date) {
 		this.date=date;
 	}
-	long getDate() {
+	
+	public long getDate() {
 		return this.date;
 	}
-	abstract void execute();
+	
+	public abstract void execute();
 	
 }

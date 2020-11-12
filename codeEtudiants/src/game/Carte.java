@@ -14,9 +14,11 @@ public class Carte {
         this.tailleCases = tailleCases;
         this.plateau = new Case[nbLignes][nbColonnes];
     }
+    
     public static double getDistanceEntreCase() {//en metres
 		return 1000;
 	}
+    
     public int getTailleCases() {
         return tailleCases;
     }

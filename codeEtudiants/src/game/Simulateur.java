@@ -5,7 +5,7 @@ import gui.Simulable;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Iterator;
+//import java.util.Iterator;
 
 public class Simulateur implements Simulable {
 	/**
@@ -33,16 +33,19 @@ public class Simulateur implements Simulable {
 		this.dateSimulation=0;
 		this.offset=50;
 	}
+	
 	public void ajouteEvenement(Evenement evenement) {
-		if(evenement.date<this.dateSimulation) {
+		if(evenement.getDate()<this.dateSimulation) {
 			System.err.println("Erreur, evenement dans le passé");
 			return;
 		}
 		this.evenements.add(evenement);
 	}
+	
 	public void start() {
 		draw();
 	}
+	
 	private void draw() {
 		gui.setSimulable(this);
 		gui.reset(); // clear the window
@@ -102,7 +105,7 @@ public class Simulateur implements Simulable {
 			copieEvenement.add(evenement);
 		}
 		for (Evenement evenement : copieEvenement) {
-			if(this.dateSimulation>=evenement.date) {
+			if(this.dateSimulation >= evenement.getDate()) {
 				evenement.execute();
 				this.evenements.remove(evenement);	
 			}
@@ -118,6 +121,10 @@ public class Simulateur implements Simulable {
 	public void next() {
 		incrememteDate();
 
+	}
+	
+	public boolean simulationTerminee() {
+		return this.evenements.isEmpty();
 	}
 
 	@Override
