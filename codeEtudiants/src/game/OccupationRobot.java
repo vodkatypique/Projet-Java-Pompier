@@ -9,6 +9,11 @@ public class OccupationRobot {
 		this.dateFin=dateFin;
 	}
 	
+	public OccupationRobot(OccupationRobot or) {
+		this.estOccupe = or.getEstOccupe();
+		this.dateFin = or.getDateFin();
+	}
+	
 	public boolean getEstOccupe() {
 		return this.estOccupe;
 	}

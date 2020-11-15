@@ -4,23 +4,44 @@ public abstract class Robot {
 	private Case position;
 	private double vitesse;
 	private double reservoir;
-	protected double volumeIntervention;
+	//protected double volumeIntervention;
 	private OccupationRobot occupationRobot;
 
 	public Robot(Case position, int vitesse) {
+		System.out.println("C'est ici 1");
 		this.position = position;
 		setVitesse(vitesse);
 		setResevoir(getReservoirMax());
-		occupationRobot = new OccupationRobot(Boolean.FALSE, 0);
+		this.occupationRobot = new OccupationRobot(Boolean.FALSE, 0);
 	}
 
+	public Robot(Robot r) {
+		System.out.println("C'est ici 2");
+		this.position = new Case(r.getPosition());
+		this.vitesse = r.getVitesse(r.getPosition().getNature());
+		this.reservoir = r.getReservoir();
+		//this.volumeIntervention = r.get
+		System.out.println("C'est ici 2:: vitesse:: " + this.vitesse);
+		this.occupationRobot = new OccupationRobot(Boolean.FALSE, 0);
+		
+	}
+	
+	public Robot(Case position) {
+		System.out.println("C'est ici 3");
+		this.position = new Case(position);
+		this.occupationRobot = new OccupationRobot(Boolean.FALSE, 0);
+		setVitesse(0);
+		setResevoir(getReservoirMax());
+	}
+	
+	
 	public long dureeRemplissageReservoir(double volume) {// retourne la duree du remplissage
 		long dureeRemplissage = (long) ((volume / getReservoirMax()) * tempRemplissage());
 		return dureeRemplissage;
 	}
 
 	public double dureeDeversement(double vol) {// en seconde
-		return vol / vitesseDeversement();
+		return vol / dureeDeversementUnitaire();
 	}
 
 	public boolean peutRemplir(Carte carte) {
@@ -50,7 +71,7 @@ public abstract class Robot {
 
 	abstract double tempRemplissage();// pour la totalité du reservoir
 
-	abstract double vitesseDeversement();// en litre par seconde
+	abstract double dureeDeversementUnitaire();// le temps en seconde pour le deversement de 1L
 
 	public Case getPosition() {
 		return this.position;
@@ -83,6 +104,7 @@ public abstract class Robot {
 			this.vitesse = vitesse;
 		}
 	}
+	
 
 	public double getVitesse(NatureTerrain nature) {
 		return this.vitesse;
@@ -100,4 +122,6 @@ public abstract class Robot {
 	public OccupationRobot getOccupationRobot() {
 		return this.occupationRobot;
 	}
+	
+	
 }

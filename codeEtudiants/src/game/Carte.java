@@ -15,6 +15,33 @@ public class Carte {
         this.plateau = new Case[nbLignes][nbColonnes];
     }
     
+    public Carte(int nbLignes, int nbColonnes, int tailleCases, Case[][] plateau) {
+    	this.nbLignes = nbLignes;
+    	this.nbColonnes = nbColonnes;
+    	this.tailleCases = tailleCases;
+    	this.plateau = new Case[nbLignes][nbColonnes];
+    	this.plateau = plateau;
+    	// il faut donner les valeurs à chaque élément de plateau en copiant pour n'avoir pas 
+    	// à manipuler les références
+    	for (int i = 0; i < nbLignes; i++) {
+            for (int j = 0; j < nbColonnes; j++) {
+                this.plateau[i][j] = new Case(plateau[i][j]);
+            }
+        }
+    }
+    
+    public Carte(Carte ca) {
+    	this.nbLignes = ca.getNbLignes();
+    	this.nbColonnes = ca.getNbColonnes();
+    	this.tailleCases = ca.getTailleCases();
+    	this.plateau = new Case[nbLignes][nbColonnes];
+    	for (int i = 0; i < nbLignes; i++) {
+            for (int j = 0; j < nbColonnes; j++) {
+                this.plateau[i][j] = new Case(ca.getPlateau()[i][j]);
+            }
+        }
+    }
+    
     public static double getDistanceEntreCase() {//en metres
 		return 1000;
 	}

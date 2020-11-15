@@ -7,7 +7,15 @@ public class Drone extends Robot {
 
 	}
 
-@Override
+	public Drone(Drone d) {
+		super(d);
+	}
+	
+	public Drone(Case position) {
+		super(position);
+	}
+	
+	@Override
 	public double dureeDeversement(double vol) {
 		return 30;
 	}
@@ -35,9 +43,9 @@ public class Drone extends Robot {
 	}
 
 	@Override
-	double vitesseDeversement() {
+	double dureeDeversementUnitaire() {
 		// TODO Auto-generated method stub
-		return getReservoirMax()/30;
+		return 30.0/getReservoirMax();
 	}
 
 

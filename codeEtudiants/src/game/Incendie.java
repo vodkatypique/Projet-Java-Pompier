@@ -9,6 +9,12 @@ public class Incendie {
         this.intensite = intensite;
     }
 
+    public Incendie(Incendie inc) {
+    	this.position = new Case(inc.getPosition());
+    	this.intensite = inc.getIntensite();
+    }
+    
+    
     public void decrementeIntensite(double intensite) {
 		this.intensite -= intensite;//on décremente
 	}

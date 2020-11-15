@@ -1,7 +1,5 @@
 package io;
 
-import game.*;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
@@ -10,6 +8,13 @@ import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.zip.DataFormatException;
+
+import game.Carte;
+import game.Case;
+import game.DonneesSimulation;
+import game.Incendie;
+import game.NatureTerrain;
+import game.Robot;
 
 
 
@@ -44,6 +49,10 @@ public class LecteurDonnees {
      *
      * @param fichierDonnees    nom du fichier Ã  lire
      * @param donneesSimulation
+     * @throws InvocationTargetException 
+     * @throws IllegalArgumentException 
+     * @throws InstantiationException 
+     * @throws IllegalAccessException 
      */
    /* public static void lire(String fichierDonnees)
         throws FileNotFoundException, DataFormatException {
@@ -59,15 +68,14 @@ public class LecteurDonnees {
         System.out.println("\n == Lecture terminee");
     }*/
     public static DonneesSimulation creeDonnees(String fichierDonnees)
-            throws FileNotFoundException, DataFormatException {
+            throws FileNotFoundException, DataFormatException, IllegalAccessException, InstantiationException, IllegalArgumentException, InvocationTargetException {
         System.out.println("\n == Lecture du fichier" + fichierDonnees);
         LecteurDonnees lecteur = new LecteurDonnees(fichierDonnees);
 
 
-        Carte carte = lecteur.lireCarte();
-        ArrayList<Incendie> incendies = lecteur.lireIncendies(carte);
-        ArrayList<Robot> robots = lecteur.lireRobots(carte);
-
+        Carte carte = lecteur.creeCarte();
+        ArrayList<Incendie> incendies = lecteur.creeIncendies(carte);
+        ArrayList<Robot> robots = lecteur.creeRobots(carte);
         DonneesSimulation donneesSimulation = new DonneesSimulation(incendies, robots, carte);
         scanner.close();
 
@@ -99,7 +107,7 @@ public class LecteurDonnees {
      *
      * @throws ExceptionFormatDonnees
      */
-    private Carte lireCarte() throws DataFormatException {
+    private Carte creeCarte() throws DataFormatException {
         ignorerCommentaires();
         try {
             int nbLignes = scanner.nextInt();
@@ -108,17 +116,13 @@ public class LecteurDonnees {
 
             int tailleCases = scanner.nextInt();    // en m
 
-            Carte carte = new Carte(nbLignes, nbColonnes, tailleCases);
-
-            //System.out.println("game.Carte " + nbLignes + "x" + nbColonnes
-            //        + "; taille des cases = " + tailleCases);
-
+            Case[][] plateau = new Case[nbLignes][nbColonnes];
             for (int lig = 0; lig < nbLignes; lig++) {
                 for (int col = 0; col < nbColonnes; col++) {
-                    lireCase(lig, col, carte);
+                	plateau[lig][col] = creeCase(lig, col);
                 }
             }
-            return carte;
+            return new Carte(nbLignes, nbColonnes, tailleCases, plateau);
 
         } catch (NoSuchElementException e) {
             throw new DataFormatException("Format invalide. "
@@ -131,7 +135,7 @@ public class LecteurDonnees {
     /**
      * Lit et affiche les donnees d'une case.
      */
-    private void lireCase(int lig, int col, Carte carte) throws DataFormatException {
+    private Case creeCase(int lig, int col) throws DataFormatException {
         ignorerCommentaires();
         //System.out.print("game.Case (" + lig + "," + col + "): ");
         String chaineNature = new String();
@@ -146,7 +150,7 @@ public class LecteurDonnees {
             verifieLigneTerminee();
 
             //System.out.print("nature = " + chaineNature);
-            carte.getPlateau()[lig][col] = new Case(lig, col, NatureTerrain.valueOf(chaineNature));
+            return new Case(lig, col, NatureTerrain.valueOf(chaineNature));
 
         } catch (NoSuchElementException e) {
             throw new DataFormatException("format de case invalide. "
@@ -158,9 +162,9 @@ public class LecteurDonnees {
 
 
     /**
-     * Lit et affiche les donnees des incendies.
+     * Lit et crée les donnees des incendies.
      */
-    private ArrayList<Incendie> lireIncendies(Carte carte) throws DataFormatException {
+    private ArrayList<Incendie> creeIncendies(Carte carte) throws DataFormatException {
         ignorerCommentaires();
         try {
             int nbIncendies = scanner.nextInt();
@@ -169,7 +173,7 @@ public class LecteurDonnees {
 
             //System.out.println("Nb d'incendies = " + nbIncendies);
             for (int i = 0; i < nbIncendies; i++) {
-                lireIncendie(incendies, carte);
+                incendies.add(creeIncendie(carte));
             }
 
             return incendies;
@@ -186,7 +190,7 @@ public class LecteurDonnees {
      *
      * @param i
      */
-    private void lireIncendie(ArrayList<Incendie> incendies, Carte carte) throws DataFormatException {
+    private Incendie creeIncendie(Carte carte) throws DataFormatException {
         ignorerCommentaires();
         //System.out.print("game.Incendie " + i + ": ");
 
@@ -202,7 +206,7 @@ public class LecteurDonnees {
             //System.out.println("position = (" + lig + "," + col
             //        + ");\t intensite = " + intensite);
             Incendie incendie = new Incendie(carte.getCase(lig, col), intensite);
-            incendies.add(incendie);
+            return incendie;
 
         } catch (NoSuchElementException e) {
             throw new DataFormatException("format d'incendie invalide. "
@@ -213,8 +217,12 @@ public class LecteurDonnees {
 
     /**
      * Lit et affiche les donnees des robots.
+     * @throws InvocationTargetException 
+     * @throws IllegalArgumentException 
+     * @throws InstantiationException 
+     * @throws IllegalAccessException 
      */
-    private ArrayList<Robot> lireRobots(Carte carte) throws DataFormatException {
+    private ArrayList<Robot> creeRobots(Carte carte) throws DataFormatException, IllegalAccessException, InstantiationException, IllegalArgumentException, InvocationTargetException {
         ignorerCommentaires();
         try {
             int nbRobots = scanner.nextInt();
@@ -222,7 +230,7 @@ public class LecteurDonnees {
 
             //System.out.println("Nb de robots = " + nbRobots);
             for (int i = 0; i < nbRobots; i++) {
-                lireRobot(robots, carte);
+                robots.add(creeRobot(carte));
             }
 
             return robots;
@@ -235,11 +243,15 @@ public class LecteurDonnees {
 
 
     /**
-     * Lit et affiche les donnees du i-eme robot.
+     * Lit et cree les donnees du i-eme robot.
      *
      * @param i
+     * @throws IllegalAccessException 
+     * @throws InstantiationException 
+     * @throws InvocationTargetException 
+     * @throws IllegalArgumentException 
      */
-    private void lireRobot(ArrayList<Robot> robots, Carte carte) throws DataFormatException {
+    private Robot creeRobot(Carte carte) throws DataFormatException, IllegalAccessException, InstantiationException, IllegalArgumentException, InvocationTargetException {
         ignorerCommentaires();
 
         try {
@@ -255,20 +267,40 @@ public class LecteurDonnees {
             //System.out.print("; \t vitesse = ");
             String s = scanner.findInLine("(\\d+)");    // 1 or more digit(s) ?
             // pour lire un flottant:    ("(\\d+(\\.\\d+)?)");
-
-            Integer vitesse = s == null ? null : Integer.parseInt(s);
-
-            //System.out.print(vitesse);
+            Robot robot;
             if (type.charAt(type.length() - 1) == 'S') {
                 type = type.substring(0, type.length() - 1);
             }
             type = type.toLowerCase();
             type = type.substring(0, 1).toUpperCase() + type.substring(1);
+            System.out.println(type);
+            System.out.println(lig + " " + col);
+            if (s == null) {
+                System.out.print("valeur par defaut");
+                robot = (Robot) Class
+                        .forName("game." + type)
+                        .getConstructor(Case.class)
+                        .newInstance(carte.getCase(lig, col));
+            } 
+            
+            else {
+                int vitesse = Integer.parseInt(s);
+                System.out.print(vitesse);
+                robot = (Robot) Class
+                        .forName("game." + type)
+                        .getConstructor(Case.class, Integer.class)
+                        .newInstance(carte.getCase(lig, col), vitesse);
+            }
+            
+            //Integer vitesse = s == null ? null : Integer.parseInt(s);
 
-            Robot robot = (Robot) Class
+            //System.out.print(vitesse);
+            
+
+            /*robot = (Robot) Class
                     .forName("game." + type)
                     .getConstructor(Case.class, Integer.class)
-                    .newInstance(carte.getCase(lig, col), vitesse);
+                    .newInstance(carte.getCase(lig, col), vitesse);*/
 
 /*
                 if (type.equals("DRONE")) {
@@ -282,23 +314,30 @@ public class LecteurDonnees {
                     robot = new Chenille(carte.getCase(lig, col), vitesse);
                 }*/
 
-            robots.add(robot);
+            //robots.add(robot);
 
 
             verifieLigneTerminee();
 
             System.out.println();
+            return robot;
 
         } catch (NoSuchElementException | ClassNotFoundException | NoSuchMethodException e) {
+        	e.printStackTrace();
             throw new DataFormatException("format de robot invalide. "
                     + "Attendu: ligne colonne type [valeur_specifique]");
         } catch (IllegalAccessException e) {
             e.printStackTrace();
+            throw new IllegalAccessException();
         } catch (InstantiationException e) {
             e.printStackTrace();
-        } catch (InvocationTargetException e) {
+            throw new InstantiationException();
+        } 
+        /*catch (InvocationTargetException e) {
             e.printStackTrace();
-        }
+            throw new Invoc
+        }*/
+		
     }
 
 

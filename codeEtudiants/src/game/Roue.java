@@ -7,7 +7,14 @@ public class Roue extends Robot {
 
 	}
 
+	public Roue(Roue roue) {
+		super(roue);
+	}
 
+	public Roue(Case position) {
+		super(position);
+	}
+	
 	@Override
 	double getVitesseMax() {
 		// Pas de vitesse max dans le sujet
@@ -25,7 +32,7 @@ public class Roue extends Robot {
 	}
 
 	@Override
-	double vitesseDeversement() {
-		return 100/5;
+	double dureeDeversementUnitaire() {
+		return 5.0/100;
 	}
 }
