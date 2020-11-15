@@ -22,7 +22,9 @@ public abstract class Robot {
 	public double dureeDeversement(double vol) {// en seconde
 		return vol / vitesseDeversement();
 	}
-
+	public double tempsPlusCoursChemin(Case position) {
+		return 0.0;//TODO faire le plus cours chemin
+	}
 	public boolean peutRemplir(Carte carte) {
 		Boolean peutRemplir = Boolean.FALSE;
 		int lig = this.position.getLigne();

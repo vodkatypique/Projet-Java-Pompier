@@ -81,10 +81,7 @@ public class Simulateur implements Simulable {
 			cptY++;
 		}
 
-		for (Robot robot : donneesSimulation.getRobots()) {
-			gui.addGraphicalElement(new gui.Oval(robot.getPosition().getColonne() * tailleCase+this.offset,
-					robot.getPosition().getLigne() * tailleCase, Color.YELLOW, Color.YELLOW, tailleCase));
-		}
+		
 
 		for (Incendie incendie : donneesSimulation.getIncendies()) {
 			gui.addGraphicalElement(new gui.Rectangle(incendie.getPosition().getColonne() * tailleCase+this.offset,
@@ -92,6 +89,10 @@ public class Simulateur implements Simulable {
 			gui.addGraphicalElement(new gui.Text(incendie.getPosition().getColonne() * tailleCase+this.offset,
 					incendie.getPosition().getLigne() * tailleCase, Color.white, ""+incendie.getIntensite()));
 			
+		}
+		for (Robot robot : donneesSimulation.getRobots()) {
+			gui.addGraphicalElement(new gui.Oval(robot.getPosition().getColonne() * tailleCase+this.offset,
+					robot.getPosition().getLigne() * tailleCase, Color.BLACK, Color.YELLOW, tailleCase));
 		}
 
 	}
