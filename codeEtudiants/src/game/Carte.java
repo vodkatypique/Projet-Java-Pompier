@@ -21,8 +21,8 @@ public class Carte {
     	this.tailleCases = tailleCases;
     	this.plateau = new Case[nbLignes][nbColonnes];
     	this.plateau = plateau;
-    	// il faut donner les valeurs à chaque élément de plateau en copiant pour n'avoir pas 
-    	// à manipuler les références
+    	// il faut donner les valeurs ï¿½ chaque ï¿½lï¿½ment de plateau en copiant pour n'avoir pas 
+    	// ï¿½ manipuler les rï¿½fï¿½rences
     	for (int i = 0; i < nbLignes; i++) {
             for (int j = 0; j < nbColonnes; j++) {
                 this.plateau[i][j] = new Case(plateau[i][j]);
@@ -59,6 +59,7 @@ public class Carte {
     }
 
     public Case getCase(int lig, int col) {
+    	
         return plateau[lig][col];
     }
 
@@ -74,7 +75,7 @@ public class Carte {
     }
 
     public boolean voisinExiste(Case src, Direction dir) {
-        if ((src.getColonne() == 0 && dir == Direction.OUEST) || (src.getColonne() == this.nbColonnes && dir == Direction.EST) || (src.getLigne() == 0 && dir == Direction.NORD) || (src.getLigne() == this.nbLignes && dir == Direction.SUD)) {
+        if ((src.getColonne() == 0 && dir == Direction.OUEST) || (src.getColonne() == (this.nbColonnes-1) && dir == Direction.EST) || (src.getLigne() == 0 && dir == Direction.NORD) || (src.getLigne() == (this.nbLignes-1) && dir == Direction.SUD)) {
             return false;
         }
         return true;

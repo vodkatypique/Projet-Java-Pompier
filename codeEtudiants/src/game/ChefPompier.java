@@ -7,10 +7,11 @@ public class ChefPompier {
 	private ArrayList<Incendie> incendies;
 	private Carte carte;
 
-	public ChefPompier(ArrayList<Robot> robots, Carte ca) {
+	public ChefPompier(ArrayList<Robot> robots, Carte ca, ArrayList<Incendie> incendies) {
 		this.setRobots(robots);
 		this.setIncendies(incendies);
 		this.carte = ca;
+		this.boucleExtinction();
 
 	}
 
@@ -41,6 +42,7 @@ public class ChefPompier {
 				if (robotLePlusRapide == null) {
 					robotLePlusRapide = robot;
 					temps = new PlusCourtChemin(robot, aEteindre.getPosition(), carte).getTempsOptim();// TODO temps du plus court chemin
+					System.out.println(temps);
 					continue;
 				}
 				double nouveauTemps = new PlusCourtChemin(robot, aEteindre.getPosition(), carte).getTempsOptim();

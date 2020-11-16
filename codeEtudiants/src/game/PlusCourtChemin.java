@@ -38,8 +38,12 @@ public class PlusCourtChemin {
 		ouverts.add(this.depart);
 		
 		while(ouverts.size() != 0) {
-			Sommet courant = getSommetProche(ouverts);
+			Sommet courant = this.getSommetProche(ouverts);
 			ouverts.remove(courant);
+			if(courant==null) {
+	    		int breakpoint=0;
+	    	}
+			
 			if(courant.getPosition().equals(goal)) {
 				fermes.add(courant);
 				constitueChemin(courant);
@@ -64,7 +68,7 @@ public class PlusCourtChemin {
 		}
 		
 		if(this.chemin.size() == 0)
-			System.err.println("Pas de plus cours chemin jusqu'à cette destination");
+			System.err.println("Pas de plus cours chemin jusqu'ï¿½ cette destination");
 		
 	}
 	
@@ -78,7 +82,7 @@ public class PlusCourtChemin {
 		Case temp = this.chemin.pop().getPosition();
 		LinkedList<Sommet> s = this.chemin;
 		while(s.size() >= 1) {
-			// on prend l'élément suivant de la liste
+			// on prend l'ï¿½lï¿½ment suivant de la liste
 			Case suiv = s.pop().getPosition();
 			sim.ajouteEvenement(new DebutDeplacement(i, temp.getDirection(suiv.getLigne(), suiv.getColonne()), this.robot, sim.getDonneesSimulation(), sim));
 			i++;
@@ -87,7 +91,7 @@ public class PlusCourtChemin {
 	}
 	
 	private void constitueChemin(Sommet s) {
-		// on constitue la liste chainee qui a les différents sommets à parcourir connaissant les parents
+		// on constitue la liste chainee qui a les diffï¿½rents sommets ï¿½ parcourir connaissant les parents
 		Sommet temp = s;
 		while(temp != null) {
 			this.chemin.addFirst(s);
@@ -95,10 +99,13 @@ public class PlusCourtChemin {
 		}
 	}
 	
-	private  Sommet getSommetProche(ArrayList<Sommet> sommets) {
+	private  Sommet getSommetProche(ArrayList<Sommet> sommets) {//TODO bizzare en parler Ã  ebouky car tout les sommets parcourus ont temp = double.MAXVALUE
 		Sommet optim = null;
 	    double tempsMin = Double.MAX_VALUE;
 	    for (Sommet s: sommets) {
+	    	if(optim==null) {
+	    		optim=s;
+	    	}
 	        double t = s.getTemps();
 	        if (t < tempsMin) {
 	            tempsMin = t;

@@ -37,14 +37,15 @@ public class Sommet implements Comparable<Sommet>{
 	
 	public ArrayList<Sommet> getVoisins(Carte ca) {
 		ArrayList<Sommet> res = new ArrayList<>();
-		if(ca.getVoisin(this.position, Direction.NORD) != null)
+	
+		if(ca.voisinExiste(this.position, Direction.NORD))
 			res.add(new Sommet(ca.getCase(this.position.getLigne()-1, this.position.getColonne())));
-		if(ca.getVoisin(this.position, Direction.SUD) != null)
+		if(ca.voisinExiste(this.position, Direction.SUD) )
 			res.add(new Sommet(ca.getCase(this.position.getLigne()+1, this.position.getColonne())));
-		if(ca.getVoisin(this.position, Direction.OUEST) != null)
+		if(ca.voisinExiste(this.position, Direction.OUEST))
 			res.add(new Sommet(ca.getCase(this.position.getLigne(), this.position.getColonne()-1)));
-		if(ca.getVoisin(this.position, Direction.NORD) != null)
-			res.add(new Sommet(ca.getCase(this.position.getLigne()-1, this.position.getColonne()+1)));
+		if(ca.voisinExiste(this.position, Direction.EST))
+			res.add(new Sommet(ca.getCase(this.position.getLigne(), this.position.getColonne()+1)));
 		
 		return res;
 	}
