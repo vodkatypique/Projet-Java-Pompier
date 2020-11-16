@@ -10,6 +10,12 @@ public class Case {
 		this.colonne = colonne;
 		this.nature = nature;
 	}
+	
+	public Case(Case ca) {
+		this.ligne = ca.ligne;
+		this.colonne = ca.colonne;
+		this.nature = ca.nature;
+	}
 
 	public int getColonne() {
 		return this.colonne;
@@ -19,14 +25,28 @@ public class Case {
 		return this.ligne;
 	}
 	@Override
-	public boolean equals(Object obj) {
-		if(!(obj instanceof Case))
-			return Boolean.FALSE;
-		Case case_obj=(Case) obj;
-		if(this.colonne==case_obj.colonne&&this.ligne==this.ligne) {
-			return Boolean.TRUE;
-		}
-		return Boolean.FALSE;
+	public boolean equals(Object o) {
+		if(this ==  o)
+			return true;
+		if(o == null)
+			return false;
+		if(this.getClass() != o.getClass())
+			return false;
+		Case ca = (Case)o;
+		if(this.ligne == ca.getLigne() && this.colonne == ca.getColonne() && this.nature == ca.getNature())
+			return true;
+		return false;
+	}
+	
+	public Direction getDirection(int lig, int col) {
+		// direction pour arriver à la case en lig et col voisine
+		if(this.getLigne() == lig - 1)
+			return Direction.NORD;
+		if(this.getLigne() == lig + 1)
+			return Direction.SUD;
+		if(this.getColonne() == col -1)
+			return Direction.EST;
+		return Direction.OUEST;
 	}
 
 	public NatureTerrain getNature() {

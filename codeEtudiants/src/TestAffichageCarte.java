@@ -5,10 +5,12 @@ import io.LecteurDonnees;
 
 import java.awt.*;
 import java.io.FileNotFoundException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.zip.DataFormatException;
 
 public class TestAffichageCarte  {
-	public static void main(String[] args) throws FileNotFoundException, DataFormatException {
+	public static void main(String[] args) 
+			throws FileNotFoundException, DataFormatException, IllegalAccessException, InstantiationException, IllegalArgumentException, InvocationTargetException {
 
 		if (args.length < 1) {
 			System.out.println("Syntaxe: java TestLecteurDonnees <nomDeFichier>");
@@ -34,8 +36,8 @@ public class TestAffichageCarte  {
 		sim.ajouteEvenement(new DebutDeplacement(1, Direction.SUD, donneesSimulation.getRobots().get(0), donneesSimulation, sim));
 		sim.ajouteEvenement(new DebutDeplacement(1, Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation, sim));
 		sim.ajouteEvenement(new DebutDeplacement(10, Direction.EST, donneesSimulation.getRobots().get(0), donneesSimulation, sim));*/
-		
-		sim.ajouteEvenement(new DebutDeplacement(1, Direction.NORD, donneesSimulation.getRobots().get(1), donneesSimulation,sim));
+
+		sim.ajouteEvenement(new DebutDeplacement(1, Direction.NORD, donneesSimulation.getRobots().get(1), donneesSimulation, sim));
 		sim.ajouteEvenement(new DebutExtinctionFeu(2, donneesSimulation.getRobots().get(1), 100, sim, donneesSimulation));
 		//sim.ajouteEvenement(new DebutDeplacement(3, Direction.OUEST, donneesSimulation.getRobots().get(1), donneesSimulation,sim));
 		//sim.ajouteEvenement(new DebutDeplacement(4, Direction.OUEST, donneesSimulation.getRobots().get(1), donneesSimulation,sim));

@@ -10,7 +10,7 @@ public abstract class EvenementDebutAbstrait extends EvenementRobotAbstrait {
 	}
 	
 	public long getDateFin() {
-		return dateFin;
+		return this.dateFin;
 	}
 	
 	public void setDateFin(long dateFin) {

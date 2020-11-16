@@ -6,7 +6,14 @@ public class Chenille extends Robot {
 		super(position, vitesse != null ? vitesse : 60);
 	}
 
-
+	public Chenille(Chenille c) {
+		super(c);
+	}
+	
+	public Chenille(Case position) {
+		super(position);
+	}
+	
 	@Override
 	public double getVitesse(NatureTerrain nature) {
 		if (nature == NatureTerrain.FORET) {
@@ -35,8 +42,8 @@ public class Chenille extends Robot {
 	}
 
 	@Override
-	double vitesseDeversement() {
-		return 100/8;
+	double dureeDeversementUnitaire() {
+		return 8.0/100;
 	}
 
 

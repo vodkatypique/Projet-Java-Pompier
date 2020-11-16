@@ -6,6 +6,14 @@ public class Patte extends Robot {
 	}
 
 
+	public Patte(Patte pa) {
+		super(pa);
+	}
+	
+	public Patte(Case position) {
+		super(position);
+	}
+	
 	@Override
 	public void setVitesse(double vitesse) {//la vitesse ne varie pas pour ce type de robot
 		// TODO Auto-generated method stub
@@ -21,15 +29,15 @@ public class Patte extends Robot {
     }
 
 	@Override
-	double getVitesseMax() {
+	public double getVitesseMax() {
 		return 30;
 	}
 	@Override
-	double getReservoirMax() {
+	public double getReservoirMax() {
 		return Double.MAX_VALUE;
 	}
 	@Override
-	double tempRemplissage() {
+	public double tempRemplissage() {
 		return 0;
 	}
 	@Override
@@ -38,9 +46,9 @@ public class Patte extends Robot {
 		return Boolean.FALSE;
 	}
 	@Override
-	double vitesseDeversement() {
+	public double dureeDeversementUnitaire() {
 		// TODO Auto-generated method stub
-		return 10/1;
+		return 1.0/10;
 	}
 
 }

@@ -13,9 +13,12 @@ public class DebutExtinctionFeu extends EvenementDebutAbstrait {
 	
 	public DebutExtinctionFeu(long date, Robot robot, Simulateur simulateur, DonneesSimulation donneesSimulation) {
 		super(date, robot, simulateur);
+		// on calcule le temps pour l'extinction en minute(mesure globale) et associe ce temps à la date actuelle
+		// pour calculer la date de fin de l'évènement.
+		this.volumeDeverse= robot.getReservoir();
 		this.setDateFin((long) (date + (robot.dureeDeversement(volumeDeverse)/60)));
 		this.donneesSimulation=donneesSimulation;
-		this.volumeDeverse= robot.getReservoir();
+		
 	}
 	
 	@Override

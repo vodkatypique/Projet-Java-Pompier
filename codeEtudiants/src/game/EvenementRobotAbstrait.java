@@ -9,7 +9,7 @@ public abstract class EvenementRobotAbstrait extends Evenement {
 	}
 	
 	public Robot getRobot() {
-		return robot;
+		return this.robot;
 	}
 	
 	

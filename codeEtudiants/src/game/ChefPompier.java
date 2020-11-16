@@ -3,12 +3,14 @@ package game;
 import java.util.ArrayList;
 
 public class ChefPompier {
-	ArrayList<Robot> robots;
-	ArrayList<Incendie> incendies;
+	private ArrayList<Robot> robots;
+	private ArrayList<Incendie> incendies;
+	private Carte carte;
 
-	public ChefPompier(ArrayList<Robot> robots) {
+	public ChefPompier(ArrayList<Robot> robots, Carte ca) {
 		this.setRobots(robots);
 		this.setIncendies(incendies);
+		this.carte = ca;
 
 	}
 
@@ -38,10 +40,10 @@ public class ChefPompier {
 				}
 				if (robotLePlusRapide == null) {
 					robotLePlusRapide = robot;
-					temps = robot.tempsPlusCoursChemin(aEteindre.getPosition());// TODO temps du plus court chemin
+					temps = new PlusCourtChemin(robot, aEteindre.getPosition(), carte).getTempsOptim();// TODO temps du plus court chemin
 					continue;
 				}
-				double nouveauTemps = robot.tempsPlusCoursChemin(aEteindre.getPosition());
+				double nouveauTemps = new PlusCourtChemin(robot, aEteindre.getPosition(), carte).getTempsOptim();
 				if (temps > nouveauTemps) {
 					robotLePlusRapide = robot;
 					temps = nouveauTemps;

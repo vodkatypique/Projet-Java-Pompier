@@ -13,6 +13,8 @@ public class Simulateur implements Simulable {
 	 */
 	private GUISimulator gui;
 	private DonneesSimulation donneesSimulation;
+	// variante le temps de trouver une façon de contre balancer cela
+	private DonneesSimulation copieDonnees;
 	private int tailleCase;
 	private long dateSimulation;
 	private int offset;
@@ -26,13 +28,15 @@ public class Simulateur implements Simulable {
 	 *              Simulable.
 	 * @param color la couleur de l'invader
 	 */
-	public Simulateur(GUISimulator gui, DonneesSimulation donneesSimulation) {
+	public Simulateur(GUISimulator gui, DonneesSimulation donnees) {
 		this.gui = gui;
-		this.donneesSimulation = donneesSimulation;
+		this.donneesSimulation = donnees;
+		this.copieDonnees = new DonneesSimulation(donnees);
 		this.tailleCase = 50;
 		this.dateSimulation=0;
 		this.offset=50;
 	}
+	
 	
 	public void ajouteEvenement(Evenement evenement) {
 		if(evenement.getDate()<this.dateSimulation) {
@@ -43,15 +47,15 @@ public class Simulateur implements Simulable {
 	}
 	
 	public void start() {
-		draw();
+		draw(this.donneesSimulation);
 	}
 	
-	private void draw() {
+	private void draw(DonneesSimulation donneesSimulation) {
 		gui.setSimulable(this);
 		gui.reset(); // clear the window
 		System.out.println("-------------------------");
-		int cptX = 0;
-		int cptY = 0;
+		// int cptX = 0;
+		// int cptY = 0;
 
 		for (int i = 0; i < donneesSimulation.getCarte().getNbLignes(); i++) {
 			for (int j = 0; j < donneesSimulation.getCarte().getNbColonnes(); j++) {
@@ -78,21 +82,20 @@ public class Simulateur implements Simulable {
 						break;
 				}
 			}
-			cptY++;
+			// cptY++;
 		}
 
-		
+		for (Robot robot : donneesSimulation.getRobots()) {
+			gui.addGraphicalElement(new gui.Oval(robot.getPosition().getColonne() * tailleCase+this.offset,
+					robot.getPosition().getLigne() * tailleCase, Color.BLACK, Color.YELLOW, tailleCase));
+		}
 
 		for (Incendie incendie : donneesSimulation.getIncendies()) {
 			gui.addGraphicalElement(new gui.Rectangle(incendie.getPosition().getColonne() * tailleCase+this.offset,
 					incendie.getPosition().getLigne() * tailleCase, Color.RED, Color.RED, tailleCase));
 			gui.addGraphicalElement(new gui.Text(incendie.getPosition().getColonne() * tailleCase+this.offset,
-					incendie.getPosition().getLigne() * tailleCase, Color.white, ""+incendie.getIntensite()));
+					incendie.getPosition().getLigne() * tailleCase, Color.WHITE, ""+incendie.getIntensite()));
 			
-		}
-		for (Robot robot : donneesSimulation.getRobots()) {
-			gui.addGraphicalElement(new gui.Oval(robot.getPosition().getColonne() * tailleCase+this.offset,
-					robot.getPosition().getLigne() * tailleCase, Color.BLACK, Color.YELLOW, tailleCase));
 		}
 
 	}
@@ -107,12 +110,13 @@ public class Simulateur implements Simulable {
 		}
 		for (Evenement evenement : copieEvenement) {
 			if(this.dateSimulation >= evenement.getDate()) {
+				System.out.println("Hellooooooooooooo Simulateur " + evenement);
 				evenement.execute();
 				this.evenements.remove(evenement);	
 			}
 			
 		}
-		this.draw();
+		this.draw(this.donneesSimulation);
 	}
 	public Carte getCarte() {
 		return this.donneesSimulation.getCarte();
@@ -124,6 +128,10 @@ public class Simulateur implements Simulable {
 
 	}
 	
+	public DonneesSimulation getDonneesSimulation() {
+		return this.donneesSimulation;
+	}
+	
 	public boolean simulationTerminee() {
 		return this.evenements.isEmpty();
 	}
@@ -131,6 +139,8 @@ public class Simulateur implements Simulable {
 	@Override
 	public void restart() {
 		// TODO Auto-generated method stub
+		this.donneesSimulation = new DonneesSimulation(copieDonnees);
+		this.draw(copieDonnees);
 
 	}
 

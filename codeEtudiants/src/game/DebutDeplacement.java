@@ -10,9 +10,14 @@ public class DebutDeplacement extends EvenementDebutAbstrait {//TODO début dép
 		this.direction=direction;
 		this.donneesSimulation=donneesSimulation;
 		double vitesse =this.getRobot().getVitesse(this.getRobot().getPosition().getNature());
+		System.out.println("Vitesse " + vitesse);
 		this.donneesSimulation.getCarte();
 		double distance=Carte.getDistanceEntreCase();
-		long ldateFin=(long) (distance/((vitesse*Math.pow(10,3))/60))+this.getDate();//la vitesse est km/h
+		long ldateFin;
+		if(vitesse == 0)
+			ldateFin = this.getDate();
+		else
+			ldateFin=(long) (distance / ((vitesse*Math.pow(10,3))/60)) + this.getDate();//la vitesse est km/h
 		this.setDateFin(ldateFin);
 	}
 	
