@@ -6,13 +6,13 @@ public class ChefPompier {
 	private ArrayList<Robot> robots;
 	private ArrayList<Incendie> incendies;
 	private Carte carte;
+	private Simulateur simulateur;
 
-	public ChefPompier(ArrayList<Robot> robots, Carte ca, ArrayList<Incendie> incendies) {
+	public ChefPompier(ArrayList<Robot> robots, Carte ca, ArrayList<Incendie> incendies, Simulateur simulateur) {
 		this.setRobots(robots);
 		this.setIncendies(incendies);
 		this.carte = ca;
-		this.boucleExtinction();
-
+		this.simulateur = simulateur;
 	}
 
 	public void setRobots(ArrayList<Robot> robots) {
@@ -23,40 +23,52 @@ public class ChefPompier {
 		this.incendies = incendies;
 	}
 
-	void boucleExtinction() {
-		while (!this.incendies.isEmpty()) {
+	public void boucleExtinction() {
+		for (Incendie incendie : this.incendies) {
+			ArrayList<PlusCourtChemin> listChemin = new ArrayList<PlusCourtChemin>();
+			int index = 0;
+			int indexRobotRapide = 0;
 			Incendie aEteindre = null;
-			for (Incendie incendie : this.incendies) {
-				aEteindre = incendie;
-				break;
-			}
-			if (aEteindre == null) {
-				break;
-			}
+			aEteindre = incendie;
+
 			Robot robotLePlusRapide = null;
 			double temps = Double.MAX_VALUE;
 			for (Robot robot : this.robots) {
-				if (robot.getOccupationRobot().getEstOccupe()) {
+				if (robot.getOccupationRobot().getEstOccupe() && robot.getOccupationRobot().isOccupationGenerale()) {
 					continue;
 				}
 				if (robotLePlusRapide == null) {
 					robotLePlusRapide = robot;
-					temps = new PlusCourtChemin(robot, aEteindre.getPosition(), carte).getTempsOptim();// TODO temps du plus court chemin
+					PlusCourtChemin plusCourt = new PlusCourtChemin(robot, aEteindre.getPosition(), carte);// TODO temps du plus court chemin
+					indexRobotRapide = 0;
+					listChemin.add(plusCourt);
+					index++;
+					temps = plusCourt.getTempsOptim();
 					continue;
 				}
-				double nouveauTemps = new PlusCourtChemin(robot, aEteindre.getPosition(), carte).getTempsOptim();
-		
+				PlusCourtChemin nouveauPlusCourt = new PlusCourtChemin(robot, aEteindre.getPosition(), carte);
+				listChemin.add(nouveauPlusCourt);
+				double nouveauTemps = nouveauPlusCourt.getTempsOptim();
+
 				if (temps > nouveauTemps) {
 					robotLePlusRapide = robot;
+					indexRobotRapide = index;
 					temps = nouveauTemps;
 				}
-				System.err.println(temps+ " "+nouveauTemps);
+				index++;
+				System.err.println(temps + " " + nouveauTemps);
 			}
 			if (robotLePlusRapide == null) {
 				continue;
 			}
-			//TODO On a le robot qui va éteindre l'incendie donc il faut le faire eteindre l'incendie
-			
+
+			robotLePlusRapide.getOccupationRobot().setOccupationGenerale(true);
+			listChemin.get(indexRobotRapide).deplaceVersCase(this.simulateur);
+			simulateur.ajouteEvenement(new DebutExtinctionFeu(robotLePlusRapide, this.simulateur, this.simulateur.getDonneesSimulation()));
+			robotLePlusRapide = null;
 		}
+
 	}
+
+
 }

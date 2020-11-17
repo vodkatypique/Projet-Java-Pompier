@@ -1,8 +1,9 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+
 // import java.util.ArrayList;
-import java.util.*;
 
 public class PlusCourtChemin {
 	// private ArrayList<Sommet> sommets;
@@ -29,6 +30,7 @@ public class PlusCourtChemin {
 		this.carte = carte;
 		this.goal = ca;
 		this.robot = robot;
+		plusCourtChemin();
 	}
 	
 	private void plusCourtChemin() {
@@ -72,7 +74,7 @@ public class PlusCourtChemin {
 		//constitueChemin(fermes.get(fermes.indexOf(goal)));
 		
 		if(this.chemin.size() == 0)
-			System.err.println("Pas de plus cours chemin jusqu'à cette destination");
+			System.err.println("Pas de plus cours chemin jusqu'ï¿½ cette destination");
 		
 	}
 	
@@ -82,13 +84,13 @@ public class PlusCourtChemin {
 		if(fermes.contains(enfant)) {
 			enfantExact = fermes.get(fermes.indexOf(enfant));
 			temp = enfantExact.getTemps();
-			System.out.println("J'étais deja dans fermes");
+			System.out.println("J'ï¿½tais deja dans fermes");
 			if(temp > pere.getTemps() + temps) {
 				enfantExact.setTemps(pere.getTemps() + temps);
 				enfantExact.setParent(pere);
 				ouverts.add(enfantExact);
 				System.out.println("voisin position " + enfantExact.getPosition() + " parent " + enfantExact.getParent().getPosition());
-				System.out.println("J'étais deja dans fermes et je repart dans ouvert");
+				System.out.println("J'ï¿½tais deja dans fermes et je repart dans ouvert");
 				fermes.remove(enfantExact);
 				return;
 			}
@@ -98,7 +100,7 @@ public class PlusCourtChemin {
 		if(ouverts.contains(enfant)) {
 			enfantExact = ouverts.get(ouverts.indexOf(enfant));
 			temp = enfantExact.getTemps();
-			System.out.println("J'étais deja dans ouverts");
+			System.out.println("J'ï¿½tais deja dans ouverts");
 			if(temp > pere.getTemps() + temps) {
 				enfantExact.setTemps(pere.getTemps() + temps);
 				enfantExact.setParent(pere);
@@ -117,35 +119,34 @@ public class PlusCourtChemin {
 	}
 	
 	public void deplaceVersCase(Simulateur sim) {
-		plusCourtChemin();
 		if(this.chemin.size() == 0) {
 			// on sort de la fonction s'il n'ya pas de chemin optim
 			return;
 		}
 		//int i = 1;
 		Case temp = this.chemin.pop().getPosition();
-		
+
 		LinkedList<Sommet> s = this.chemin;
-		while(s.size() >= 1) {
-			// on prend l'élément suivant de la liste
+		while (s.size() >= 1) {
+			// on prend l'ï¿½lï¿½ment suivant de la liste
 			Case suiv = s.pop().getPosition();
 			sim.ajouteEvenement(new DebutDeplacement(temp.getDirection(suiv.getLigne(), suiv.getColonne()), this.robot, sim.getDonneesSimulation(), sim));
 			//i++;
 			temp = suiv;
 		}
-		sim.start();
+		sim.ajouteEvenement(new DebutExtinctionFeu(robot, sim, sim.getDonneesSimulation()));
 	}
 	
 	private void constitueChemin(Sommet s) {
-		// on constitue la liste chainee qui a les différents sommets à parcourir connaissant les parents
-		System.out.println("On a trouve notre goal enfin " + s.getPosition() + "son parent " + s.getParent().getPosition());
+		// on constitue la liste chainee qui a les diffï¿½rents sommets ï¿½ parcourir connaissant les parents
+		System.out.println("On a trouve notre goal enfin " + s.getPosition() + "son parent ");// + s.getParent().getPosition());
 		Sommet temp = s;
-		while(temp != null) {
+		while (temp != null) {
 			this.chemin.addFirst(temp);
 			temp = temp.getParent();
 		}
-		
-		for(Sommet som: this.chemin) {
+
+		for (Sommet som : this.chemin) {
 			System.out.println(som.getPosition());
 		}
 		
@@ -165,7 +166,6 @@ public class PlusCourtChemin {
 	}
 	
 	public double getTempsOptim() {
-		plusCourtChemin();
 		return this.tempsOptim;
 	}
 	

@@ -16,7 +16,8 @@ public class Simulateur implements Simulable {
 	private int tailleCase;
 	private long dateSimulation;
 	private int offset;
-	private ArrayList<Evenement> evenements=new ArrayList<Evenement>();
+	private ArrayList<Evenement> evenements = new ArrayList<Evenement>();
+	ChefPompier chefPompier;
 
 	/**
 	 * CrÃ©e un Invader et le dessine.
@@ -30,15 +31,17 @@ public class Simulateur implements Simulable {
 		this.gui = gui;
 		this.donneesSimulation = donnees;
 		this.tailleCase = 50;
-		this.dateSimulation=0;
-		this.offset=50;
+		this.dateSimulation = 0;
+		this.offset = 50;
+		this.chefPompier = null;
 	}
+
 	
 	
 	public void ajouteEvenement(Evenement evenement) {
-		// on peut aussi utiliser un hashmap si on veut rendre l'execution parallèle cad donner la possibilite à deux robots
+		// on peut aussi utiliser un hashmap si on veut rendre l'execution parallï¿½le cad donner la possibilite ï¿½ deux robots
 		// de pouvoir se deplacer en meme temps
-		// à ce moment on recupère la date de fin du dernier evenement qui fait intervenir ce robot pour donner la date de fin du nouvel evenement
+		// ï¿½ ce moment on recupï¿½re la date de fin du dernier evenement qui fait intervenir ce robot pour donner la date de fin du nouvel evenement
 		if(evenement.getDate()<this.dateSimulation) {
 			System.err.println("Erreur, evenement dans le passÃ©");
 			return;
@@ -84,41 +87,45 @@ public class Simulateur implements Simulable {
 						break;
 					case EAU:
 						gui.addGraphicalElement(
-								new gui.Rectangle(j * tailleCase+this.offset, i * tailleCase, Color.BLUE, Color.BLUE, tailleCase));
+								new gui.Rectangle(j * tailleCase + this.offset, i * tailleCase, Color.BLUE, Color.BLUE, tailleCase));
 						break;
 				}
 			}
 			// cptY++;
 		}
 
+		for (Incendie incendie : donneesSimulation.getIncendies()) {
+			if (incendie.getIntensite() > 0) {
+				gui.addGraphicalElement(new gui.Rectangle(incendie.getPosition().getColonne() * tailleCase + this.offset,
+						incendie.getPosition().getLigne() * tailleCase, Color.RED, Color.RED, tailleCase));
+				gui.addGraphicalElement(new gui.Text(incendie.getPosition().getColonne() * tailleCase + this.offset,
+						incendie.getPosition().getLigne() * tailleCase, Color.WHITE, "" + incendie.getIntensite()));
+
+			}
+
+		}
 		for (Robot robot : donneesSimulation.getRobots()) {
-			gui.addGraphicalElement(new gui.Oval(robot.getPosition().getColonne() * tailleCase+this.offset,
+			gui.addGraphicalElement(new gui.Oval(robot.getPosition().getColonne() * tailleCase + this.offset,
 					robot.getPosition().getLigne() * tailleCase, Color.BLACK, Color.YELLOW, tailleCase));
 		}
 
-		for (Incendie incendie : donneesSimulation.getIncendies()) {
-			if(incendie.getIntensite() > 0) {
-				gui.addGraphicalElement(new gui.Rectangle(incendie.getPosition().getColonne() * tailleCase+this.offset,
-						incendie.getPosition().getLigne() * tailleCase, Color.RED, Color.RED, tailleCase));
-				gui.addGraphicalElement(new gui.Text(incendie.getPosition().getColonne() * tailleCase+this.offset,
-						incendie.getPosition().getLigne() * tailleCase, Color.WHITE, ""+incendie.getIntensite()));
-				
-			}
-			
-		}
 
 	}
 
 	void incrememteDate() {
+		if (this.chefPompier != null) {
+			chefPompier.boucleExtinction();
+		}
+
 		++this.dateSimulation;
 		System.err.println(this.dateSimulation);
 
-		ArrayList<Evenement> copieEvenement=new ArrayList<Evenement>();//pour Ã©viter concurentModificationException
+		ArrayList<Evenement> copieEvenement = new ArrayList<Evenement>();//pour Ã©viter concurentModificationException
 		for (Evenement evenement : this.evenements) {
 			copieEvenement.add(evenement);
 		}
 		for (Evenement evenement : copieEvenement) {
-			if(this.dateSimulation == evenement.getDate()) {
+			if (this.dateSimulation == evenement.getDate()) {
 				evenement.execute();
 				//this.evenements.remove(evenement);	
 			}
@@ -157,11 +164,14 @@ public class Simulateur implements Simulable {
 			robot.resetReservoir();
 			robot.resetPosition(this.donneesSimulation);
 		}
-		for(Incendie inc: this.donneesSimulation.getIncendies())
+		for (Incendie inc : this.donneesSimulation.getIncendies())
 			inc.resetIntensite();
-		
+
 		this.draw(this.donneesSimulation);
 
 	}
 
+	public void setChefPompier(ChefPompier chefPompier) {
+		this.chefPompier = chefPompier;
+	}
 }

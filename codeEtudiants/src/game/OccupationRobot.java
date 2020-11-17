@@ -3,26 +3,36 @@ package game;
 public class OccupationRobot {
 	private boolean estOccupe;
 	private long dateFin;
-	
-	public OccupationRobot(boolean estOccupe,long dateFin) {
-		this.estOccupe=estOccupe;
-		this.dateFin=dateFin;
+	private boolean OccupationGenerale;
+
+	public OccupationRobot(boolean estOccupe, long dateFin) {
+		this.estOccupe = estOccupe;
+		this.dateFin = dateFin;
 	}
-	
+
+	public boolean isOccupationGenerale() {
+		return OccupationGenerale;
+	}
+
+	public void setOccupationGenerale(boolean occupationGenerale) {
+		OccupationGenerale = occupationGenerale;
+	}
+
 	public OccupationRobot(OccupationRobot or) {
 		this.estOccupe = or.getEstOccupe();
 		this.dateFin = or.getDateFin();
 	}
-	
+
 	public boolean getEstOccupe() {
 		return this.estOccupe;
 	}
-	
+
 	public void changeState() {
-		if(this.estOccupe == true)
+		if (this.estOccupe == true) {
 			this.estOccupe = false;
-		else
+		} else {
 			this.estOccupe = true;
+		}
 	}
 	
 	public long getDateFin() {

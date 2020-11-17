@@ -29,7 +29,7 @@ public class TestAffichageCarte  {
 				donneesSimulation.getCarte().getNbLignes() * 20,
 				Color.BLACK);
 		// crée l'invader, en l'associant à la fenêtre graphique précédente
-		Simulateur sim = new Simulateur(gui, donneesSimulation);
+        Simulateur sim = new Simulateur(gui, donneesSimulation);
 
 
 		/*sim.ajouteEvenement(new DebutDeplacement(1, Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation, sim));
@@ -37,13 +37,13 @@ public class TestAffichageCarte  {
 		sim.ajouteEvenement(new DebutDeplacement(1, Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation, sim));
 		sim.ajouteEvenement(new DebutDeplacement(10, Direction.EST, donneesSimulation.getRobots().get(0), donneesSimulation, sim));*/
 
-		sim.ajouteEvenement(new DebutDeplacement(1, Direction.NORD, donneesSimulation.getRobots().get(1), donneesSimulation, sim));
-		sim.ajouteEvenement(new DebutExtinctionFeu(2, donneesSimulation.getRobots().get(1), 100, sim, donneesSimulation));
-		new ChefPompier(donneesSimulation.getRobots(), donneesSimulation.getCarte(),donneesSimulation.getIncendies());
-		//sim.ajouteEvenement(new DebutDeplacement(3, Direction.OUEST, donneesSimulation.getRobots().get(1), donneesSimulation,sim));
-		//sim.ajouteEvenement(new DebutDeplacement(4, Direction.OUEST, donneesSimulation.getRobots().get(1), donneesSimulation,sim));
-		//sim.ajouteEvenement(new DebutExtinctionFeu(5, donneesSimulation.getRobots().get(0), donneesSimulation.getRobots().get(0).getReservoir(), sim, donneesSimulation));
-		sim.start();
-	}
+        sim.ajouteEvenement(new DebutDeplacement(1, Direction.NORD, donneesSimulation.getRobots().get(1), donneesSimulation, sim));
+        sim.ajouteEvenement(new DebutExtinctionFeu(2, donneesSimulation.getRobots().get(1), 100, sim, donneesSimulation));
+        //new ChefPompier(donneesSimulation.getRobots(), donneesSimulation.getCarte(),donneesSimulation.getIncendies());
+        //sim.ajouteEvenement(new DebutDeplacement(3, Direction.OUEST, donneesSimulation.getRobots().get(1), donneesSimulation,sim));
+        //sim.ajouteEvenement(new DebutDeplacement(4, Direction.OUEST, donneesSimulation.getRobots().get(1), donneesSimulation,sim));
+        //sim.ajouteEvenement(new DebutExtinctionFeu(5, donneesSimulation.getRobots().get(0), donneesSimulation.getRobots().get(0).getReservoir(), sim, donneesSimulation));
+        sim.start();
+    }
 }
 

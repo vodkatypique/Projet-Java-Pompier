@@ -77,17 +77,16 @@ public class DebutDeplacement extends EvenementDebutAbstrait {//TODO dÃ©but dÃ©p
 				default:
 					break;
 			}
-			if(lig>donneesSimulation.getCarte().getNbLignes()|| lig<0||col>donneesSimulation.getCarte().getNbLignes()||col<0) {
-				System.err.println("Erreur, Position invalide après le deplacement");
+			if (lig > donneesSimulation.getCarte().getNbLignes() - 1 || lig < 0 || col > donneesSimulation.getCarte().getNbLignes() - 1 || col < 0) {
+				System.err.println("Erreur, Position invalide aprï¿½s le deplacement");
 				System.exit(-1);
 				return;
 			}
-			
+
 			this.getRobot().setPosition(donneesSimulation.getCarte().getCase(lig, col));
-			// System.out.println("Ligne:: " + lig + " Après dedans:: " + this.getRobot().getPosition().getLigne());
-			// après avoir deplacé le robot on le met en état non occupé.
+			// System.out.println("Ligne:: " + lig + " Aprï¿½s dedans:: " + this.getRobot().getPosition().getLigne());
+			// aprï¿½s avoir deplacï¿½ le robot on le met en ï¿½tat non occupï¿½.
 			this.getRobot().getOccupationRobot().changeState();
-			
 		}
 	}
 
