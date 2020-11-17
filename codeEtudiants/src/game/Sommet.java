@@ -35,16 +35,17 @@ public class Sommet implements Comparable<Sommet>{
 		this.voisins.put(s, temps);
 	}
 	
-	public ArrayList<Sommet> getVoisins(Carte ca) {
+	public ArrayList<Sommet> getVoisins(Carte ca, Robot robot) {
 		ArrayList<Sommet> res = new ArrayList<>();
-		if(ca.getVoisin(this.position, Direction.NORD) != null)
+		// on verifie que la case voisine existe et que le robot peut atteindre cette case
+		if(ca.voisinExiste(this.position, Direction.NORD) && robot.peutAtteindre(ca.getCase(this.position.getLigne()-1, this.position.getColonne())))
 			res.add(new Sommet(ca.getCase(this.position.getLigne()-1, this.position.getColonne())));
-		if(ca.getVoisin(this.position, Direction.SUD) != null)
+		if(ca.voisinExiste(this.position, Direction.SUD) && robot.peutAtteindre(ca.getCase(this.position.getLigne()+1, this.position.getColonne())))
 			res.add(new Sommet(ca.getCase(this.position.getLigne()+1, this.position.getColonne())));
-		if(ca.getVoisin(this.position, Direction.OUEST) != null)
+		if(ca.voisinExiste(this.position, Direction.OUEST) && robot.peutAtteindre(ca.getCase(this.position.getLigne(), this.position.getColonne()-1)))
 			res.add(new Sommet(ca.getCase(this.position.getLigne(), this.position.getColonne()-1)));
-		if(ca.getVoisin(this.position, Direction.NORD) != null)
-			res.add(new Sommet(ca.getCase(this.position.getLigne()-1, this.position.getColonne()+1)));
+		if(ca.voisinExiste(this.position, Direction.EST) && robot.peutAtteindre(ca.getCase(this.position.getLigne(), this.position.getColonne()+1)))
+			res.add(new Sommet(ca.getCase(this.position.getLigne(), this.position.getColonne()+1)));
 		
 		return res;
 	}
@@ -69,7 +70,7 @@ public class Sommet implements Comparable<Sommet>{
 		this.parent = s;
 	}
 	
-	/*@Override
+	@Override
 	public boolean equals(Object o) {
 		if(this ==  o)
 			return true;
@@ -78,8 +79,6 @@ public class Sommet implements Comparable<Sommet>{
 		if(this.getClass() != o.getClass())
 			return false;
 		Sommet s = (Sommet)o;
-		if(this.vitesse == )
-			return true;
-		return false;
-	}*/
+		return this.position.equals(s.getPosition());
+	}
 }

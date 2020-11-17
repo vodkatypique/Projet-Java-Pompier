@@ -74,7 +74,7 @@ public class Carte {
     }
 
     public boolean voisinExiste(Case src, Direction dir) {
-        if ((src.getColonne() == 0 && dir == Direction.OUEST) || (src.getColonne() == this.nbColonnes && dir == Direction.EST) || (src.getLigne() == 0 && dir == Direction.NORD) || (src.getLigne() == this.nbLignes && dir == Direction.SUD)) {
+    	if ((src.getColonne() == 0 && dir == Direction.OUEST) || (src.getColonne() == (this.nbColonnes-1) && dir == Direction.EST) || (src.getLigne() == 0 && dir == Direction.NORD) || (src.getLigne() == (this.nbLignes-1) && dir == Direction.SUD))	 {
             return false;
         }
         return true;

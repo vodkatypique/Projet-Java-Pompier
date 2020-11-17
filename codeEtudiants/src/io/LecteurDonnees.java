@@ -273,10 +273,10 @@ public class LecteurDonnees {
             }
             type = type.toLowerCase();
             type = type.substring(0, 1).toUpperCase() + type.substring(1);
-            System.out.println(type);
-            System.out.println(lig + " " + col);
+            //System.out.println(type);
+            //System.out.println(lig + " " + col);
             if (s == null) {
-                System.out.print("valeur par defaut");
+                //System.out.print("valeur par defaut");
                 robot = (Robot) Class
                         .forName("game." + type)
                         .getConstructor(Case.class)
@@ -285,7 +285,7 @@ public class LecteurDonnees {
             
             else {
                 int vitesse = Integer.parseInt(s);
-                System.out.print(vitesse);
+                //System.out.print(vitesse);
                 robot = (Robot) Class
                         .forName("game." + type)
                         .getConstructor(Case.class, Integer.class)

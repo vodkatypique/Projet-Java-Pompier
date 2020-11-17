@@ -17,9 +17,14 @@ public class FinExtinctionFeu extends EvenementRobotAbstrait {
 		// vu que ceci l'extinction est en relation avec un robot particulier on doit diminuer la 
 		// quantité de volume dont il dispose quand on diminue l'intensité de l'incendie
 		if(incendie.getIntensite()<=0) {
+			System.out.println("Incendie éteinte!!!!!!!!!! Congrats!!");
 			donneesSimulation.getIncendies().remove(incendie);
 		}
 		this.getRobot().getOccupationRobot().changeState();
+	}
+	
+	public long getDateFin() {
+		return this.getDate();
 	}
 
 }

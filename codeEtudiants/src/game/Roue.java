@@ -16,23 +16,37 @@ public class Roue extends Robot {
 	}
 	
 	@Override
-	double getVitesseMax() {
+	public double getVitesseMax() {
 		// Pas de vitesse max dans le sujet
 		return Double.MAX_VALUE;
 	}
 
 	@Override
-	double getReservoirMax() {
+	public double getReservoirMax() {
 		return 5000;
 	}
 
 	@Override
-	double tempRemplissage() {
+	public double tempRemplissage() {
 		return 10;
 	}
 
 	@Override
-	double dureeDeversementUnitaire() {
+	public double dureeDeversementUnitaire() {
 		return 5.0/100;
+	}
+
+	@Override
+	public double getVitesseDefault() {
+		// TODO Auto-generated method stub
+		return 80.0;
+	}
+
+	@Override
+	public boolean peutAtteindre(Case position) {
+		// TODO Auto-generated method stub
+		if(position.getNature() == NatureTerrain.TERRAIN_LIBRE || position.getNature() == NatureTerrain.HABITAT)
+			return true;
+		return false;
 	}
 }

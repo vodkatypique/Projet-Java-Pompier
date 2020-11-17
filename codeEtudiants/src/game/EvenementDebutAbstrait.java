@@ -9,6 +9,11 @@ public abstract class EvenementDebutAbstrait extends EvenementRobotAbstrait {
 		this.simulateur=simulateur;
 	}
 	
+	public EvenementDebutAbstrait(Robot robot, Simulateur simulateur) {
+		super(robot);
+		this.simulateur = simulateur;
+	}
+	
 	public long getDateFin() {
 		return this.dateFin;
 	}

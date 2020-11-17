@@ -46,6 +46,20 @@ public class Chenille extends Robot {
 		return 8.0/100;
 	}
 
+	@Override
+	double getVitesseDefault() {
+		// TODO Auto-generated method stub
+		return 60.0;
+	}
+
+	@Override
+	boolean peutAtteindre(Case position) {
+		// TODO Auto-generated method stub
+		if(position.getNature() == NatureTerrain.EAU || position.getNature() == NatureTerrain.ROCHE)
+			return false;
+		return true;
+	}
+
 
 
 

@@ -41,9 +41,9 @@ public class Case {
 	public Direction getDirection(int lig, int col) {
 		// direction pour arriver à la case en lig et col voisine
 		if(this.getLigne() == lig - 1)
-			return Direction.NORD;
-		if(this.getLigne() == lig + 1)
 			return Direction.SUD;
+		if(this.getLigne() == lig + 1)
+			return Direction.NORD;
 		if(this.getColonne() == col -1)
 			return Direction.EST;
 		return Direction.OUEST;

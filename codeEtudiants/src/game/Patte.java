@@ -30,7 +30,7 @@ public class Patte extends Robot {
 
 	@Override
 	public double getVitesseMax() {
-		return 30;
+		return Double.MAX_VALUE;
 	}
 	@Override
 	public double getReservoirMax() {
@@ -49,6 +49,22 @@ public class Patte extends Robot {
 	public double dureeDeversementUnitaire() {
 		// TODO Auto-generated method stub
 		return 1.0/10;
+	}
+
+
+	@Override
+	double getVitesseDefault() {
+		// TODO Auto-generated method stub
+		return 30.0;
+	}
+
+
+	@Override
+	boolean peutAtteindre(Case position) {
+		// TODO Auto-generated method stub
+		if(position.getNature() == NatureTerrain.EAU)
+			return false;
+		return true;
 	}
 
 }

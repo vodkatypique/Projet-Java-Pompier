@@ -43,9 +43,21 @@ public class Drone extends Robot {
 	}
 
 	@Override
-	double dureeDeversementUnitaire() {
+	public double dureeDeversementUnitaire() {
 		// TODO Auto-generated method stub
 		return 30.0/getReservoirMax();
+	}
+
+	@Override
+	public double getVitesseDefault() {
+		// TODO Auto-generated method stub
+		return 100.0;
+	}
+
+	@Override
+	boolean peutAtteindre(Case position) {
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 

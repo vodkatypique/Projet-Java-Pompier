@@ -6,7 +6,8 @@ public class DebutExtinctionFeu extends EvenementDebutAbstrait {
 	
 	public DebutExtinctionFeu(long date, Robot robot, double volumeDeverse, Simulateur simulateur, DonneesSimulation donneesSimulation) {
 		super(date, robot, simulateur);
-		this.setDateFin((long) (date + (robot.dureeDeversement(volumeDeverse)/60)));
+		// this.setDateFin((long) (date + (robot.dureeDeversement(volumeDeverse)/60)));
+		this.setDate((long) (date + (robot.dureeDeversement(volumeDeverse)/60)));
 		this.donneesSimulation=donneesSimulation;
 		this.volumeDeverse=volumeDeverse;
 	}
@@ -15,22 +16,56 @@ public class DebutExtinctionFeu extends EvenementDebutAbstrait {
 		super(date, robot, simulateur);
 		// on calcule le temps pour l'extinction en minute(mesure globale) et associe ce temps à la date actuelle
 		// pour calculer la date de fin de l'évènement.
+		/*int intensite = donneesSimulation.getIncendie(this.getRobot().getPosition()).getIntensite();
+		if(robot.getReservoir() <= intensite)
+			this.volumeDeverse= robot.getReservoir();
+		else 
+			this.volumeDeverse = intensite;*/
+		//this.setDateFin((long) (date + (robot.dureeDeversement(volumeDeverse)/60)));
 		this.volumeDeverse= robot.getReservoir();
-		this.setDateFin((long) (date + (robot.dureeDeversement(volumeDeverse)/60)));
+		this.setDate((long) (date + (robot.dureeDeversement(this.volumeDeverse)/60)));
 		this.donneesSimulation=donneesSimulation;
+		System.out.println("Date fin Extinction ::: " + this.getDate());
 		
+	}
+	
+	public DebutExtinctionFeu(Robot robot, Simulateur simulateur, DonneesSimulation donneesSimulation) {
+		super(robot, simulateur);
+		/*int intensite = donneesSimulation.getIncendie(this.getRobot().getPosition()).getIntensite();
+		if(robot.getReservoir() <= intensite)
+			this.volumeDeverse= robot.getReservoir();
+		else 
+			this.volumeDeverse = intensite;*/
+		this.volumeDeverse= robot.getReservoir();
+		this.setDate((long) (this.getDate() + (robot.dureeDeversement(volumeDeverse)/60)));
+		this.donneesSimulation=donneesSimulation;
+		System.out.println("Date fin Extinction ::: " + this.getDate());
 	}
 	
 	@Override
 	public void execute() {
 		if(this.getRobot().getOccupationRobot().getEstOccupe()) {
-			this.getSimulateur().ajouteEvenement(new DebutExtinctionFeu(this.getRobot().getOccupationRobot().getDateFin()+1, getRobot(), volumeDeverse, getSimulateur(), donneesSimulation));
+			//this.getSimulateur().ajouteEvenement(new DebutExtinctionFeu(this.getRobot().getOccupationRobot().getDateFin()+this.getDate(), getRobot(), this.volumeDeverse, this.getSimulateur(), this.donneesSimulation));
+			this.setDate(this.getRobot().getOccupationRobot().getDateFin()+this.getDate());
 			return;
 		}
 		else {
 			this.getRobot().getOccupationRobot().changeState();
-			this.getRobot().getOccupationRobot().setDateFin(this.getDateFin());
-			this.getSimulateur().ajouteEvenement(new FinExtinctionFeu(getDateFin(), getRobot(), donneesSimulation, volumeDeverse));	
+			this.getRobot().getOccupationRobot().setDateFin(this.getDate());
+			//this.getSimulateur().ajouteEvenement(new FinExtinctionFeu(this.getDate(), this.getRobot(), this.donneesSimulation, this.volumeDeverse));	
+			Incendie incendie=this.donneesSimulation.getIncendie(this.getRobot().getPosition());
+			if(this.getRobot().getReservoir() <= incendie.getIntensite())
+				this.volumeDeverse= this.getRobot().getReservoir();
+			else 
+				this.volumeDeverse = incendie.getIntensite();
+			incendie.decrementeIntensite(this.volumeDeverse);
+			// vu que ceci l'extinction est en relation avec un robot particulier on doit diminuer la 
+			// quantité de volume dont il dispose quand on diminue l'intensité de l'incendie
+			if(incendie.getIntensite()<=0) {
+				System.out.println("Incendie éteinte!!!!!!!!!! Congrats!!");
+				//donneesSimulation.getIncendies().remove(incendie);
+			}
+			this.getRobot().getOccupationRobot().changeState();
 		}	
 		
 	}
