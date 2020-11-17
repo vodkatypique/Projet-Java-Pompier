@@ -34,7 +34,7 @@ public class ChefPompier {
 			Robot robotLePlusRapide = null;
 			double temps = Double.MAX_VALUE;
 			for (Robot robot : this.robots) {
-				if (robot.getOccupationRobot().getEstOccupe() && robot.getOccupationRobot().isOccupationGenerale()) {
+				if (robot.getOccupationRobot().getEstOccupe() || robot.getOccupationRobot().isOccupationGenerale()) {
 					continue;
 				}
 				if (robotLePlusRapide == null) {
