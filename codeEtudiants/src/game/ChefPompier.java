@@ -23,6 +23,7 @@ public class ChefPompier {
 		this.incendies = incendies;
 	}
 
+
 	public void boucleExtinction() {
 		for (Incendie incendie : this.incendies) {
 			ArrayList<PlusCourtChemin> listChemin = new ArrayList<PlusCourtChemin>();
@@ -34,7 +35,14 @@ public class ChefPompier {
 			Robot robotLePlusRapide = null;
 			double temps = Double.MAX_VALUE;
 			for (Robot robot : this.robots) {
-				if (robot.getOccupationRobot().getEstOccupe() || robot.getOccupationRobot().isOccupationGenerale()) {
+				if (robot.getOccupationRobot().getEstOccupe() || robot.getOccupationRobot().getOccupationGenerale()) {
+					continue;
+				}
+				if(robot.getReservoir()==0) {
+					robot.getOccupationRobot().setOccupationGenerale(true);
+					PlusCourtChemin directionEau=robot.chercherEau(carte);
+					directionEau.deplaceVersCase(this.simulateur);
+					this.simulateur.ajouteEvenement(new DebutRemplissageReservoir(robot, this.simulateur));
 					continue;
 				}
 				if (robotLePlusRapide == null) {
@@ -49,7 +57,7 @@ public class ChefPompier {
 				PlusCourtChemin nouveauPlusCourt = new PlusCourtChemin(robot, aEteindre.getPosition(), carte);
 				listChemin.add(nouveauPlusCourt);
 				double nouveauTemps = nouveauPlusCourt.getTempsOptim();
-
+				
 				if (temps > nouveauTemps) {
 					robotLePlusRapide = robot;
 					indexRobotRapide = index;
@@ -61,7 +69,6 @@ public class ChefPompier {
 			if (robotLePlusRapide == null) {
 				continue;
 			}
-
 			robotLePlusRapide.getOccupationRobot().setOccupationGenerale(true);
 			listChemin.get(indexRobotRapide).deplaceVersCase(this.simulateur);
 			simulateur.ajouteEvenement(new DebutExtinctionFeu(robotLePlusRapide, this.simulateur, this.simulateur.getDonneesSimulation()));

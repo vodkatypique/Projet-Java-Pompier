@@ -1,5 +1,6 @@
 package game;
 
+
 public class Carte {
     private int tailleCases;
     private int nbLignes;
@@ -41,7 +42,7 @@ public class Carte {
             }
         }
     }
-    
+
     public static double getDistanceEntreCase() {//en metres
 		return 1000;
 	}
@@ -59,6 +60,9 @@ public class Carte {
     }
 
     public Case getCase(int lig, int col) {
+    	if(lig<0||lig>(this.nbLignes -1)||col <0 ||col>(this.nbColonnes-1)) {
+    		return null;
+    	}
         return plateau[lig][col];
     }
 

@@ -1,5 +1,7 @@
 package game;
 
+import java.util.ArrayList;
+
 public class Drone extends Robot {
 
 	public Drone(Case position, Integer vitesse) {
@@ -40,6 +42,24 @@ public class Drone extends Robot {
 			return Boolean.TRUE;
 		}
 		return Boolean.FALSE;
+	}
+	@Override
+	public PlusCourtChemin chercherEau(Carte carte) {
+    	Double tempsLePlusRapide=Double.MAX_VALUE;
+    	ArrayList<PlusCourtChemin> listeChemin=new ArrayList<PlusCourtChemin>();
+    	for (Case[] cases : carte.getPlateau()) {
+    		for (Case endroit : cases) {
+					if(endroit.getNature().equals(NatureTerrain.EAU)) {
+						PlusCourtChemin chemin =new PlusCourtChemin(this, endroit, carte);
+						double temps = chemin.getTempsOptim();
+						if(temps<tempsLePlusRapide) {
+							tempsLePlusRapide=temps;
+							listeChemin.add(chemin);
+						}
+					}
+			}
+		}
+    	return listeChemin.get(listeChemin.size()-1);
 	}
 
 	@Override

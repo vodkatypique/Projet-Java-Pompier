@@ -1,5 +1,7 @@
 package game;
 
+import java.util.ArrayList;
+
 public abstract class Robot {
 	private Case position;
 	private Case positionInit;
@@ -25,9 +27,9 @@ public abstract class Robot {
 		this.reservoir = r.getReservoir();
 		this.reservoirInit = this.reservoir;
 		this.occupationRobot = new OccupationRobot(Boolean.FALSE, 0);
-		
+
 	}
-	
+
 	public Robot(Case position) {
 		this.position = new Case(position);
 		this.positionInit = new Case(this.position);
@@ -36,32 +38,57 @@ public abstract class Robot {
 		setResevoir(getReservoirMax());
 		this.reservoirInit = this.reservoir;
 	}
-	
-	
+
+	public PlusCourtChemin chercherEau(Carte carte) {
+		Double tempsLePlusRapide = Double.MAX_VALUE;
+		ArrayList<PlusCourtChemin> listeChemin = new ArrayList<PlusCourtChemin>();
+		for (Case[] cases : carte.getPlateau()) {
+			for (Case endroit : cases) {
+				if (endroit.getNature() == NatureTerrain.EAU) {
+					for (Direction direction : Direction.values()) {
+						Case voisin = carte.getVoisin(endroit, direction);
+						if (voisin == null) {
+							continue;
+						}
+
+						PlusCourtChemin chemin = new PlusCourtChemin(this, voisin, carte);
+						double temps = chemin.getTempsOptim();
+						if (temps < tempsLePlusRapide) {
+							tempsLePlusRapide = temps;
+							listeChemin.add(chemin);
+						}
+
+					}
+				}
+			}
+		}
+		return listeChemin.get(listeChemin.size()-1);
+	}
+
 	public long dureeRemplissageReservoir(double volume) {// retourne la duree du remplissage
 		long dureeRemplissage = (long) ((volume / getReservoirMax()) * tempRemplissage());
 		return dureeRemplissage;
 	}
 
 	public double dureeDeversement(double vol) {// en seconde
-		return vol*dureeDeversementUnitaire();
+		return vol * dureeDeversementUnitaire();
 	}
 
-	public boolean peutRemplir(Carte carte) {
+	public boolean peutRemplir(Carte carte) {// TODO rewrite using carte.getvoisin
 		Boolean peutRemplir = Boolean.FALSE;
 		int lig = this.position.getLigne();
 		int col = this.position.getColonne();
-		
-		if (carte.getCase(lig-1, col).getNature() == NatureTerrain.EAU) {
+
+		if (carte.getCase(lig - 1, col).getNature() == NatureTerrain.EAU) {
 			peutRemplir = Boolean.TRUE;
 		}
-		if (carte.getCase(lig+1, col).getNature() == NatureTerrain.EAU) {
+		if (carte.getCase(lig + 1, col).getNature() == NatureTerrain.EAU) {
 			peutRemplir = Boolean.TRUE;
 		}
-		if (carte.getCase(lig, col+1).getNature() == NatureTerrain.EAU) {
+		if (carte.getCase(lig, col + 1).getNature() == NatureTerrain.EAU) {
 			peutRemplir = Boolean.TRUE;
 		}
-		if (carte.getCase(lig, col+1).getNature() == NatureTerrain.EAU) {
+		if (carte.getCase(lig, col + 1).getNature() == NatureTerrain.EAU) {
 			peutRemplir = Boolean.TRUE;
 		}
 		return peutRemplir;
@@ -78,9 +105,9 @@ public abstract class Robot {
 	abstract double dureeDeversementUnitaire();// le temps en seconde pour le deversement de 1L
 
 	abstract double getVitesseDefault();
-	
+
 	abstract boolean peutAtteindre(Case position);
-	
+
 	public Case getPosition() {
 		return this.position;
 	}
@@ -112,7 +139,6 @@ public abstract class Robot {
 			this.vitesse = vitesse;
 		}
 	}
-	
 
 	public double getVitesse(NatureTerrain nature) {
 		return this.vitesse;
@@ -121,12 +147,12 @@ public abstract class Robot {
 	public void resetReservoir() {
 		this.reservoir = this.reservoirInit;
 	}
-	
+
 	public void resetPosition(DonneesSimulation donnees) {
 		Case temp = donnees.getCarte().getCase(this.positionInit.getLigne(), this.positionInit.getColonne());
 		this.position = temp;
-	}   
-	
+	}
+
 	@Override
 	public String toString() {
 		return "Robot{" + "position=" + position + ", type='" + getClass().getName() + '\'' + '}';
@@ -135,10 +161,9 @@ public abstract class Robot {
 	public double getReservoir() {
 		return reservoir;
 	}
-	
+
 	public OccupationRobot getOccupationRobot() {
 		return this.occupationRobot;
 	}
-	
-	
+
 }

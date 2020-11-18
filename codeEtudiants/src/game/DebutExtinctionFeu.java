@@ -59,6 +59,7 @@ public class DebutExtinctionFeu extends EvenementDebutAbstrait {
 			else
 				this.volumeDeverse = incendie.getIntensite();
 			incendie.decrementeIntensite(this.volumeDeverse);
+			this.getRobot().setResevoir(this.getRobot().getReservoir()-this.volumeDeverse);
 			// vu que ceci l'extinction est en relation avec un robot particulier on doit diminuer la 
 			// quantit� de volume dont il dispose quand on diminue l'intensit� de l'incendie
 			if (incendie.getIntensite() <= 0) {

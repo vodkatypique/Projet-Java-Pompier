@@ -15,6 +15,7 @@ public class PlusCourtChemin {
 	private Robot robot;
 	
 	public PlusCourtChemin(Robot robot, Case ca, Carte carte) {
+		
 		// Initialisation
 		// sommets = new ArrayList<Sommet>();
 		/*for(int i = 0; i < carte.getNbLignes(); i++) {
@@ -130,7 +131,8 @@ public class PlusCourtChemin {
 		while (s.size() >= 1) {
 			// on prend l'�l�ment suivant de la liste
 			Case suiv = s.pop().getPosition();
-			sim.ajouteEvenement(new DebutDeplacement(temp.getDirection(suiv.getLigne(), suiv.getColonne()), this.robot, sim.getDonneesSimulation(), sim));
+			
+			sim.ajouteEvenement(new DebutDeplacement(sim.getDateSimulation(), temp.getDirection(suiv.getLigne(), suiv.getColonne()), this.robot,sim.getDonneesSimulation(),sim));
 			//i++;
 			temp = suiv;
 		}

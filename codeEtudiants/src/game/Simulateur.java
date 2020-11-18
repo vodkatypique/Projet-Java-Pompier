@@ -15,6 +15,10 @@ public class Simulateur implements Simulable {
 	private DonneesSimulation donneesSimulation;
 	private int tailleCase;
 	private long dateSimulation;
+	public long getDateSimulation() {
+		return dateSimulation;
+	}
+
 	private int offsetGauche;
 	private int offsetHaut;
 	private ArrayList<Evenement> evenements = new ArrayList<Evenement>();
@@ -129,7 +133,7 @@ public class Simulateur implements Simulable {
 		for (Evenement evenement : copieEvenement) {
 			if (this.dateSimulation == evenement.getDate()) {
 				evenement.execute();
-				//this.evenements.remove(evenement);	
+				this.evenements.remove(evenement);	
 			}
 		}
 		this.draw(this.donneesSimulation);

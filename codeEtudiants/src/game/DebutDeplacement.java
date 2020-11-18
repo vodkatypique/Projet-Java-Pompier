@@ -37,12 +37,13 @@ public class DebutDeplacement extends EvenementDebutAbstrait {//TODO début dép
 		if(vitesse == 0)
 			ldateFin = this.getDate();
 		else
-			ldateFin=(long) (distance / ((vitesse*Math.pow(10,3))/60)) + this.getDate();//la vitesse est km/h
+			ldateFin=(long) (distance / ((vitesse*Math.pow(10,3))/60)) ;//la vitesse est km/h
 		//this.setDateFin(ldateFin);
 		this.setDate(ldateFin);
 		//System.out.println("Date fin Deplacement ::: " + this.getDate() + " " + this);
 		
 	}
+	
 	
 	@Override
 	public void execute() { // il est occupe

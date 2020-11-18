@@ -10,7 +10,7 @@ public class OccupationRobot {
 		this.dateFin = dateFin;
 	}
 
-	public boolean isOccupationGenerale() {
+	public boolean getOccupationGenerale() {
 		return OccupationGenerale;
 	}
 
