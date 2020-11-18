@@ -41,8 +41,6 @@ public class FinDeplacement extends EvenementRobotAbstrait {
 		this.getRobot().setPosition(donneesSimulation.getCarte().getCase(lig, col));
 		// System.out.println("Ligne:: " + lig + " Après dedans:: " + this.getRobot().getPosition().getLigne());
 		// après avoir deplacé le robot on le met en état non occupé.
-		this.getRobot().getOccupationRobot().changeState();
-		System.out.println("Fini deplacement hehooo " + this.getDate() + " occupation ::: " + this.getRobot().getOccupationRobot().getEstOccupe());
 	}
 
 	public long getDateFin() {

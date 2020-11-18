@@ -19,7 +19,7 @@ public class DebutDeplacement extends EvenementDebutAbstrait {//TODO début dép
 		else
 			ldateFin=(long) (distance / ((vitesse*Math.pow(10,3))/60)) + this.getDate();//ceci parce que la vitesse est en km/h
 		//this.setDateFin(ldateFin);
-		
+
 		this.setDate(ldateFin);
 		System.out.println("Date fin Deplacement ::: " + this.getDate() + "  " + this);
 	}
@@ -46,15 +46,7 @@ public class DebutDeplacement extends EvenementDebutAbstrait {//TODO début dép
 	
 	
 	@Override
-	public void execute() { // il est occupe
-		if(this.getRobot().getOccupationRobot().getEstOccupe()) {
-			System.out.println("Je dois attendre un peu " + this);
-			//this.getSimulateur().ajouteEvenement(new DebutDeplacement(this.getRobot().getOccupationRobot().getDateFin()+1, direction, getRobot(), donneesSimulation, getSimulateur()));
-			this.setDate(this.getRobot().getOccupationRobot().getDateFin()+this.getDate());
-			return;
-		}
-		else { // il n'etait pas occupe
-			this.getRobot().getOccupationRobot().changeState();
+	public void execute() {
 			this.getRobot().getOccupationRobot().setDateFin(this.getDate());
 			/*this.getRobot().getOccupationRobot().setDateFin(this.getDateFin());
 			this.getSimulateur().ajouteEvenement(new FinDeplacement(this.getDateFin(), getRobot(), direction, donneesSimulation));	*/
@@ -87,8 +79,7 @@ public class DebutDeplacement extends EvenementDebutAbstrait {//TODO début dép
 			this.getRobot().setPosition(donneesSimulation.getCarte().getCase(lig, col));
 			// System.out.println("Ligne:: " + lig + " Apr�s dedans:: " + this.getRobot().getPosition().getLigne());
 			// apr�s avoir deplac� le robot on le met en �tat non occup�.
-			this.getRobot().getOccupationRobot().changeState();
 		}
-	}
+	
 
 }

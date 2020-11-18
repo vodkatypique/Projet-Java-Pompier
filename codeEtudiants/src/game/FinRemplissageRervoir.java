@@ -11,7 +11,6 @@ public class FinRemplissageRervoir extends EvenementRobotAbstrait {//TODO factor
 	@Override
 	public void execute() {
 		this.getRobot().setResevoir(this.getRobot().getReservoir() + this.volumeAjoute);
-		this.getRobot().getOccupationRobot().changeState();
 	}
 	
 	public long getDateFin() {

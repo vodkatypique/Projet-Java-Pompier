@@ -40,14 +40,14 @@ public class ChefPompier {
 			Robot robotLePlusRapide = null;
 			double temps = Double.MAX_VALUE;
 			for (Robot robot : this.robots) {
-				if (robot.getOccupationRobot().getEstOccupe() || robot.getOccupationRobot().getOccupationGenerale()) {
+				if (robot.getOccupationRobot().getOccupationGenerale()) {
 					continue;
 				}
 				if(robot.getReservoir()==0) {
 					robot.getOccupationRobot().setOccupationGenerale(true);
 					PlusCourtChemin directionEau=robot.chercherEau(carte);
 					directionEau.deplaceVersCase(this.simulateur);
-					this.simulateur.ajouteEvenement(new DebutRemplissageReservoir(robot, this.simulateur),robot);
+					this.simulateur.ajouteEvenement(new DebutRemplissageReservoir(this.simulateur.getDateSimulation(), robot, this.simulateur),robot);
 					continue;
 				}
 				if (robotLePlusRapide == null) {

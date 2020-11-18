@@ -20,6 +20,10 @@ public class Simulateur implements Simulable {
 		return dateSimulation;
 	}
 
+	public Hashtable<Robot, ArrayList<Evenement>> getEvenements() {
+		return evenements;
+	}
+
 	private int offsetGauche;
 	private int offsetHaut;
 	private Hashtable<Robot, ArrayList<Evenement>> evenements=new Hashtable<Robot, ArrayList<Evenement>>();
@@ -131,21 +135,24 @@ public class Simulateur implements Simulable {
 
 		++this.dateSimulation;
 		System.err.println(this.dateSimulation);
-
-		ArrayList<Evenement> copieEvenement = new ArrayList<Evenement>();//pour éviter concurentModificationException
 		for (Robot robot : this.chefPompier.getRobots()) {
 			ArrayList<Evenement> listeEvenement=this.evenements.get(robot);
+			if(listeEvenement.isEmpty()) {
+				robot.getOccupationRobot().setOccupationGenerale(false);
+			}
+			ArrayList<Evenement> nouvelListeEvenement=new ArrayList<Evenement>();
 			for (Evenement evenement : listeEvenement) {
-				copieEvenement.add(evenement);
+				nouvelListeEvenement.add(evenement);
+			}
+			for(Evenement evenement : nouvelListeEvenement) {
+				if (this.dateSimulation == evenement.getDate()) {
+					evenement.execute();
+					listeEvenement.remove(evenement);
+
+				}
 			}
 		}
 
-		for (Evenement evenement : copieEvenement) {
-			if (this.dateSimulation == evenement.getDate()) {
-				evenement.execute();
-				this.evenements.remove(evenement);	
-			}
-		}
 		this.draw(this.donneesSimulation);
 	}
 	public Carte getCarte() {
@@ -163,8 +170,8 @@ public class Simulateur implements Simulable {
 	}
 	
 	public boolean simulationTerminee() {
+		return this.donneesSimulation.getIncendies().isEmpty();
 		//return this.evenements.isEmpty();
-		return false;
 //		for(Evenement ev: this.evenements)  {
 //			if(ev.getDate() > this.dateSimulation) {
 //				return false;

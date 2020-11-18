@@ -1,12 +1,10 @@
 package game;
 
 public class OccupationRobot {
-	private boolean estOccupe;
 	private long dateFin;
 	private boolean OccupationGenerale;
 
-	public OccupationRobot(boolean estOccupe, long dateFin) {
-		this.estOccupe = estOccupe;
+	public OccupationRobot(long dateFin) {
 		this.dateFin = dateFin;
 	}
 
@@ -16,25 +14,7 @@ public class OccupationRobot {
 
 	public void setOccupationGenerale(boolean occupationGenerale) {
 		OccupationGenerale = occupationGenerale;
-	}
-
-	public OccupationRobot(OccupationRobot or) {
-		this.estOccupe = or.getEstOccupe();
-		this.dateFin = or.getDateFin();
-	}
-
-	public boolean getEstOccupe() {
-		return this.estOccupe;
-	}
-
-	public void changeState() {
-		if (this.estOccupe == true) {
-			this.estOccupe = false;
-		} else {
-			this.estOccupe = true;
-		}
-	}
-	
+	}	
 	public long getDateFin() {
 		return this.dateFin;
 	}

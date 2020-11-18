@@ -1,5 +1,6 @@
 package game;
 
+
 public class DebutRemplissageReservoir extends EvenementDebutAbstrait {
 	private double volume;
 	
@@ -12,7 +13,6 @@ public class DebutRemplissageReservoir extends EvenementDebutAbstrait {
 	}
 	
 	public DebutRemplissageReservoir(long date, Robot robot, Simulateur simulateur) {
-		// TODO Auto-generated constructor stub
 		super(date, robot, simulateur);
 		this.volume = robot.getReservoirMax() - robot.getReservoir();
 		//this.setDateFin(date + this.getRobot().dureeRemplissageReservoir(this.volume));
@@ -21,10 +21,12 @@ public class DebutRemplissageReservoir extends EvenementDebutAbstrait {
 	}
 	
 	public DebutRemplissageReservoir(Robot robot, Simulateur simulateur) {
-		// TODO Auto-generated constructor stub
 		super(robot, simulateur);
 		this.volume = robot.getReservoirMax() - robot.getReservoir();
 		//this.setDateFin(this.getRobot().dureeRemplissageReservoir(this.volume));
+		if(this.getDate()==0) {
+			System.err.println("d");
+		}
 		this.setDate(this.getDate() + this.getRobot().dureeRemplissageReservoir(this.volume));
 		System.out.println("Date fin Remplissage ::: " + this.getDate());
 	}
@@ -36,17 +38,12 @@ public class DebutRemplissageReservoir extends EvenementDebutAbstrait {
 			return;
 		}
 			
-		if(this.getRobot().getOccupationRobot().getEstOccupe()) {
-			//this.getSimulateur().ajouteEvenement(new DebutRemplissageReservoir(this.getRobot().getOccupationRobot().getDateFin()+1, getRobot(), volume, getSimulateur()));
-			this.setDate(this.getRobot().getOccupationRobot().getDateFin()+this.getDate());
-			return;
-		}else {
-			this.getRobot().getOccupationRobot().changeState();
+
 			this.getRobot().getOccupationRobot().setDateFin(this.getDate());
 			//this.getSimulateur().ajouteEvenement(new FinRemplissageRervoir(this.getDateFin(), this.getRobot(), this.volume));
 			this.getRobot().setResevoir(this.getRobot().getReservoir() + this.volume);
-			this.getRobot().getOccupationRobot().changeState();
-		}
+			this.getRobot().getOccupationRobot().setOccupationGenerale(false);
+
 	}
 
 }

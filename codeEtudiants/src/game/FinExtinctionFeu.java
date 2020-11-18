@@ -20,7 +20,6 @@ public class FinExtinctionFeu extends EvenementRobotAbstrait {
 			System.out.println("Incendie éteinte!!!!!!!!!! Congrats!!");
 			donneesSimulation.getIncendies().remove(incendie);
 		}
-		this.getRobot().getOccupationRobot().changeState();
 	}
 	
 	public long getDateFin() {

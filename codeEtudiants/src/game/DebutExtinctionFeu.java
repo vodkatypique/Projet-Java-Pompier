@@ -44,13 +44,6 @@ public class DebutExtinctionFeu extends EvenementDebutAbstrait {
 	
 	@Override
 	public void execute() {
-		if(this.getRobot().getOccupationRobot().getEstOccupe()) {
-			//this.getSimulateur().ajouteEvenement(new DebutExtinctionFeu(this.getRobot().getOccupationRobot().getDateFin()+this.getDate(), getRobot(), this.volumeDeverse, this.getSimulateur(), this.donneesSimulation));
-			this.setDate(this.getRobot().getOccupationRobot().getDateFin()+this.getDate());
-			return;
-		}
-		else {
-			this.getRobot().getOccupationRobot().changeState();
 			this.getRobot().getOccupationRobot().setDateFin(this.getDate());
 			//this.getSimulateur().ajouteEvenement(new FinExtinctionFeu(this.getDate(), this.getRobot(), this.donneesSimulation, this.volumeDeverse));	
 			Incendie incendie=this.donneesSimulation.getIncendie(this.getRobot().getPosition());
@@ -66,9 +59,8 @@ public class DebutExtinctionFeu extends EvenementDebutAbstrait {
 				System.out.println("Incendie �teinte!!!!!!!!!! Congrats!!");
 				//donneesSimulation.getIncendies().remove(incendie);
 			}
-			this.getRobot().getOccupationRobot().changeState();
 			this.getRobot().getOccupationRobot().setOccupationGenerale(false);
-		}	
+	
 		
 	}
 

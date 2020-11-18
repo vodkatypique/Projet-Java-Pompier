@@ -10,14 +10,14 @@ public abstract class Robot {
 	private double reservoirInit;
 	private OccupationRobot occupationRobot;
 
-	public Robot(Case position, int vitesse) {
+	public Robot(Case position, int vitesse) {//TODO cleanup les constructeurs
 		this.position = position;
 		this.positionInit = new Case(this.position);
 		setVitesse(vitesse);
 		// au depart son reservoir n'est pas vide, il est considere plein
 		setResevoir(getReservoirMax());
 		this.reservoirInit = this.reservoir;
-		this.occupationRobot = new OccupationRobot(Boolean.FALSE, 0);
+		this.occupationRobot = new OccupationRobot(0);
 	}
 
 	public Robot(Robot r) {
@@ -26,14 +26,14 @@ public abstract class Robot {
 		this.vitesse = r.getVitesse(r.getPosition().getNature());
 		this.reservoir = r.getReservoir();
 		this.reservoirInit = this.reservoir;
-		this.occupationRobot = new OccupationRobot(Boolean.FALSE, 0);
+		this.occupationRobot = new OccupationRobot( 0);
 
 	}
 
 	public Robot(Case position) {
 		this.position = new Case(position);
 		this.positionInit = new Case(this.position);
-		this.occupationRobot = new OccupationRobot(Boolean.FALSE, 0);
+		this.occupationRobot = new OccupationRobot( 0);
 		setVitesse(this.getVitesseDefault());
 		setResevoir(getReservoirMax());
 		this.reservoirInit = this.reservoir;
@@ -78,18 +78,14 @@ public abstract class Robot {
 		Boolean peutRemplir = Boolean.FALSE;
 		int lig = this.position.getLigne();
 		int col = this.position.getColonne();
-
-		if (carte.getCase(lig - 1, col).getNature() == NatureTerrain.EAU) {
-			peutRemplir = Boolean.TRUE;
-		}
-		if (carte.getCase(lig + 1, col).getNature() == NatureTerrain.EAU) {
-			peutRemplir = Boolean.TRUE;
-		}
-		if (carte.getCase(lig, col + 1).getNature() == NatureTerrain.EAU) {
-			peutRemplir = Boolean.TRUE;
-		}
-		if (carte.getCase(lig, col + 1).getNature() == NatureTerrain.EAU) {
-			peutRemplir = Boolean.TRUE;
+		
+		for (Direction d : Direction.values()) {
+			Case voisin =carte.getVoisin(new Case (lig,col, NatureTerrain.TERRAIN_LIBRE), d);
+			if(voisin!=null) {
+				if(voisin.getNature()==NatureTerrain.EAU) {
+					peutRemplir=Boolean.TRUE;
+				}
+			}
 		}
 		return peutRemplir;
 
