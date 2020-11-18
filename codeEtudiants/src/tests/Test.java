@@ -72,14 +72,14 @@ public class Test {
 		
 		Simulateur sim = new Simulateur(gui, donnees);
 		Robot robot = donnees.getRobots().get(1);
-		sim.ajouteEvenement(new DebutDeplacement(Direction.NORD, robot, donnees,sim));
-		sim.ajouteEvenement(new DebutExtinctionFeu(robot, sim, donnees));
-		sim.ajouteEvenement(new DebutDeplacement(Direction.OUEST, robot, donnees, sim));
-		sim.ajouteEvenement(new DebutDeplacement(Direction.OUEST, robot, donnees, sim));
-		sim.ajouteEvenement(new DebutRemplissageReservoir(robot, sim));
-		sim.ajouteEvenement(new DebutDeplacement(Direction.EST, robot, donnees, sim));
-		sim.ajouteEvenement(new DebutDeplacement(Direction.EST, robot, donnees, sim));
-		sim.ajouteEvenement(new DebutExtinctionFeu(robot, sim, donnees));
+		sim.ajouteEvenement(new DebutDeplacement(Direction.NORD, robot, donnees,sim),robot);
+		sim.ajouteEvenement(new DebutExtinctionFeu(robot, sim, donnees),robot);
+		sim.ajouteEvenement(new DebutDeplacement(Direction.OUEST, robot, donnees, sim),robot);
+		sim.ajouteEvenement(new DebutDeplacement(Direction.OUEST, robot, donnees, sim),robot);
+		sim.ajouteEvenement(new DebutRemplissageReservoir(robot, sim),robot);
+		sim.ajouteEvenement(new DebutDeplacement(Direction.EST, robot, donnees, sim),robot);
+		sim.ajouteEvenement(new DebutDeplacement(Direction.EST, robot, donnees, sim),robot);
+		sim.ajouteEvenement(new DebutExtinctionFeu(robot, sim, donnees),robot);
 		
 		
 		sim.start();

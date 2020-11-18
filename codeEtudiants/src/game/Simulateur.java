@@ -6,6 +6,7 @@ import gui.Simulable;
 import java.awt.*;
 import java.util.ArrayList;
 //import java.util.Iterator;
+import java.util.Hashtable;
 
 public class Simulateur implements Simulable {
 	/**
@@ -21,7 +22,7 @@ public class Simulateur implements Simulable {
 
 	private int offsetGauche;
 	private int offsetHaut;
-	private ArrayList<Evenement> evenements = new ArrayList<Evenement>();
+	private Hashtable<Robot, ArrayList<Evenement>> evenements=new Hashtable<Robot, ArrayList<Evenement>>();
 	ChefPompier chefPompier;
 
 	/**
@@ -44,20 +45,25 @@ public class Simulateur implements Simulable {
 
 	
 	
-	public void ajouteEvenement(Evenement evenement) {
+	public void ajouteEvenement(Evenement evenement, Robot robot) {
 		// on peut aussi utiliser un hashmap si on veut rendre l'execution parall�le cad donner la possibilite � deux robots
 		// de pouvoir se deplacer en meme temps
 		// � ce moment on recup�re la date de fin du dernier evenement qui fait intervenir ce robot pour donner la date de fin du nouvel evenement
 		if(evenement.getDate()<this.dateSimulation) {
-			System.err.println("Erreur, evenement dans le passé");
+			System.err.println("Erreur, evenement dans le pass�");
 			return;
 		}
-		if(this.evenements.size() == 0)
-			this.evenements.add(evenement);
+		ArrayList<Evenement> listeEvenement=this.evenements.get(robot);
+		if(listeEvenement==null){
+			listeEvenement=new ArrayList<Evenement>();
+			this.evenements.put(robot, listeEvenement);
+		}
+		if(listeEvenement.size() == 0)
+			listeEvenement.add(evenement);
 		else {
-			long dateLastEvent = this.evenements.get(this.evenements.size()-1).getDate();
+			long dateLastEvent = listeEvenement.get(listeEvenement.size()-1).getDate();
 			evenement.setDate(evenement.getDate() + dateLastEvent);
-			this.evenements.add(evenement);
+			listeEvenement.add(evenement);
 		}
 	}
 	
@@ -127,9 +133,13 @@ public class Simulateur implements Simulable {
 		System.err.println(this.dateSimulation);
 
 		ArrayList<Evenement> copieEvenement = new ArrayList<Evenement>();//pour éviter concurentModificationException
-		for (Evenement evenement : this.evenements) {
-			copieEvenement.add(evenement);
+		for (Robot robot : this.chefPompier.getRobots()) {
+			ArrayList<Evenement> listeEvenement=this.evenements.get(robot);
+			for (Evenement evenement : listeEvenement) {
+				copieEvenement.add(evenement);
+			}
 		}
+
 		for (Evenement evenement : copieEvenement) {
 			if (this.dateSimulation == evenement.getDate()) {
 				evenement.execute();
@@ -154,12 +164,13 @@ public class Simulateur implements Simulable {
 	
 	public boolean simulationTerminee() {
 		//return this.evenements.isEmpty();
-		for(Evenement ev: this.evenements)  {
-			if(ev.getDate() > this.dateSimulation) {
-				return false;
-			}
-		}
-		return true;
+		return false;
+//		for(Evenement ev: this.evenements)  {
+//			if(ev.getDate() > this.dateSimulation) {
+//				return false;
+//			}
+//		}
+//		return true;
 	}
 
 	@Override

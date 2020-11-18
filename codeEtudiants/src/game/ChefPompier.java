@@ -4,6 +4,11 @@ import java.util.ArrayList;
 
 public class ChefPompier {
 	private ArrayList<Robot> robots;
+	public ArrayList<Robot> getRobots() {
+		return robots;
+	}
+
+
 	private ArrayList<Incendie> incendies;
 	private Carte carte;
 	private Simulateur simulateur;
@@ -42,7 +47,7 @@ public class ChefPompier {
 					robot.getOccupationRobot().setOccupationGenerale(true);
 					PlusCourtChemin directionEau=robot.chercherEau(carte);
 					directionEau.deplaceVersCase(this.simulateur);
-					this.simulateur.ajouteEvenement(new DebutRemplissageReservoir(robot, this.simulateur));
+					this.simulateur.ajouteEvenement(new DebutRemplissageReservoir(robot, this.simulateur),robot);
 					continue;
 				}
 				if (robotLePlusRapide == null) {
@@ -71,7 +76,7 @@ public class ChefPompier {
 			}
 			robotLePlusRapide.getOccupationRobot().setOccupationGenerale(true);
 			listChemin.get(indexRobotRapide).deplaceVersCase(this.simulateur);
-			simulateur.ajouteEvenement(new DebutExtinctionFeu(robotLePlusRapide, this.simulateur, this.simulateur.getDonneesSimulation()));
+			simulateur.ajouteEvenement(new DebutExtinctionFeu(robotLePlusRapide, this.simulateur, this.simulateur.getDonneesSimulation()),robotLePlusRapide);
 			robotLePlusRapide = null;
 		}
 

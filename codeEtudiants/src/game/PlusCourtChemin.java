@@ -132,11 +132,10 @@ public class PlusCourtChemin {
 			// on prend l'�l�ment suivant de la liste
 			Case suiv = s.pop().getPosition();
 			
-			sim.ajouteEvenement(new DebutDeplacement(sim.getDateSimulation(), temp.getDirection(suiv.getLigne(), suiv.getColonne()), this.robot,sim.getDonneesSimulation(),sim));
+			sim.ajouteEvenement(new DebutDeplacement(sim.getDateSimulation(), temp.getDirection(suiv.getLigne(), suiv.getColonne()), this.robot,sim.getDonneesSimulation(),sim),this.robot);
 			//i++;
 			temp = suiv;
 		}
-		sim.ajouteEvenement(new DebutExtinctionFeu(robot, sim, sim.getDonneesSimulation()));
 	}
 	
 	private void constitueChemin(Sommet s) {
