@@ -19,7 +19,9 @@ public class DebutDeplacement extends EvenementDebutAbstrait {//TODO début dép
 		else
 			ldateFin=(long) (distance / ((vitesse*Math.pow(10,3))/60)) + this.getDate();//ceci parce que la vitesse est en km/h
 		//this.setDateFin(ldateFin);
-
+		if((ldateFin-this.getDate())>50) {
+			System.err.println("c");
+		}
 		this.setDate(ldateFin);
 		System.out.println("Date fin Deplacement ::: " + this.getDate() + "  " + this);
 	}
@@ -80,6 +82,8 @@ public class DebutDeplacement extends EvenementDebutAbstrait {//TODO début dép
 			// System.out.println("Ligne:: " + lig + " Apr�s dedans:: " + this.getRobot().getPosition().getLigne());
 			// apr�s avoir deplac� le robot on le met en �tat non occup�.
 		}
+
+
 	
 
 }

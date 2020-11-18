@@ -76,7 +76,7 @@ public class ChefPompier {
 			}
 			robotLePlusRapide.getOccupationRobot().setOccupationGenerale(true);
 			listChemin.get(indexRobotRapide).deplaceVersCase(this.simulateur);
-			simulateur.ajouteEvenement(new DebutExtinctionFeu(robotLePlusRapide, this.simulateur, this.simulateur.getDonneesSimulation()),robotLePlusRapide);
+			simulateur.ajouteEvenement(new DebutExtinctionFeu(this.simulateur.getDateSimulation(),robotLePlusRapide, this.simulateur, this.simulateur.getDonneesSimulation()),robotLePlusRapide);
 			robotLePlusRapide = null;
 		}
 

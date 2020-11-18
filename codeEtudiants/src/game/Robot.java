@@ -50,7 +50,9 @@ public abstract class Robot {
 						if (voisin == null) {
 							continue;
 						}
-
+						if(voisin.getNature()==NatureTerrain.EAU) {
+							continue;
+						}
 						PlusCourtChemin chemin = new PlusCourtChemin(this, voisin, carte);
 						double temps = chemin.getTempsOptim();
 						if (temps < tempsLePlusRapide) {
@@ -61,6 +63,10 @@ public abstract class Robot {
 					}
 				}
 			}
+		}
+		if(listeChemin.isEmpty()) {
+			System.err.println("Erreur, Pas d'eau disponible");
+			return null;
 		}
 		return listeChemin.get(listeChemin.size()-1);
 	}

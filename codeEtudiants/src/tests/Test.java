@@ -37,14 +37,12 @@ public class Test {
 
         } catch (FileNotFoundException | IllegalAccessException | InstantiationException | IllegalArgumentException
 				| InvocationTargetException | DataFormatException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		
 
 		
-		// crée l'invader, en l'associant à la fenêtre graphique précédente
 		}
 	
 	

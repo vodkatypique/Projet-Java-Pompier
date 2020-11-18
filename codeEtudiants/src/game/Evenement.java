@@ -26,7 +26,6 @@ public abstract class Evenement {
 		this.date = date;
 	}
 	
-	abstract public long getDateFin();
 	public abstract void execute();
 	
 }
