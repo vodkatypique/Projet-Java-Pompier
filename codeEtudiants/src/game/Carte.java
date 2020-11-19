@@ -20,9 +20,9 @@ public class Carte {
 		this.tailleCases = tailleCases;
 		this.plateau = new Case[nbLignes][nbColonnes];
 		this.plateau = plateau;
-		// il faut donner les valeurs à chaque élément de plateau en copiant pour
+		// il faut donner les valeurs ï¿½ chaque ï¿½lï¿½ment de plateau en copiant pour
 		// n'avoir pas
-		// à manipuler les références
+		// ï¿½ manipuler les rï¿½fï¿½rences
 		for (int i = 0; i < nbLignes; i++) {
 			for (int j = 0; j < nbColonnes; j++) {
 				this.plateau[i][j] = new Case(plateau[i][j]);
@@ -68,16 +68,16 @@ public class Carte {
 	public Case getVoisin(Case src, Direction dir) {
 		if (this.voisinExiste(src, dir)) {
 			switch (dir) {
-			case NORD:
-				return(this.plateau[src.getLigne()-1][src.getColonne()]);
-			case SUD:
-				return(this.plateau[src.getLigne()+1][src.getColonne()]);
-			case EST:
-				return(this.plateau[src.getLigne()][src.getColonne()+1]);
-			case OUEST:
-				return(this.plateau[src.getLigne()-1][src.getColonne()-1]);
-			default:
-				return null;
+				case NORD:
+					return (this.plateau[src.getLigne() - 1][src.getColonne()]);
+				case SUD:
+					return (this.plateau[src.getLigne() + 1][src.getColonne()]);
+				case EST:
+					return (this.plateau[src.getLigne()][src.getColonne() + 1]);
+				case OUEST:
+					return (this.plateau[src.getLigne()][src.getColonne() - 1]);
+				default:
+					return null;
 			}
 		}
 		return null; // TODO ERRRREEEEEUUUUR
@@ -88,13 +88,10 @@ public class Carte {
 	}
 
 	public boolean voisinExiste(Case src, Direction dir) {
-		if ((src.getColonne() == 0 && dir == Direction.OUEST)
-				|| (src.getColonne() == (this.nbColonnes - 1) && dir == Direction.EST)
-				|| (src.getLigne() == 0 && dir == Direction.NORD)
-				|| (src.getLigne() == (this.nbLignes - 1) && dir == Direction.SUD)) {
-			return false;
-		}
-		return true;
+		return (src.getColonne() != 0 || dir != Direction.OUEST)
+				&& (src.getColonne() != (this.nbColonnes - 1) || dir != Direction.EST)
+				&& (src.getLigne() != 0 || dir != Direction.NORD)
+				&& (src.getLigne() != (this.nbLignes - 1) || dir != Direction.SUD);
 
 	}
 }

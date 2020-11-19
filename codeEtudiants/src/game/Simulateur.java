@@ -5,8 +5,9 @@ import gui.Simulable;
 
 import java.awt.*;
 import java.util.ArrayList;
-//import java.util.Iterator;
 import java.util.Hashtable;
+
+//import java.util.Iterator;
 
 public class Simulateur implements Simulable {
 	/**
@@ -54,7 +55,7 @@ public class Simulateur implements Simulable {
 		// de pouvoir se deplacer en meme temps
 		// ï¿½ ce moment on recupï¿½re la date de fin du dernier evenement qui fait intervenir ce robot pour donner la date de fin du nouvel evenement
 		if(evenement.getDate()<0) {
-			System.err.println("erreur, date négative");
+			System.err.println("erreur, date nï¿½gative");
 		}
 
 		
@@ -73,6 +74,7 @@ public class Simulateur implements Simulable {
 			evenement.setDate(evenement.getDate() + dateLastEvent);
 			listeEvenement.add(evenement);
 		}
+
 	}
 	
 	public void start() {
@@ -82,7 +84,7 @@ public class Simulateur implements Simulable {
 	private void draw(DonneesSimulation donneesSimulation) {
 		gui.setSimulable(this);
 		gui.reset(); // clear the window
-		System.out.println("-------------------------");
+		//System.out.println("-------------------------");
 		// int cptX = 0;
 		// int cptY = 0;
 
@@ -91,7 +93,7 @@ public class Simulateur implements Simulable {
 				switch (donneesSimulation.getCarte().getCase(i, j).getNature()) {
 					case FORET:
 						gui.addGraphicalElement(
-								new gui.Rectangle(j * tailleCase+this.offsetGauche, i * tailleCase+this.offsetHaut, Color.GREEN, Color.GREEN, tailleCase));
+								new gui.Rectangle(j * tailleCase + this.offsetGauche, i * tailleCase + this.offsetHaut, Color.GREEN, Color.GREEN, tailleCase));
 						break;                                  
 					case TERRAIN_LIBRE:                         
 						gui.addGraphicalElement(                

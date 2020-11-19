@@ -46,21 +46,22 @@ public abstract class Robot {
 			for (Case endroit : cases) {
 				if (endroit.getNature() == NatureTerrain.EAU) {
 					for (Direction direction : Direction.values()) {
-						Case voisin = carte.getVoisin(endroit, direction);
-						if (voisin == null) {
-							continue;
-						}
-						if(voisin.getNature()==NatureTerrain.EAU) {
-							continue;
-						}
-						PlusCourtChemin chemin = new PlusCourtChemin(this, voisin, carte);
-						double temps = chemin.getTempsOptim();
-						if (temps < tempsLePlusRapide) {
-							tempsLePlusRapide = temps;
-							listeChemin.add(chemin);
-						}
-
-					}
+                        Case voisin = carte.getVoisin(endroit, direction);
+                        if (voisin == null) {
+                            continue;
+                        }
+                        if (voisin.getNature() == NatureTerrain.EAU) {
+                            continue;
+                        }
+                        PlusCourtChemin chemin = new PlusCourtChemin(this, voisin, carte);
+                        if (chemin.getTempsOptim() != 0) {
+                            double temps = chemin.getTempsOptim();
+                            if (temps < tempsLePlusRapide) {
+                                tempsLePlusRapide = temps;
+                                listeChemin.add(chemin);
+                            }
+                        }
+                    }
 				}
 			}
 		}

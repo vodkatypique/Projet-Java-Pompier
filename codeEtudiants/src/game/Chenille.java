@@ -55,9 +55,7 @@ public class Chenille extends Robot {
 	@Override
 	boolean peutAtteindre(Case position) {
 		// TODO Auto-generated method stub
-		if(position.getNature() == NatureTerrain.EAU || position.getNature() == NatureTerrain.ROCHE)
-			return false;
-		return true;
+		return position.getNature() != NatureTerrain.EAU && position.getNature() != NatureTerrain.ROCHE;
 	}
 
 

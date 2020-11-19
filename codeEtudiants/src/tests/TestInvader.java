@@ -1,12 +1,14 @@
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+package tests;
 
 import gui.GUISimulator;
 import gui.Rectangle;
 import gui.Simulable;
 import gui.Text;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 
 public class TestInvader {
@@ -47,10 +49,11 @@ class Invader implements Simulable {
     private Iterator<Integer> yIterator;
 
     /**
-     * Crée un Invader et le dessine.
-     * @param gui l'interface graphique associée, dans laquelle se fera le
-     * dessin et qui enverra les messages via les méthodes héritées de
-     * Simulable.
+     * Crée un tests.Invader et le dessine.
+     *
+     * @param gui   l'interface graphique associée, dans laquelle se fera le
+     *              dessin et qui enverra les messages via les méthodes héritées de
+     *              Simulable.
      * @param color la couleur de l'invader
      */
     public Invader(GUISimulator gui, Color invaderColor) {

@@ -14,28 +14,26 @@ public class Test {
 	public static void main(String[] args) throws FileNotFoundException, DataFormatException {
 
 		if (args.length < 1) {
-			System.out.println("Syntaxe: java TestLecteurDonnees <nomDeFichier>");
+			//System.out.println("Syntaxe: java tests.TestLecteurDonnees <nomDeFichier>");
 			System.exit(1);
 		}
 
 		DonneesSimulation donneesSimulation;
 		try {
 
-            donneesSimulation = LecteurDonnees.creeDonnees(args[0]);
-            for (Robot r : donneesSimulation.getRobots())
-                System.out.println(r);
-            GUISimulator gui = new GUISimulator(
-                    donneesSimulation.getCarte().getNbLignes() * 20,
-                    donneesSimulation.getCarte().getNbLignes() * 20,
-                    Color.BLACK);
+			donneesSimulation = LecteurDonnees.creeDonnees(args[0]);
+			GUISimulator gui = new GUISimulator(
+					donneesSimulation.getCarte().getNbLignes() * 20,
+					donneesSimulation.getCarte().getNbLignes() * 20,
+					Color.BLACK);
 
-            //scenario0(gui, donneesSimulation);
-            //scenario1(gui, donneesSimulation);
-            //verifiePlusCourtChemin(gui, donneesSimulation);
-            scenario0(gui, donneesSimulation);
+			//scenario0(gui, donneesSimulation);
+			//scenario1(gui, donneesSimulation);
+			//verifiePlusCourtChemin(gui, donneesSimulation);
+			scenario0(gui, donneesSimulation);
 
 
-        } catch (FileNotFoundException | IllegalAccessException | InstantiationException | IllegalArgumentException
+		} catch (FileNotFoundException | IllegalAccessException | InstantiationException | IllegalArgumentException
 				| InvocationTargetException | DataFormatException e) {
 			e.printStackTrace();
 		}

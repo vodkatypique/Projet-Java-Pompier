@@ -1,5 +1,7 @@
 package io;
 
+import game.*;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
@@ -8,13 +10,6 @@ import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.zip.DataFormatException;
-
-import game.Carte;
-import game.Case;
-import game.DonneesSimulation;
-import game.Incendie;
-import game.NatureTerrain;
-import game.Robot;
 
 
 
@@ -56,7 +51,7 @@ public class LecteurDonnees {
      */
    /* public static void lire(String fichierDonnees)
         throws FileNotFoundException, DataFormatException {
-        System.out.println("\n == Lecture du fichier" + fichierDonnees);
+        //System.out.println("\n == Lecture du fichier" + fichierDonnees);
         LecteurDonnees lecteur = new LecteurDonnees(fichierDonnees);
 
 
@@ -65,11 +60,11 @@ public class LecteurDonnees {
         lecteur.lireIncendies(donneesSimulation);
         lecteur.lireRobots(donneesSimulation);
         scanner.close();
-        System.out.println("\n == Lecture terminee");
+        //System.out.println("\n == Lecture terminee");
     }*/
     public static DonneesSimulation creeDonnees(String fichierDonnees)
             throws FileNotFoundException, DataFormatException, IllegalAccessException, InstantiationException, IllegalArgumentException, InvocationTargetException {
-        System.out.println("\n == Lecture du fichier" + fichierDonnees);
+        //System.out.println("\n == Lecture du fichier" + fichierDonnees);
         LecteurDonnees lecteur = new LecteurDonnees(fichierDonnees);
 
 
@@ -80,7 +75,7 @@ public class LecteurDonnees {
         scanner.close();
 
 
-        System.out.println("\n == Lecture terminee");
+        //System.out.println("\n == Lecture terminee");
 
         return donneesSimulation;
     }
@@ -138,7 +133,7 @@ public class LecteurDonnees {
     private Case creeCase(int lig, int col) throws DataFormatException {
         ignorerCommentaires();
         //System.out.print("game.Case (" + lig + "," + col + "): ");
-        String chaineNature = new String();
+        String chaineNature = "";
         //		game.NatureTerrain nature;
 
         try {
@@ -157,12 +152,12 @@ public class LecteurDonnees {
                     + "Attendu: nature altitude [valeur_specifique]");
         }
 
-        //System.out.println();
+        ////System.out.println();
     }
 
 
     /**
-     * Lit et crée les donnees des incendies.
+     * Lit et crï¿½e les donnees des incendies.
      */
     private ArrayList<Incendie> creeIncendies(Carte carte) throws DataFormatException {
         ignorerCommentaires();
@@ -171,7 +166,7 @@ public class LecteurDonnees {
 
             ArrayList<Incendie> incendies = new ArrayList<Incendie>();
 
-            //System.out.println("Nb d'incendies = " + nbIncendies);
+            ////System.out.println("Nb d'incendies = " + nbIncendies);
             for (int i = 0; i < nbIncendies; i++) {
                 incendies.add(creeIncendie(carte));
             }
@@ -203,7 +198,7 @@ public class LecteurDonnees {
             }
             verifieLigneTerminee();
 
-            //System.out.println("position = (" + lig + "," + col
+            ////System.out.println("position = (" + lig + "," + col
             //        + ");\t intensite = " + intensite);
             Incendie incendie = new Incendie(carte.getCase(lig, col), intensite);
             return incendie;
@@ -228,7 +223,7 @@ public class LecteurDonnees {
             int nbRobots = scanner.nextInt();
             ArrayList<Robot> robots = new ArrayList<Robot>();
 
-            //System.out.println("Nb de robots = " + nbRobots);
+            ////System.out.println("Nb de robots = " + nbRobots);
             for (int i = 0; i < nbRobots; i++) {
                 robots.add(creeRobot(carte));
             }
@@ -273,17 +268,15 @@ public class LecteurDonnees {
             }
             type = type.toLowerCase();
             type = type.substring(0, 1).toUpperCase() + type.substring(1);
-            //System.out.println(type);
-            //System.out.println(lig + " " + col);
+            ////System.out.println(type);
+            ////System.out.println(lig + " " + col);
             if (s == null) {
                 //System.out.print("valeur par defaut");
                 robot = (Robot) Class
                         .forName("game." + type)
                         .getConstructor(Case.class)
                         .newInstance(carte.getCase(lig, col));
-            } 
-            
-            else {
+            } else {
                 int vitesse = Integer.parseInt(s);
                 //System.out.print(vitesse);
                 robot = (Robot) Class
@@ -310,7 +303,7 @@ public class LecteurDonnees {
                 } else if (type.equals("PATTES")) {
                     robot = new Patte(carte.getCase(lig, col), vitesse);
                 } else { //chenilles
-                    System.out.println(type);
+                    //System.out.println(type);
                     robot = new Chenille(carte.getCase(lig, col), vitesse);
                 }*/
 
@@ -319,7 +312,7 @@ public class LecteurDonnees {
 
             verifieLigneTerminee();
 
-            System.out.println();
+            //System.out.println();
             return robot;
 
         } catch (NoSuchElementException | ClassNotFoundException | NoSuchMethodException e) {

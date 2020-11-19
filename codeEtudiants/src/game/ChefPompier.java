@@ -39,6 +39,7 @@ public class ChefPompier {
 
 			Robot robotLePlusRapide = null;
 			double temps = Double.MAX_VALUE;
+
 			for (Robot robot : this.robots) {
 				if (robot.getOccupationRobot().getOccupationGenerale()) {
 					continue;
@@ -57,13 +58,14 @@ public class ChefPompier {
 					listChemin.add(plusCourt);
 					index++;
 					temps = plusCourt.getTempsOptim();
+
 					continue;
 				}
 				PlusCourtChemin nouveauPlusCourt = new PlusCourtChemin(robot, aEteindre.getPosition(), carte);
 				listChemin.add(nouveauPlusCourt);
 				double nouveauTemps = nouveauPlusCourt.getTempsOptim();
-				
-				if (temps > nouveauTemps) {
+
+				if (temps > nouveauTemps || temps == 0) {
 					robotLePlusRapide = robot;
 					indexRobotRapide = index;
 					temps = nouveauTemps;

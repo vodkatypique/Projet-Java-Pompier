@@ -26,20 +26,18 @@ public class Case {
 	}
 	@Override
 	public boolean equals(Object o) {
-		if(this ==  o)
+		if (this == o)
 			return true;
-		if(o == null)
+		if (o == null)
 			return false;
-		if(this.getClass() != o.getClass())
+		if (this.getClass() != o.getClass())
 			return false;
-		Case ca = (Case)o;
-		if(this.ligne == ca.getLigne() && this.colonne == ca.getColonne() && this.nature == ca.getNature())
-			return true;
-		return false;
+		Case ca = (Case) o;
+		return this.ligne == ca.getLigne() && this.colonne == ca.getColonne() && this.nature == ca.getNature();
 	}
 	
 	public Direction getDirection(int lig, int col) {
-		// direction pour arriver à la case en lig et col voisine
+		// direction pour arriver ï¿½ la case en lig et col voisine
 		if(this.getLigne() == lig - 1)
 			return Direction.SUD;
 		if(this.getLigne() == lig + 1)

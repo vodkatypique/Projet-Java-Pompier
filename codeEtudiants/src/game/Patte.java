@@ -61,10 +61,8 @@ public class Patte extends Robot {
 
 	@Override
 	boolean peutAtteindre(Case position) {
-		// TODO Auto-generated method stub
-		if(position.getNature() == NatureTerrain.EAU)
-			return false;
-		return true;
-	}
+        // TODO Auto-generated method stub
+        return position.getNature() != NatureTerrain.EAU;
+    }
 
 }

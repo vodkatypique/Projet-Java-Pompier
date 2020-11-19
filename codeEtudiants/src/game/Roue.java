@@ -44,9 +44,7 @@ public class Roue extends Robot {
 
 	@Override
 	public boolean peutAtteindre(Case position) {
-		// TODO Auto-generated method stub
-		if(position.getNature() == NatureTerrain.TERRAIN_LIBRE || position.getNature() == NatureTerrain.HABITAT)
-			return true;
-		return false;
-	}
+        // TODO Auto-generated method stub
+        return position.getNature() == NatureTerrain.TERRAIN_LIBRE || position.getNature() == NatureTerrain.HABITAT;
+    }
 }

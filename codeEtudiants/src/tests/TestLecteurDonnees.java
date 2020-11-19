@@ -1,3 +1,5 @@
+package tests;
+
 import game.DonneesSimulation;
 import io.LecteurDonnees;
 
@@ -9,22 +11,21 @@ public class TestLecteurDonnees {
 
     public static void main(String[] args) {
         if (args.length < 1) {
-            System.out.println("Syntaxe: java TestLecteurDonnees <nomDeFichier>");
+            //System.out.println("Syntaxe: java tests.TestLecteurDonnees <nomDeFichier>");
             System.exit(1);
         }
 
         try {
-				DonneesSimulation donneesSimulation = LecteurDonnees.creeDonnees(args[0]);
+            DonneesSimulation donneesSimulation = LecteurDonnees.creeDonnees(args[0]);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (DataFormatException e) {
             e.printStackTrace();
+        } catch (IllegalAccessException | InstantiationException | IllegalArgumentException
+                | InvocationTargetException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
-        catch (IllegalAccessException | InstantiationException | IllegalArgumentException
-				| InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
     }
 
 }
