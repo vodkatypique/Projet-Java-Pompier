@@ -1,3 +1,12 @@
+/*
+ * DonneesSimulation
+ * 
+ * 1.0
+ *
+ * 20/11/2020
+ * 
+ * Benjamin Cathelineau, Clément Caffin, Brown Ebouky
+ */
 package game;
 
 import java.util.ArrayList;
@@ -24,42 +33,6 @@ public class DonneesSimulation {
     }
 
     /**
-     * Instantiates a new Donnees simulation.
-     *
-     * @param donnees the donnees
-     */
-    public DonneesSimulation(DonneesSimulation donnees) {
-        this.incendies = new ArrayList<Incendie>();
-        this.robots = new ArrayList<>();
-        for (Incendie inc : donnees.getIncendies()) {
-            this.incendies.add(new Incendie(inc));
-        }
-        for (Robot r : donnees.getRobots()) {
-    		/*this.robots.add((Robot) Class
-            .forName("game." + r.getClass())
-            .getConstructor(Robot.class)
-            .newInstance(r));*/
-            // pourra ï¿½tre modifiï¿½ pour ï¿½tre plus propre
-            if(r instanceof Drone) {
-                this.robots.add(new Drone((Drone)r));
-                continue;
-            }
-            if(r instanceof Patte) {
-                this.robots.add(new Patte((Patte)r));
-                continue;
-            }
-            if (r instanceof Roue) {
-                this.robots.add(new Roue((Roue) r));
-                continue;
-            }
-            this.robots.add(new Chenille((Chenille) r));
-
-        }
-        this.carte = new Carte(donnees.getCarte());
-    }
-
-
-    /**
      * Gets incendies.
      *
      * @return the incendies
@@ -83,29 +56,6 @@ public class DonneesSimulation {
             }
         }
         return incendieRetour;
-    }
-
-    /**
-     * Init incendies.
-     */
-    public void initIncendies() {
-        this.incendies = new ArrayList<Incendie>();
-    }
-
-    /**
-     * Init robots.
-     */
-    public void initRobots() {
-        this.robots = new ArrayList<Robot>();
-    }
-
-    /**
-     * Add robot.
-     *
-     * @param robot the robot
-     */
-    public void addRobot(Robot robot) {
-        this.robots.add(robot);
     }
 
     /**

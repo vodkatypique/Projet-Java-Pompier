@@ -1,3 +1,12 @@
+/*
+ * Simulateur
+ * 
+ * 1.0
+ *
+ * 20/11/2020
+ * 
+ * Benjamin Cathelineau, Clément Caffin, Brown Ebouky
+ */
 package game;
 
 import gui.GUISimulator;
@@ -7,14 +16,13 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
-//import java.util.Iterator;
 
 /**
  * The type Simulateur.
  */
 public class Simulateur implements Simulable {
 	/**
-	 * L'interface graphique associÃ©e
+	 * L'interface graphique associée
 	 */
 	private GUISimulator gui;
 	private DonneesSimulation donneesSimulation;
@@ -27,7 +35,7 @@ public class Simulateur implements Simulable {
 	ChefPompier chefPompier;
 
 	/**
-	 * CrÃ©e un Invader et le dessine.
+	 * Le simulateur principal
 	 *
 	 * @param gui     l'interface graphique associÃ©e, dans laquelle se fera le dessin              et qui enverra les messages via les mÃ©thodes hÃ©ritÃ©es de              Simulable.
 	 * @param donnees the donnees
@@ -71,9 +79,6 @@ public class Simulateur implements Simulable {
 	 * @param robot     the robot
 	 */
 	public void ajouteEvenement(Evenement evenement, Robot robot) {
-		// on peut aussi utiliser un hashmap si on veut rendre l'execution parallï¿½le cad donner la possibilite ï¿½ deux robots
-		// de pouvoir se deplacer en meme temps
-		// ï¿½ ce moment on recupï¿½re la date de fin du dernier evenement qui fait intervenir ce robot pour donner la date de fin du nouvel evenement
 		if (evenement.getDate() < 0) {
 			System.err.println("erreur, date nï¿½gative");
 		}
@@ -106,9 +111,6 @@ public class Simulateur implements Simulable {
 	private void draw(DonneesSimulation donneesSimulation) {
 		gui.setSimulable(this);
 		gui.reset(); // clear the window
-		//System.out.println("-------------------------");
-		// int cptX = 0;
-		// int cptY = 0;
 
 		for (int i = 0; i < donneesSimulation.getCarte().getNbLignes(); i++) {
 			for (int j = 0; j < donneesSimulation.getCarte().getNbColonnes(); j++) {
@@ -135,7 +137,6 @@ public class Simulateur implements Simulable {
 						break;
 				}
 			}
-			// cptY++;
 		}
 
 		for (Incendie incendie : donneesSimulation.getIncendies()) {
@@ -162,12 +163,15 @@ public class Simulateur implements Simulable {
 		if (this.chefPompier != null) {
 			chefPompier.boucleExtinction();
 		}
-
+		
 		++this.dateSimulation;
 		System.err.println(this.dateSimulation);
-		for (Robot robot : this.chefPompier.getRobots()) {
+		for (Robot robot : this.donneesSimulation.getRobots()) {
 			ArrayList<Evenement> listeEvenement=this.evenements.get(robot);
-			if(listeEvenement.isEmpty()) {
+			if(listeEvenement==null) {
+				continue;
+			}
+			if(listeEvenement.isEmpty()) {//TODO ça marche mais c'est pas clean, au pire on peut laisser
 				robot.getOccupationRobot().setOccupationGenerale(false);
 			}
 			ArrayList<Evenement> nouvelListeEvenement=new ArrayList<Evenement>();
@@ -184,6 +188,10 @@ public class Simulateur implements Simulable {
 		}
 
 		this.draw(this.donneesSimulation);
+		if(this.simulationTerminee()) {
+			System.out.println("BRAVO tout les incendies sont éteints par les robots");
+			System.exit(0);
+		}
 	}
 
 	/**
@@ -221,25 +229,18 @@ public class Simulateur implements Simulable {
 	 */
 	public boolean simulationTerminee() {
 		return this.donneesSimulation.getIncendies().isEmpty();
-		//return this.evenements.isEmpty();
-//		for(Evenement ev: this.evenements)  {
-//			if(ev.getDate() > this.dateSimulation) {
-//				return false;
-//			}
-//		}
-//		return true;
 	}
 
 	/**
 	 * Restart.
 	 */
 	@Override
-	public void restart() {
-		// TODO Auto-generated method stub
+	public void restart() {//TODO marche pas
 		this.dateSimulation = 0;
 		for (Robot robot : this.donneesSimulation.getRobots()) {
 			robot.resetReservoir();
 			robot.resetPosition(this.donneesSimulation);
+			this.evenements.remove(robot);
 		}
 		for (Incendie inc : this.donneesSimulation.getIncendies())
 			inc.resetIntensite();

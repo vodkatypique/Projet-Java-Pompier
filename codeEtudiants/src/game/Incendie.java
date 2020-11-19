@@ -20,16 +20,6 @@ public class Incendie {
         this.intensiteInit = intensite;
     }
 
-    /**
-     * Instantiates a new Incendie.
-     *
-     * @param inc the inc
-     */
-    public Incendie(Incendie inc) {
-        this.position = new Case(inc.getPosition());
-        this.intensite = inc.getIntensite();
-        this.intensiteInit = this.intensite;
-    }
 
 
     /**
@@ -38,7 +28,7 @@ public class Incendie {
      * @param intensite the intensite
      */
     public void decrementeIntensite(double intensite) {
-        this.intensite -= intensite;//on dÃ©cremente
+        this.intensite -= intensite;//on décremente
     }
 
     /**

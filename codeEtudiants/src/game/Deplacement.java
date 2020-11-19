@@ -4,7 +4,7 @@ package game;
 /**
  * The type Debut deplacement.
  */
-public class DebutDeplacement extends EvenementDebutAbstrait {//TODO début déplacement fin déplacement, vitesse
+public class Deplacement extends EvenementRobotAbstrait {
 	/**
 	 * The Direction.
 	 */
@@ -13,52 +13,19 @@ public class DebutDeplacement extends EvenementDebutAbstrait {//TODO début dép
 	 * The Donnees simulation.
 	 */
 	DonneesSimulation donneesSimulation;
-
 	/**
-	 * Instantiates a new Debut deplacement.
-	 *
-	 * @param date              the date
-	 * @param direction         the direction
-	 * @param robot             the robot
-	 * @param donneesSimulation the donnees simulation
-	 * @param simulateur        the simulateur
-	 */
-	public DebutDeplacement(long date, Direction direction, Robot robot, DonneesSimulation donneesSimulation, Simulateur simulateur) {
-		super(date, robot, simulateur);
-		this.direction = direction;
-		this.donneesSimulation = donneesSimulation;
-		double vitesse = this.getRobot().getVitesse(this.getRobot().getPosition().getNature());
-		////System.out.println("Vitesse " + vitesse);
-		this.donneesSimulation.getCarte();
-		double distance = donneesSimulation.getCarte().getDistanceEntreCase();
-		long ldateFin;
-		if (vitesse == 0)
-			ldateFin = this.getDate();
-		else
-			ldateFin = (long) (distance / ((vitesse * Math.pow(10, 3)) / 60)) + this.getDate();//ceci parce que la vitesse est en km/h
-		//this.setDateFin(ldateFin);
-		if ((ldateFin - this.getDate()) > 50) {
-			System.err.println("c");
-		}
-		this.setDate(ldateFin);
-		//System.out.println("Date fin Deplacement ::: " + this.getDate() + "  " + this);
-	}
-
-	/**
-	 * Instantiates a new Debut deplacement.
+	 * Instantiates a new D�placement.
 	 *
 	 * @param direction         the direction
 	 * @param robot             the robot
 	 * @param donneesSimulation the donnees simulation
 	 * @param simulateur        the simulateur
 	 */
-	public DebutDeplacement(Direction direction, Robot robot, DonneesSimulation donneesSimulation, Simulateur simulateur) {
-		// TODO Auto-generated constructor stub
+	public Deplacement(Direction direction, Robot robot, DonneesSimulation donneesSimulation, Simulateur simulateur) {
 		super(robot, simulateur);
 		this.direction = direction;
 		this.donneesSimulation = donneesSimulation;
 		double vitesse = this.getRobot().getVitesse(this.getRobot().getPosition().getNature());
-		//System.out.println("Vitesse " + vitesse);
 		this.donneesSimulation.getCarte();
 		double distance = this.donneesSimulation.getCarte().getDistanceEntreCase();
 		long ldateFin;
@@ -66,9 +33,7 @@ public class DebutDeplacement extends EvenementDebutAbstrait {//TODO début dép
 			ldateFin = this.getDate();
 		else
 			ldateFin = (long) (distance / ((vitesse * Math.pow(10, 3)) / 60));//la vitesse est km/h
-		//this.setDateFin(ldateFin);
 		this.setDate(ldateFin);
-		////System.out.println("Date fin Deplacement ::: " + this.getDate() + " " + this);
 
 	}
 

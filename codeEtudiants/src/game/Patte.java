@@ -4,25 +4,8 @@ package game;
  * The type Patte.
  */
 public class Patte extends Robot {
-	/**
-	 * Instantiates a new Patte.
-	 *
-	 * @param position the position
-	 * @param vitesse  the vitesse
-	 */
-	public Patte(Case position, Integer vitesse) {
-		super(position, vitesse != null ? vitesse : 30);
-	}
 
 
-	/**
-	 * Instantiates a new Patte.
-	 *
-	 * @param pa the pa
-	 */
-	public Patte(Patte pa) {
-		super(pa);
-	}
 
 	/**
 	 * Instantiates a new Patte.
@@ -40,7 +23,6 @@ public class Patte extends Robot {
 	 */
 	@Override
 	public void setVitesse(double vitesse) {//la vitesse ne varie pas pour ce type de robot
-		// TODO Auto-generated method stub
 		super.setVitesse(30);
 	}
 
@@ -97,7 +79,6 @@ public class Patte extends Robot {
 	 */
 	@Override
 	public boolean peutRemplir(Carte carte) {
-		// TODO Auto-generated method stub
 		return Boolean.FALSE;
 	}
 
@@ -108,7 +89,6 @@ public class Patte extends Robot {
 	 */
 	@Override
 	public double dureeDeversementUnitaire() {
-		// TODO Auto-generated method stub
 		return 1.0 / 10;
 	}
 
@@ -120,7 +100,6 @@ public class Patte extends Robot {
 	 */
 	@Override
 	double getVitesseDefault() {
-		// TODO Auto-generated method stub
 		return 30.0;
 	}
 
@@ -133,7 +112,6 @@ public class Patte extends Robot {
 	 */
 	@Override
 	boolean peutAtteindre(Case position) {
-		// TODO Auto-generated method stub
 		return position.getNature() != NatureTerrain.EAU;
 	}
 

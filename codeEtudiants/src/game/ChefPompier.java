@@ -78,12 +78,12 @@ public class ChefPompier {
 					robot.getOccupationRobot().setOccupationGenerale(true);
 					PlusCourtChemin directionEau=robot.chercherEau(carte);
 					directionEau.deplaceVersCase(this.simulateur);
-					this.simulateur.ajouteEvenement(new DebutRemplissageReservoir( robot, this.simulateur),robot);
+					this.simulateur.ajouteEvenement(new RemplissageReservoir( robot, this.simulateur),robot);
 					continue;
 				}
 				if (robotLePlusRapide == null) {
 					robotLePlusRapide = robot;
-					PlusCourtChemin plusCourt = new PlusCourtChemin(robot, aEteindre.getPosition(), carte);// TODO temps du plus court chemin
+					PlusCourtChemin plusCourt = new PlusCourtChemin(robot, aEteindre.getPosition(), carte);
 					indexRobotRapide = 0;
 					listChemin.add(plusCourt);
 					index++;
@@ -108,7 +108,7 @@ public class ChefPompier {
 			}
 			robotLePlusRapide.getOccupationRobot().setOccupationGenerale(true);
 			listChemin.get(indexRobotRapide).deplaceVersCase(this.simulateur);
-			simulateur.ajouteEvenement(new DebutExtinctionFeu(robotLePlusRapide, aEteindre.getIntensite(),this.simulateur, this.simulateur.getDonneesSimulation()),robotLePlusRapide);
+			simulateur.ajouteEvenement(new ExtinctionFeu(robotLePlusRapide, aEteindre.getIntensite(),this.simulateur, this.simulateur.getDonneesSimulation()),robotLePlusRapide);
 			robotLePlusRapide = null;
 		}
 

@@ -5,24 +5,7 @@ package game;
  */
 //vitesseMax=80
 public class Chenille extends Robot {
-	/**
-	 * Instantiates a new Chenille.
-	 *
-	 * @param position the position
-	 * @param vitesse  the vitesse
-	 */
-	public Chenille(Case position, Integer vitesse) {
-		super(position, vitesse != null ? vitesse : 60);
-	}
 
-	/**
-	 * Instantiates a new Chenille.
-	 *
-	 * @param c the c
-	 */
-	public Chenille(Chenille c) {
-		super(c);
-	}
 
 	/**
 	 * Instantiates a new Chenille.
@@ -65,7 +48,6 @@ public class Chenille extends Robot {
 	 */
 	@Override
 	double getReservoirMax() {
-		// TODO Auto-generated method stub
 		return 2000;
 	}
 
@@ -76,7 +58,6 @@ public class Chenille extends Robot {
 	 */
 	@Override
 	double tempRemplissage() {
-		// TODO Auto-generated method stub
 		return 5;
 	}
 
@@ -97,7 +78,6 @@ public class Chenille extends Robot {
 	 */
 	@Override
 	double getVitesseDefault() {
-		// TODO Auto-generated method stub
 		return 60.0;
 	}
 
@@ -109,7 +89,6 @@ public class Chenille extends Robot {
 	 */
 	@Override
 	boolean peutAtteindre(Case position) {
-		// TODO Auto-generated method stub
 		return position.getNature() != NatureTerrain.EAU && position.getNature() != NatureTerrain.ROCHE;
 	}
 

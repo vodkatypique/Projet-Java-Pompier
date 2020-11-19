@@ -43,7 +43,6 @@ public class Sommet implements Comparable<Sommet> {
 	 */
 	@Override
 	public int compareTo(Sommet o) {
-		// TODO Auto-generated method stub
 		if (this.temps > o.getTemps())
 			return 1;
 		else if (this.temps < o.getTemps())

@@ -4,26 +4,9 @@ package game;
  * The type Roue.
  */
 public class Roue extends Robot {
-	/**
-	 * Instantiates a new Roue.
-	 *
-	 * @param position the position
-	 * @param vitesse  the vitesse
-	 */
-	public Roue(Case position, Integer vitesse) {
-		super(position, vitesse != null ? vitesse : 80);
 
 
-	}
 
-	/**
-	 * Instantiates a new Roue.
-	 *
-	 * @param roue the roue
-	 */
-	public Roue(Roue roue) {
-		super(roue);
-	}
 
 	/**
 	 * Instantiates a new Roue.
@@ -82,7 +65,6 @@ public class Roue extends Robot {
 	 */
 	@Override
 	public double getVitesseDefault() {
-		// TODO Auto-generated method stub
 		return 80.0;
 	}
 
@@ -94,7 +76,6 @@ public class Roue extends Robot {
 	 */
 	@Override
 	public boolean peutAtteindre(Case position) {
-		// TODO Auto-generated method stub
 		return position.getNature() == NatureTerrain.TERRAIN_LIBRE || position.getNature() == NatureTerrain.HABITAT;
 	}
 }

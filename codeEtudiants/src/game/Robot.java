@@ -17,38 +17,6 @@ public abstract class Robot {
 	 * Instantiates a new Robot.
 	 *
 	 * @param position the position
-	 * @param vitesse  the vitesse
-	 */
-	public Robot(Case position, int vitesse) {//TODO cleanup les constructeurs
-
-		this.position = position;
-		this.positionInit = new Case(this.position);
-		setVitesse(vitesse);
-		// au depart son reservoir n'est pas vide, il est considere plein
-		setResevoir(getReservoirMax());
-		this.reservoirInit = this.reservoir;
-		this.occupationRobot = new OccupationRobot(0);
-	}
-
-	/**
-	 * Instantiates a new Robot.
-	 *
-	 * @param r the r
-	 */
-	public Robot(Robot r) {
-		this.position = new Case(r.getPosition());
-		this.positionInit = new Case(this.position);
-		this.vitesse = r.getVitesse(r.getPosition().getNature());
-		this.reservoir = r.getReservoir();
-		this.reservoirInit = this.reservoir;
-		this.occupationRobot = new OccupationRobot(0);
-
-	}
-
-	/**
-	 * Instantiates a new Robot.
-	 *
-	 * @param position the position
 	 */
 	public Robot(Case position) {
 		this.position = new Case(position);
@@ -125,7 +93,7 @@ public abstract class Robot {
 	 * @param carte the carte
 	 * @return the boolean
 	 */
-	public boolean peutRemplir(Carte carte) {// TODO rewrite using carte.getvoisin
+	public boolean peutRemplir(Carte carte) {
 		Boolean peutRemplir = Boolean.FALSE;
 		int lig = this.position.getLigne();
 		int col = this.position.getColonne();

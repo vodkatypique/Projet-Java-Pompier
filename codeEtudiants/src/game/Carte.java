@@ -1,3 +1,12 @@
+/*
+ * Carte
+ * 
+ * 1.0
+ *
+ * 20/11/2020
+ * 
+ * Benjamin Cathelineau, Clément Caffin, Brown Ebouky
+ */
 package game;
 
 
@@ -12,19 +21,6 @@ public class Carte {
 
 	private Case[][] plateau;
 
-	/**
-	 * Instantiates a new Carte.
-	 *
-	 * @param nbLignes    the nb lignes
-	 * @param nbColonnes  the nb colonnes
-	 * @param tailleCases the taille cases
-	 */
-	public Carte(int nbLignes, int nbColonnes, int tailleCases) {
-		this.nbLignes = nbLignes;
-		this.nbColonnes = nbColonnes;
-		this.tailleCases = tailleCases;
-		this.plateau = new Case[nbLignes][nbColonnes];
-	}
 
 	/**
 	 * Instantiates a new Carte.
@@ -48,25 +44,6 @@ public class Carte {
 			}
 		}
 	}
-
-	/**
-	 * Instantiates a new Carte.
-	 * Creation depuis une autre Carte, on copie juste chaque champs
-	 *
-	 * @param ca the carte a copier
-	 */
-	public Carte(Carte ca) {
-		this.nbLignes = ca.getNbLignes();
-		this.nbColonnes = ca.getNbColonnes();
-		this.tailleCases = ca.getTailleCases();
-		this.plateau = new Case[nbLignes][nbColonnes];
-		for (int i = 0; i < nbLignes; i++) {
-			for (int j = 0; j < nbColonnes; j++) {
-				this.plateau[i][j] = new Case(ca.getPlateau()[i][j]);
-			}
-		}
-	}
-
 	/**
 	 * Gets distance entre case.
 	 *
@@ -74,6 +51,7 @@ public class Carte {
 	 */
 	public double getDistanceEntreCase() {// en metres
 		return this.tailleCases;
+		
 	}
 
 	/**

@@ -5,6 +5,7 @@ package game;
  */
 public abstract class EvenementRobotAbstrait extends Evenement {
 	private Robot robot;
+	private Simulateur simulateur;
 
 	/**
 	 * Instantiates a new Evenement robot abstrait.
@@ -28,12 +29,26 @@ public abstract class EvenementRobotAbstrait extends Evenement {
 	}
 
 	/**
+	 * Instantiates a new Evenement robot abstrait.
+	 *
+	 * @param robot the robot
+	 */
+	public EvenementRobotAbstrait(Robot robot,Simulateur simulateur) {
+		super(robot);
+		this.robot = robot;
+		this.simulateur=simulateur;
+	}
+	/**
 	 * Gets robot.
 	 *
 	 * @return the robot
 	 */
 	public Robot getRobot() {
 		return this.robot;
+	}
+
+	public Simulateur getSimulateur() {
+		return simulateur;
 	}
 
 

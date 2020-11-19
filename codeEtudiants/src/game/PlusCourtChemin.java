@@ -43,11 +43,16 @@ public class PlusCourtChemin {
 		this.robot = robot;
 		plusCourtChemin();
 	}
-
+	/**
+	 * Implémentation de dijkstra
+	 *
+	 * 
+	 * 
+	 * 
+	 */
 	private void plusCourtChemin() {
 		ArrayList<Sommet> ouverts = new ArrayList<>();
 		ArrayList<Sommet> fermes = new ArrayList<>();
-		//System.out.println("depart position " + depart.getPosition());
 		ouverts.add(this.depart);
 
 		while (ouverts.size() != 0) {
@@ -65,31 +70,33 @@ public class PlusCourtChemin {
 				// calcul du temps pour le robot de se deplacer de sa case vers une case voisine
 				double temp = distance / ((this.robot.getVitesse(s.getPosition().getNature()) * Math.pow(10, 3)) / 60);
 				updateTemps(courant, s, temp, ouverts, fermes);
-				//ouverts.add(s);
 			}
 
 			fermes.add(courant);
 		}
-		//constitueChemin(fermes.get(fermes.indexOf(goal)));
 
 		if(this.chemin.size() == 0)
-			System.err.println("Pas de plus cours chemin jusqu'ï¿½ cette destination");
+			System.err.println("Pas de plus cours chemin jusqu'à cette destination");
 
 	}
-
+	/**
+	 * 
+	 * @param pere
+	 * @param enfant
+	 * @param temps
+	 * @param ouverts
+	 * @param fermes
+	 */
 	private void updateTemps(Sommet pere, Sommet enfant, double temps, ArrayList<Sommet> ouverts, ArrayList<Sommet> fermes) {
 		double temp;
 		Sommet enfantExact;
 		if(fermes.contains(enfant)) {
 			enfantExact = fermes.get(fermes.indexOf(enfant));
 			temp = enfantExact.getTemps();
-			//System.out.println("J'ï¿½tais deja dans fermes");
 			if (temp > pere.getTemps() + temps) {
 				enfantExact.setTemps(pere.getTemps() + temps);
 				enfantExact.setParent(pere);
 				ouverts.add(enfantExact);
-				////System.out.println("voisin position " + enfantExact.getPosition() + " parent " + enfantExact.getParent().getPosition());
-				////System.out.println("J'ï¿½tais deja dans fermes et je repart dans ouvert");
 				fermes.remove(enfantExact);
 				return;
 			}
@@ -99,11 +106,9 @@ public class PlusCourtChemin {
 		if(ouverts.contains(enfant)) {
 			enfantExact = ouverts.get(ouverts.indexOf(enfant));
 			temp = enfantExact.getTemps();
-			//System.out.println("J'ï¿½tais deja dans ouverts");
 			if (temp > pere.getTemps() + temps) {
 				enfantExact.setTemps(pere.getTemps() + temps);
 				enfantExact.setParent(pere);
-				//System.out.println("voisin position " + enfantExact.getPosition() + " parent " + enfantExact.getParent().getPosition());
 				return;
 			}
 			// dans le cas contraire on ne fait rien
@@ -120,7 +125,7 @@ public class PlusCourtChemin {
 	/**
 	 * Deplace vers case.
 	 *
-	 * @param sim the sim
+	 * @param sim le Simulateur
 	 */
 	public void deplaceVersCase(Simulateur sim) {
 		if (this.chemin.size() == 0) {
@@ -135,7 +140,7 @@ public class PlusCourtChemin {
 			// on prend l'ï¿½lï¿½ment suivant de la liste
 			Sommet suivant= s.pop();
 			Case suiv = suivant.getPosition();
-			sim.ajouteEvenement(new DebutDeplacement( temp.getDirection(suiv.getLigne(), suiv.getColonne()), this.robot,sim.getDonneesSimulation(),sim),this.robot);
+			sim.ajouteEvenement(new Deplacement( temp.getDirection(suiv.getLigne(), suiv.getColonne()), this.robot,sim.getDonneesSimulation(),sim),this.robot);
 			//i++;
 			temp = suiv;
 		}
@@ -143,15 +148,10 @@ public class PlusCourtChemin {
 
 	private void constitueChemin(Sommet s) {
 		// on constitue la liste chainee qui a les diffï¿½rents sommets ï¿½ parcourir connaissant les parents
-		//System.out.println("On a trouve notre goal enfin " + s.getPosition() + "son parent ");// + s.getParent().getPosition());
 		Sommet temp = s;
 		while (temp != null) {
 			this.chemin.addFirst(temp);
 			temp = temp.getParent();
-		}
-
-		for (Sommet som : this.chemin) {
-			//System.out.println(som.getPosition());
 		}
 
 	}

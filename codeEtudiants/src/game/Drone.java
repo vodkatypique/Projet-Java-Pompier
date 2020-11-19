@@ -7,25 +7,7 @@ import java.util.ArrayList;
  */
 public class Drone extends Robot {
 
-	/**
-	 * Instantiates a new Drone.
-	 *
-	 * @param position the position
-	 * @param vitesse  the vitesse
-	 */
-	public Drone(Case position, Integer vitesse) {
-		super(position, vitesse != null ? vitesse : 100);
 
-	}
-
-	/**
-	 * Instantiates a new Drone.
-	 *
-	 * @param d the d
-	 */
-	public Drone(Drone d) {
-		super(d);
-	}
 
 	/**
 	 * Instantiates a new Drone.
@@ -124,7 +106,6 @@ public class Drone extends Robot {
 	 */
 	@Override
 	public double dureeDeversementUnitaire() {
-		// TODO Auto-generated method stub
 		return 30.0 / getReservoirMax();
 	}
 
@@ -135,7 +116,6 @@ public class Drone extends Robot {
 	 */
 	@Override
 	public double getVitesseDefault() {
-		// TODO Auto-generated method stub
 		return 100.0;
 	}
 
@@ -147,7 +127,6 @@ public class Drone extends Robot {
 	 */
 	@Override
 	boolean peutAtteindre(Case position) {
-		// TODO Auto-generated method stub
 		return true;
 	}
 

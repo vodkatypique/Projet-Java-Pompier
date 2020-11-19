@@ -31,7 +31,6 @@ public class TestLecteurDonnees {
             e.printStackTrace();
         } catch (IllegalAccessException | InstantiationException | IllegalArgumentException
                 | InvocationTargetException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
