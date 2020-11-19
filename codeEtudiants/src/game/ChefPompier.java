@@ -47,7 +47,7 @@ public class ChefPompier {
 					robot.getOccupationRobot().setOccupationGenerale(true);
 					PlusCourtChemin directionEau=robot.chercherEau(carte);
 					directionEau.deplaceVersCase(this.simulateur);
-					this.simulateur.ajouteEvenement(new DebutRemplissageReservoir(this.simulateur.getDateSimulation(), robot, this.simulateur),robot);
+					this.simulateur.ajouteEvenement(new DebutRemplissageReservoir( robot, this.simulateur),robot);
 					continue;
 				}
 				if (robotLePlusRapide == null) {
@@ -76,7 +76,7 @@ public class ChefPompier {
 			}
 			robotLePlusRapide.getOccupationRobot().setOccupationGenerale(true);
 			listChemin.get(indexRobotRapide).deplaceVersCase(this.simulateur);
-			simulateur.ajouteEvenement(new DebutExtinctionFeu(this.simulateur.getDateSimulation(),robotLePlusRapide, this.simulateur, this.simulateur.getDonneesSimulation()),robotLePlusRapide);
+			simulateur.ajouteEvenement(new DebutExtinctionFeu(robotLePlusRapide, aEteindre.getIntensite(),this.simulateur, this.simulateur.getDonneesSimulation()),robotLePlusRapide);
 			robotLePlusRapide = null;
 		}
 

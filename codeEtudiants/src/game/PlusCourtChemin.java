@@ -130,9 +130,9 @@ public class PlusCourtChemin {
 		LinkedList<Sommet> s = this.chemin;
 		while (s.size() >= 1) {
 			// on prend l'�l�ment suivant de la liste
-			Case suiv = s.pop().getPosition();
-			
-			sim.ajouteEvenement(new DebutDeplacement(sim.getDateSimulation(), temp.getDirection(suiv.getLigne(), suiv.getColonne()), this.robot,sim.getDonneesSimulation(),sim),this.robot);
+			Sommet suivant= s.pop();
+			Case suiv = suivant.getPosition();
+			sim.ajouteEvenement(new DebutDeplacement( temp.getDirection(suiv.getLigne(), suiv.getColonne()), this.robot,sim.getDonneesSimulation(),sim),this.robot);
 			//i++;
 			temp = suiv;
 		}

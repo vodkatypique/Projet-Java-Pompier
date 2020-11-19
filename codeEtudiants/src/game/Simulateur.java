@@ -40,10 +40,10 @@ public class Simulateur implements Simulable {
 	public Simulateur(GUISimulator gui, DonneesSimulation donnees) {
 		this.gui = gui;
 		this.donneesSimulation = donnees;
-		this.tailleCase = 50;
+		this.tailleCase = 10;
 		this.dateSimulation = 0;
-		this.offsetGauche = 50;
-		this.offsetHaut=50;
+		this.offsetGauche = 30;
+		this.offsetHaut=30;
 		this.chefPompier = null;
 	}
 
@@ -53,17 +53,21 @@ public class Simulateur implements Simulable {
 		// on peut aussi utiliser un hashmap si on veut rendre l'execution parallï¿½le cad donner la possibilite ï¿½ deux robots
 		// de pouvoir se deplacer en meme temps
 		// ï¿½ ce moment on recupï¿½re la date de fin du dernier evenement qui fait intervenir ce robot pour donner la date de fin du nouvel evenement
-		if(evenement.getDate()<this.dateSimulation) {
-			System.err.println("Erreur, evenement dans le passé");
-			return;
+		if(evenement.getDate()<0) {
+			System.err.println("erreur, date négative");
 		}
+
+		
 		ArrayList<Evenement> listeEvenement=this.evenements.get(robot);
 		if(listeEvenement==null){
 			listeEvenement=new ArrayList<Evenement>();
 			this.evenements.put(robot, listeEvenement);
 		}
-		if(listeEvenement.size() == 0)
+
+		if(listeEvenement.size() == 0) {
+			evenement.setDate(this.getDateSimulation()+1);
 			listeEvenement.add(evenement);
+		}
 		else {
 			long dateLastEvent = listeEvenement.get(listeEvenement.size()-1).getDate();
 			evenement.setDate(evenement.getDate() + dateLastEvent);
@@ -111,13 +115,13 @@ public class Simulateur implements Simulable {
 		}
 
 		for (Incendie incendie : donneesSimulation.getIncendies()) {
-			if (incendie.getIntensite() > 0) {
+
 				gui.addGraphicalElement(new gui.Rectangle(incendie.getPosition().getColonne() * tailleCase + this.offsetGauche,
 						incendie.getPosition().getLigne() * tailleCase+this.offsetHaut, Color.RED, Color.RED, tailleCase));
 				gui.addGraphicalElement(new gui.Text(incendie.getPosition().getColonne() * tailleCase + this.offsetGauche,
 						incendie.getPosition().getLigne() * tailleCase +this.offsetHaut, Color.WHITE, "" + incendie.getIntensite()));
 
-			}
+			
 
 		}
 		for (Robot robot : donneesSimulation.getRobots()) {
