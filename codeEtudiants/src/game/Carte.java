@@ -3,6 +3,7 @@ package game;
 
 /**
  * The type Carte.
+ * represente la carte de notre univers
  */
 public class Carte {
 	private int tailleCases;
@@ -27,6 +28,8 @@ public class Carte {
 
 	/**
 	 * Instantiates a new Carte.
+	 * on remplie la carte avec les valeurs representant un tableau,
+	 * on itere donc sur ce plateau et creant une case pour chaque valeur du plateau
 	 *
 	 * @param nbLignes    the nb lignes
 	 * @param nbColonnes  the nb colonnes
@@ -39,9 +42,6 @@ public class Carte {
 		this.tailleCases = tailleCases;
 		this.plateau = new Case[nbLignes][nbColonnes];
 		this.plateau = plateau;
-		// il faut donner les valeurs � chaque �l�ment de plateau en copiant pour
-		// n'avoir pas
-		// � manipuler les r�f�rences
 		for (int i = 0; i < nbLignes; i++) {
 			for (int j = 0; j < nbColonnes; j++) {
 				this.plateau[i][j] = new Case(plateau[i][j]);
@@ -51,8 +51,9 @@ public class Carte {
 
 	/**
 	 * Instantiates a new Carte.
+	 * Creation depuis une autre Carte, on copie juste chaque champs
 	 *
-	 * @param ca the ca
+	 * @param ca the carte a copier
 	 */
 	public Carte(Carte ca) {
 		this.nbLignes = ca.getNbLignes();
@@ -71,8 +72,8 @@ public class Carte {
 	 *
 	 * @return the distance entre case
 	 */
-	public static double getDistanceEntreCase() {// en metres
-		return 1000;
+	public double getDistanceEntreCase() {// en metres
+		return this.tailleCases;
 	}
 
 	/**
@@ -138,7 +139,7 @@ public class Carte {
 					return null;
 			}
 		}
-		return null; // TODO ERRRREEEEEUUUUR
+		return null;
 	}
 
 	/**

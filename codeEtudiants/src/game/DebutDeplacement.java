@@ -30,7 +30,7 @@ public class DebutDeplacement extends EvenementDebutAbstrait {//TODO début dép
 		double vitesse = this.getRobot().getVitesse(this.getRobot().getPosition().getNature());
 		////System.out.println("Vitesse " + vitesse);
 		this.donneesSimulation.getCarte();
-		double distance = Carte.getDistanceEntreCase();
+		double distance = donneesSimulation.getCarte().getDistanceEntreCase();
 		long ldateFin;
 		if (vitesse == 0)
 			ldateFin = this.getDate();
@@ -60,7 +60,7 @@ public class DebutDeplacement extends EvenementDebutAbstrait {//TODO début dép
 		double vitesse = this.getRobot().getVitesse(this.getRobot().getPosition().getNature());
 		//System.out.println("Vitesse " + vitesse);
 		this.donneesSimulation.getCarte();
-		double distance = Carte.getDistanceEntreCase();
+		double distance = this.donneesSimulation.getCarte().getDistanceEntreCase();
 		long ldateFin;
 		if (vitesse == 0)
 			ldateFin = this.getDate();

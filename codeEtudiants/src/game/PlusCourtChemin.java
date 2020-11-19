@@ -61,9 +61,9 @@ public class PlusCourtChemin {
 			}
 			for(Sommet s: courant.getVoisins(this.carte, this.robot)) {
 
-				double distance = Carte.getDistanceEntreCase();
+				double distance = this.carte.getDistanceEntreCase();
 				// calcul du temps pour le robot de se deplacer de sa case vers une case voisine
-				double temp = distance / ((this.robot.getVitesse(s.getPosition().getNature())*Math.pow(10,3))/60);
+				double temp = distance / ((this.robot.getVitesse(s.getPosition().getNature()) * Math.pow(10, 3)) / 60);
 				updateTemps(courant, s, temp, ouverts, fermes);
 				//ouverts.add(s);
 			}
