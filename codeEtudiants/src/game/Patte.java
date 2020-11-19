@@ -15,7 +15,16 @@ public class Patte extends Robot {
 	public Patte(Case position) {
 		super(position);
 	}
-
+	
+	/**
+	 * Instantiates a new Patte with position and vitesse
+	 * @param position
+	 * @param vitesse
+	 */
+	public Patte(Case position, Integer vitesse) {
+		super(position, vitesse);
+	}
+	
 	/**
 	 * Sets vitesse.
 	 *

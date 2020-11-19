@@ -17,6 +17,15 @@ public class Chenille extends Robot {
 	}
 
 	/**
+	 * Instantiates a new Chenille with position and vitesse
+	 * @param position
+	 * @param vitesse
+	 */
+	public Chenille(Case position, Integer vitesse) {
+		super(position, vitesse);
+
+	}
+	/**
 	 * Gets vitesse.
 	 *
 	 * @param nature the nature

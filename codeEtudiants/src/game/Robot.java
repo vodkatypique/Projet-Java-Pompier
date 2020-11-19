@@ -26,6 +26,21 @@ public abstract class Robot {
 		setResevoir(getReservoirMax());
 		this.reservoirInit = this.reservoir;
 	}
+	
+	/**
+	 * Instantiates a new Robot.
+	 *
+	 * @param position the position
+	 * @param int vitesse
+	 */
+	public Robot(Case position, int vitesse) {//TODO cleanup les constructeurs
+		this.position = position;
+		this.positionInit = new Case(this.position);
+		setVitesse(vitesse);
+		setResevoir(getReservoirMax());
+		this.reservoirInit = this.reservoir;
+		this.occupationRobot = new OccupationRobot(0);
+	}
 
 	/**
 	 * Chercher eau plus court chemin.

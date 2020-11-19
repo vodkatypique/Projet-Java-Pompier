@@ -17,6 +17,15 @@ public class Drone extends Robot {
 	public Drone(Case position) {
 		super(position);
 	}
+	
+	/**
+	 * Instantiates a new Drone with position and vitesse
+	 * @param position
+	 * @param vitesse
+	 */
+	public Drone(Case position, Integer vitesse) {
+		super(position, vitesse);
+	}
 
 	/**
 	 * Duree deversement double.

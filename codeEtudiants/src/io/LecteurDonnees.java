@@ -252,11 +252,9 @@ public class LecteurDonnees {
         try {
             int lig = scanner.nextInt();
             int col = scanner.nextInt();
-            //System.out.print("position = (" + lig + "," + col + ");");
             String type = scanner.next();
 
             //System.out.print("\t type = " + type);
-
 
             // lecture eventuelle d'une vitesse du robot (entier)
             //System.out.print("; \t vitesse = ");
@@ -268,51 +266,24 @@ public class LecteurDonnees {
             }
             type = type.toLowerCase();
             type = type.substring(0, 1).toUpperCase() + type.substring(1);
-            ////System.out.println(type);
-            ////System.out.println(lig + " " + col);
+ 
             if (s == null) {
-                //System.out.print("valeur par defaut");
+                
                 robot = (Robot) Class
                         .forName("game." + type)
                         .getConstructor(Case.class)
                         .newInstance(carte.getCase(lig, col));
             } else {
                 int vitesse = Integer.parseInt(s);
-                //System.out.print(vitesse);
+                
                 robot = (Robot) Class
                         .forName("game." + type)
                         .getConstructor(Case.class, Integer.class)
                         .newInstance(carte.getCase(lig, col), vitesse);
             }
             
-            //Integer vitesse = s == null ? null : Integer.parseInt(s);
-
-            //System.out.print(vitesse);
-            
-
-            /*robot = (Robot) Class
-                    .forName("game." + type)
-                    .getConstructor(Case.class, Integer.class)
-                    .newInstance(carte.getCase(lig, col), vitesse);*/
-
-/*
-                if (type.equals("DRONE")) {
-                    robot = new Drone(carte.getCase(lig, col), vitesse);
-                } else if (type.equals("ROUES")) {
-                    robot = new Roue(carte.getCase(lig, col), vitesse);
-                } else if (type.equals("PATTES")) {
-                    robot = new Patte(carte.getCase(lig, col), vitesse);
-                } else { //chenilles
-                    //System.out.println(type);
-                    robot = new Chenille(carte.getCase(lig, col), vitesse);
-                }*/
-
-            //robots.add(robot);
-
-
             verifieLigneTerminee();
 
-            //System.out.println();
             return robot;
 
         } catch (NoSuchElementException | ClassNotFoundException | NoSuchMethodException e) {

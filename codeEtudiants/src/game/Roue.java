@@ -16,6 +16,17 @@ public class Roue extends Robot {
 	public Roue(Case position) {
 		super(position);
 	}
+	
+	/**
+	 * Instatiates a new Roue with position and vitesse
+	 * @param position
+	 * @param vitesse
+	 */
+	public Roue(Case position, Integer vitesse) {
+		super(position, vitesse);
+
+
+	}
 
 	/**
 	 * Gets vitesse max.

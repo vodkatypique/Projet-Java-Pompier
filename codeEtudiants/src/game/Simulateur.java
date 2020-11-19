@@ -190,7 +190,7 @@ public class Simulateur implements Simulable {
 		this.draw(this.donneesSimulation);
 		if(this.simulationTerminee()) {
 			System.out.println("BRAVO tout les incendies sont éteints par les robots");
-			System.exit(0);
+			//System.exit(0);
 		}
 	}
 
