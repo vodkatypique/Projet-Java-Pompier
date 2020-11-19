@@ -11,7 +11,21 @@ import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.zip.DataFormatException;
 
-public class TestAffichageCarte  {
+/**
+ * The type Test affichage carte.
+ */
+public class TestAffichageCarte {
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     * @throws FileNotFoundException     the file not found exception
+     * @throws DataFormatException       the data format exception
+     * @throws IllegalAccessException    the illegal access exception
+     * @throws InstantiationException    the instantiation exception
+     * @throws IllegalArgumentException  the illegal argument exception
+     * @throws InvocationTargetException the invocation target exception
+     */
     public static void main(String[] args)
             throws FileNotFoundException, DataFormatException, IllegalAccessException, InstantiationException, IllegalArgumentException, InvocationTargetException {
 

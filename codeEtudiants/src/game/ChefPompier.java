@@ -2,17 +2,20 @@ package game;
 
 import java.util.ArrayList;
 
+/**
+ * The type Chef pompier.
+ */
 public class ChefPompier {
 	private ArrayList<Robot> robots;
-	public ArrayList<Robot> getRobots() {
-		return robots;
-	}
 
-
-	private ArrayList<Incendie> incendies;
-	private Carte carte;
-	private Simulateur simulateur;
-
+	/**
+	 * Instantiates a new Chef pompier.
+	 *
+	 * @param robots     the robots
+	 * @param ca         the ca
+	 * @param incendies  the incendies
+	 * @param simulateur the simulateur
+	 */
 	public ChefPompier(ArrayList<Robot> robots, Carte ca, ArrayList<Incendie> incendies, Simulateur simulateur) {
 		this.setRobots(robots);
 		this.setIncendies(incendies);
@@ -20,15 +23,42 @@ public class ChefPompier {
 		this.simulateur = simulateur;
 	}
 
+
+	private ArrayList<Incendie> incendies;
+	private Carte carte;
+	private Simulateur simulateur;
+
+	/**
+	 * Gets robots.
+	 *
+	 * @return the robots
+	 */
+	public ArrayList<Robot> getRobots() {
+		return robots;
+	}
+
+	/**
+	 * Sets robots.
+	 *
+	 * @param robots the robots
+	 */
 	public void setRobots(ArrayList<Robot> robots) {
 		this.robots = robots;
 	}
 
+	/**
+	 * Sets incendies.
+	 *
+	 * @param incendies the incendies
+	 */
 	public void setIncendies(ArrayList<Incendie> incendies) {
 		this.incendies = incendies;
 	}
 
 
+	/**
+	 * Boucle extinction.
+	 */
 	public void boucleExtinction() {
 		for (Incendie incendie : this.incendies) {
 			ArrayList<PlusCourtChemin> listChemin = new ArrayList<PlusCourtChemin>();

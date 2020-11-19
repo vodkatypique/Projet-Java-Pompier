@@ -9,6 +9,9 @@ import java.util.Hashtable;
 
 //import java.util.Iterator;
 
+/**
+ * The type Simulateur.
+ */
 public class Simulateur implements Simulable {
 	/**
 	 * L'interface graphique associée
@@ -17,26 +20,17 @@ public class Simulateur implements Simulable {
 	private DonneesSimulation donneesSimulation;
 	private int tailleCase;
 	private long dateSimulation;
-	public long getDateSimulation() {
-		return dateSimulation;
-	}
 
-	public Hashtable<Robot, ArrayList<Evenement>> getEvenements() {
-		return evenements;
-	}
-
-	private int offsetGauche;
-	private int offsetHaut;
-	private Hashtable<Robot, ArrayList<Evenement>> evenements=new Hashtable<Robot, ArrayList<Evenement>>();
+	/**
+	 * The Chef pompier.
+	 */
 	ChefPompier chefPompier;
 
 	/**
 	 * Crée un Invader et le dessine.
 	 *
-	 * @param gui   l'interface graphique associée, dans laquelle se fera le dessin
-	 *              et qui enverra les messages via les méthodes héritées de
-	 *              Simulable.
-	 * @param color la couleur de l'invader
+	 * @param gui     l'interface graphique associée, dans laquelle se fera le dessin              et qui enverra les messages via les méthodes héritées de              Simulable.
+	 * @param donnees the donnees
 	 */
 	public Simulateur(GUISimulator gui, DonneesSimulation donnees) {
 		this.gui = gui;
@@ -44,43 +38,71 @@ public class Simulateur implements Simulable {
 		this.tailleCase = 10;
 		this.dateSimulation = 0;
 		this.offsetGauche = 30;
-		this.offsetHaut=30;
+		this.offsetHaut = 30;
 		this.chefPompier = null;
 	}
 
-	
-	
+	private int offsetGauche;
+	private int offsetHaut;
+	private Hashtable<Robot, ArrayList<Evenement>> evenements = new Hashtable<Robot, ArrayList<Evenement>>();
+
+	/**
+	 * Gets date simulation.
+	 *
+	 * @return the date simulation
+	 */
+	public long getDateSimulation() {
+		return dateSimulation;
+	}
+
+	/**
+	 * Gets evenements.
+	 *
+	 * @return the evenements
+	 */
+	public Hashtable<Robot, ArrayList<Evenement>> getEvenements() {
+		return evenements;
+	}
+
+	/**
+	 * Ajoute evenement.
+	 *
+	 * @param evenement the evenement
+	 * @param robot     the robot
+	 */
 	public void ajouteEvenement(Evenement evenement, Robot robot) {
 		// on peut aussi utiliser un hashmap si on veut rendre l'execution parall�le cad donner la possibilite � deux robots
 		// de pouvoir se deplacer en meme temps
 		// � ce moment on recup�re la date de fin du dernier evenement qui fait intervenir ce robot pour donner la date de fin du nouvel evenement
-		if(evenement.getDate()<0) {
+		if (evenement.getDate() < 0) {
 			System.err.println("erreur, date n�gative");
 		}
 
-		
-		ArrayList<Evenement> listeEvenement=this.evenements.get(robot);
+
+		ArrayList<Evenement> listeEvenement = this.evenements.get(robot);
 		if(listeEvenement==null){
 			listeEvenement=new ArrayList<Evenement>();
 			this.evenements.put(robot, listeEvenement);
 		}
 
-		if(listeEvenement.size() == 0) {
-			evenement.setDate(this.getDateSimulation()+1);
+		if (listeEvenement.size() == 0) {
+			evenement.setDate(this.getDateSimulation() + 1);
 			listeEvenement.add(evenement);
-		}
-		else {
-			long dateLastEvent = listeEvenement.get(listeEvenement.size()-1).getDate();
+		} else {
+			long dateLastEvent = listeEvenement.get(listeEvenement.size() - 1).getDate();
 			evenement.setDate(evenement.getDate() + dateLastEvent);
 			listeEvenement.add(evenement);
 		}
 
 	}
-	
+
+	/**
+	 * Start.
+	 */
 	public void start() {
 		draw(this.donneesSimulation);
 	}
-	
+
 	private void draw(DonneesSimulation donneesSimulation) {
 		gui.setSimulable(this);
 		gui.reset(); // clear the window
@@ -94,9 +116,9 @@ public class Simulateur implements Simulable {
 					case FORET:
 						gui.addGraphicalElement(
 								new gui.Rectangle(j * tailleCase + this.offsetGauche, i * tailleCase + this.offsetHaut, Color.GREEN, Color.GREEN, tailleCase));
-						break;                                  
-					case TERRAIN_LIBRE:                         
-						gui.addGraphicalElement(                
+						break;
+					case TERRAIN_LIBRE:
+						gui.addGraphicalElement(
 								new gui.Rectangle(j * tailleCase+this.offsetGauche, i * tailleCase+this.offsetHaut, Color.WHITE, Color.WHITE, tailleCase));
 						break;
 					case HABITAT:
@@ -118,22 +140,24 @@ public class Simulateur implements Simulable {
 
 		for (Incendie incendie : donneesSimulation.getIncendies()) {
 
-				gui.addGraphicalElement(new gui.Rectangle(incendie.getPosition().getColonne() * tailleCase + this.offsetGauche,
-						incendie.getPosition().getLigne() * tailleCase+this.offsetHaut, Color.RED, Color.RED, tailleCase));
-				gui.addGraphicalElement(new gui.Text(incendie.getPosition().getColonne() * tailleCase + this.offsetGauche,
-						incendie.getPosition().getLigne() * tailleCase +this.offsetHaut, Color.WHITE, "" + incendie.getIntensite()));
+			gui.addGraphicalElement(new gui.Rectangle(incendie.getPosition().getColonne() * tailleCase + this.offsetGauche,
+					incendie.getPosition().getLigne() * tailleCase+this.offsetHaut, Color.RED, Color.RED, tailleCase));
+			gui.addGraphicalElement(new gui.Text(incendie.getPosition().getColonne() * tailleCase + this.offsetGauche,
+					incendie.getPosition().getLigne() * tailleCase + this.offsetHaut, Color.WHITE, "" + incendie.getIntensite()));
 
-			
 
 		}
 		for (Robot robot : donneesSimulation.getRobots()) {
 			gui.addGraphicalElement(new gui.Oval(robot.getPosition().getColonne() * tailleCase + this.offsetGauche,
-					robot.getPosition().getLigne() * tailleCase +this.offsetHaut, Color.BLACK, Color.YELLOW, tailleCase));
+					robot.getPosition().getLigne() * tailleCase + this.offsetHaut, Color.BLACK, Color.YELLOW, tailleCase));
 		}
 
 
 	}
 
+	/**
+	 * Incrememte date.
+	 */
 	void incrememteDate() {
 		if (this.chefPompier != null) {
 			chefPompier.boucleExtinction();
@@ -150,7 +174,7 @@ public class Simulateur implements Simulable {
 			for (Evenement evenement : listeEvenement) {
 				nouvelListeEvenement.add(evenement);
 			}
-			for(Evenement evenement : nouvelListeEvenement) {
+			for (Evenement evenement : nouvelListeEvenement) {
 				if (this.dateSimulation == evenement.getDate()) {
 					evenement.execute();
 					listeEvenement.remove(evenement);
@@ -161,20 +185,40 @@ public class Simulateur implements Simulable {
 
 		this.draw(this.donneesSimulation);
 	}
+
+	/**
+	 * Gets carte.
+	 *
+	 * @return the carte
+	 */
 	public Carte getCarte() {
 		return this.donneesSimulation.getCarte();
-		
+
 	}
+
+	/**
+	 * Next.
+	 */
 	@Override
 	public void next() {
 		incrememteDate();
 
 	}
-	
+
+	/**
+	 * Gets donnees simulation.
+	 *
+	 * @return the donnees simulation
+	 */
 	public DonneesSimulation getDonneesSimulation() {
 		return this.donneesSimulation;
 	}
-	
+
+	/**
+	 * Simulation terminee boolean.
+	 *
+	 * @return the boolean
+	 */
 	public boolean simulationTerminee() {
 		return this.donneesSimulation.getIncendies().isEmpty();
 		//return this.evenements.isEmpty();
@@ -186,11 +230,14 @@ public class Simulateur implements Simulable {
 //		return true;
 	}
 
+	/**
+	 * Restart.
+	 */
 	@Override
 	public void restart() {
 		// TODO Auto-generated method stub
 		this.dateSimulation = 0;
-		for(Robot robot: this.donneesSimulation.getRobots()) {
+		for (Robot robot : this.donneesSimulation.getRobots()) {
 			robot.resetReservoir();
 			robot.resetPosition(this.donneesSimulation);
 		}
@@ -201,6 +248,11 @@ public class Simulateur implements Simulable {
 
 	}
 
+	/**
+	 * Sets chef pompier.
+	 *
+	 * @param chefPompier the chef pompier
+	 */
 	public void setChefPompier(ChefPompier chefPompier) {
 		this.chefPompier = chefPompier;
 	}

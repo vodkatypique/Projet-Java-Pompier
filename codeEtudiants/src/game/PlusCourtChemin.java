@@ -5,6 +5,9 @@ import java.util.LinkedList;
 
 // import java.util.ArrayList;
 
+/**
+ * The type Plus court chemin.
+ */
 public class PlusCourtChemin {
 	// private ArrayList<Sommet> sommets;
 	private LinkedList<Sommet> chemin;
@@ -13,9 +16,16 @@ public class PlusCourtChemin {
 	private Sommet depart;
 	private double tempsOptim;
 	private Robot robot;
-	
+
+	/**
+	 * Instantiates a new Plus court chemin.
+	 *
+	 * @param robot the robot
+	 * @param ca    the ca
+	 * @param carte the carte
+	 */
 	public PlusCourtChemin(Robot robot, Case ca, Carte carte) {
-		
+
 		// Initialisation
 		// sommets = new ArrayList<Sommet>();
 		/*for(int i = 0; i < carte.getNbLignes(); i++) {
@@ -33,7 +43,7 @@ public class PlusCourtChemin {
 		this.robot = robot;
 		plusCourtChemin();
 	}
-	
+
 	private void plusCourtChemin() {
 		ArrayList<Sommet> ouverts = new ArrayList<>();
 		ArrayList<Sommet> fermes = new ArrayList<>();
@@ -57,16 +67,16 @@ public class PlusCourtChemin {
 				updateTemps(courant, s, temp, ouverts, fermes);
 				//ouverts.add(s);
 			}
-			
+
 			fermes.add(courant);
 		}
 		//constitueChemin(fermes.get(fermes.indexOf(goal)));
-		
+
 		if(this.chemin.size() == 0)
 			System.err.println("Pas de plus cours chemin jusqu'� cette destination");
-		
+
 	}
-	
+
 	private void updateTemps(Sommet pere, Sommet enfant, double temps, ArrayList<Sommet> ouverts, ArrayList<Sommet> fermes) {
 		double temp;
 		Sommet enfantExact;
@@ -106,9 +116,14 @@ public class PlusCourtChemin {
 		ouverts.add(enfant);
 		//System.out.println("voisin position " + enfant.getPosition() + " parent " + enfant.getParent().getPosition());
 	}
-	
+
+	/**
+	 * Deplace vers case.
+	 *
+	 * @param sim the sim
+	 */
 	public void deplaceVersCase(Simulateur sim) {
-		if(this.chemin.size() == 0) {
+		if (this.chemin.size() == 0) {
 			// on sort de la fonction s'il n'ya pas de chemin optim
 			return;
 		}
@@ -125,7 +140,7 @@ public class PlusCourtChemin {
 			temp = suiv;
 		}
 	}
-	
+
 	private void constitueChemin(Sommet s) {
 		// on constitue la liste chainee qui a les diff�rents sommets � parcourir connaissant les parents
 		//System.out.println("On a trouve notre goal enfin " + s.getPosition() + "son parent ");// + s.getParent().getPosition());
@@ -138,25 +153,30 @@ public class PlusCourtChemin {
 		for (Sommet som : this.chemin) {
 			//System.out.println(som.getPosition());
 		}
-		
+
 	}
-	
+
 	private  Sommet getSommetProche(ArrayList<Sommet> sommets) {
 		Sommet optim = null;
-	    double tempsMin = Double.MAX_VALUE;
-	    for (Sommet s: sommets) {
-	        double t = s.getTemps();
-	        if (t < tempsMin) {
-	            tempsMin = t;
-	            optim = s;
-	        }
-	    }
-	    return optim;
+		double tempsMin = Double.MAX_VALUE;
+		for (Sommet s : sommets) {
+			double t = s.getTemps();
+			if (t < tempsMin) {
+				tempsMin = t;
+				optim = s;
+			}
+		}
+		return optim;
 	}
-	
+
+	/**
+	 * Gets temps optim.
+	 *
+	 * @return the temps optim
+	 */
 	public double getTempsOptim() {
 		return this.tempsOptim;
 	}
-	
-	
+
+
 }

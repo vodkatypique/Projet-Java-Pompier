@@ -1,10 +1,28 @@
 package game;
 
 
+/**
+ * The type Debut deplacement.
+ */
 public class DebutDeplacement extends EvenementDebutAbstrait {//TODO début déplacement fin déplacement, vitesse
+	/**
+	 * The Direction.
+	 */
 	Direction direction;
+	/**
+	 * The Donnees simulation.
+	 */
 	DonneesSimulation donneesSimulation;
-	
+
+	/**
+	 * Instantiates a new Debut deplacement.
+	 *
+	 * @param date              the date
+	 * @param direction         the direction
+	 * @param robot             the robot
+	 * @param donneesSimulation the donnees simulation
+	 * @param simulateur        the simulateur
+	 */
 	public DebutDeplacement(long date, Direction direction, Robot robot, DonneesSimulation donneesSimulation, Simulateur simulateur) {
 		super(date, robot, simulateur);
 		this.direction = direction;
@@ -25,7 +43,15 @@ public class DebutDeplacement extends EvenementDebutAbstrait {//TODO début dép
 		this.setDate(ldateFin);
 		//System.out.println("Date fin Deplacement ::: " + this.getDate() + "  " + this);
 	}
-	
+
+	/**
+	 * Instantiates a new Debut deplacement.
+	 *
+	 * @param direction         the direction
+	 * @param robot             the robot
+	 * @param donneesSimulation the donnees simulation
+	 * @param simulateur        the simulateur
+	 */
 	public DebutDeplacement(Direction direction, Robot robot, DonneesSimulation donneesSimulation, Simulateur simulateur) {
 		// TODO Auto-generated constructor stub
 		super(robot, simulateur);
@@ -45,33 +71,36 @@ public class DebutDeplacement extends EvenementDebutAbstrait {//TODO début dép
 		////System.out.println("Date fin Deplacement ::: " + this.getDate() + " " + this);
 
 	}
-	
-	
+
+
+	/**
+	 * Execute.
+	 */
 	@Override
 	public void execute() {
-			this.getRobot().getOccupationRobot().setDateFin(this.getDate());
+		this.getRobot().getOccupationRobot().setDateFin(this.getDate());
 			/*this.getRobot().getOccupationRobot().setDateFin(this.getDateFin());
 			this.getSimulateur().ajouteEvenement(new FinDeplacement(this.getDateFin(), getRobot(), direction, donneesSimulation));	*/
-			
-			//this.getSimulateur().ajouteEvenement(new Fin);
-			int lig=this.getRobot().getPosition().getLigne();
-			int col=this.getRobot().getPosition().getColonne();
-			switch (this.direction) {
-				case EST:
-					col++;
-					break;
-				case SUD:
-					lig++;
-					break;
-				case OUEST:
-					col--;
-					break;
-				case NORD:
-					lig--;
-					break;
-				default:
-					break;
-			}
+
+		//this.getSimulateur().ajouteEvenement(new Fin);
+		int lig = this.getRobot().getPosition().getLigne();
+		int col = this.getRobot().getPosition().getColonne();
+		switch (this.direction) {
+			case EST:
+				col++;
+				break;
+			case SUD:
+				lig++;
+				break;
+			case OUEST:
+				col--;
+				break;
+			case NORD:
+				lig--;
+				break;
+			default:
+				break;
+		}
 		if (lig > donneesSimulation.getCarte().getNbLignes() - 1 || lig < 0 || col > donneesSimulation.getCarte().getNbLignes() - 1 || col < 0) {
 			System.err.println("Erreur, Position invalide apr�s le deplacement");
 			System.exit(-1);
@@ -83,7 +112,5 @@ public class DebutDeplacement extends EvenementDebutAbstrait {//TODO début dép
 		// apr�s avoir deplac� le robot on le met en �tat non occup�.
 	}
 
-
-	
 
 }

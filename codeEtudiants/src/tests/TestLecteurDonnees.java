@@ -7,8 +7,16 @@ import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.zip.DataFormatException;
 
+/**
+ * The type Test lecteur donnees.
+ */
 public class TestLecteurDonnees {
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         if (args.length < 1) {
             //System.out.println("Syntaxe: java tests.TestLecteurDonnees <nomDeFichier>");

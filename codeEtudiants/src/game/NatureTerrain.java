@@ -1,5 +1,27 @@
 package game;
 
+/**
+ * The enum Nature terrain.
+ */
 public enum NatureTerrain {
-    EAU, FORET, ROCHE, TERRAIN_LIBRE, HABITAT
+    /**
+     * Eau nature terrain.
+     */
+    EAU,
+    /**
+     * Foret nature terrain.
+     */
+    FORET,
+    /**
+     * Roche nature terrain.
+     */
+    ROCHE,
+    /**
+     * Terrain libre nature terrain.
+     */
+    TERRAIN_LIBRE,
+    /**
+     * Habitat nature terrain.
+     */
+    HABITAT
 }

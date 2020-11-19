@@ -1,5 +1,23 @@
 package game;
 
+/**
+ * The enum Direction.
+ */
 public enum Direction {
-    NORD, SUD, EST, OUEST
+    /**
+     * Nord direction.
+     */
+    NORD,
+    /**
+     * Sud direction.
+     */
+    SUD,
+    /**
+     * Est direction.
+     */
+    EST,
+    /**
+     * Ouest direction.
+     */
+    OUEST
 }

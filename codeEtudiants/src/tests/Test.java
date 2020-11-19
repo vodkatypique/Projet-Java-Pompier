@@ -10,7 +10,17 @@ import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.zip.DataFormatException;
 
+/**
+ * The type Test.
+ */
 public class Test {
+	/**
+	 * The entry point of application.
+	 *
+	 * @param args the input arguments
+	 * @throws FileNotFoundException the file not found exception
+	 * @throws DataFormatException   the data format exception
+	 */
 	public static void main(String[] args) throws FileNotFoundException, DataFormatException {
 
 		if (args.length < 1) {
@@ -38,34 +48,32 @@ public class Test {
 			e.printStackTrace();
 		}
 
-		
 
-		
-		}
-	
-	
+	}
+
+
 	private static void scenario0(GUISimulator gui, DonneesSimulation donneesSimulation) {
 
-        //sim.ajouteEvenement(new DebutDeplacement(Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation, sim));
-        //sim.ajouteEvenement(new DebutDeplacement(Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation, sim));
-        //sim.ajouteEvenement(new DebutDeplacement(Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation, sim));
+		//sim.ajouteEvenement(new DebutDeplacement(Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation, sim));
+		//sim.ajouteEvenement(new DebutDeplacement(Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation, sim));
+		//sim.ajouteEvenement(new DebutDeplacement(Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation, sim));
 
-        Simulateur sim = new Simulateur(gui, donneesSimulation);
-        ChefPompier chefPompier = new ChefPompier(donneesSimulation.getRobots(), donneesSimulation.getCarte(), donneesSimulation.getIncendies(), sim);
-        sim.setChefPompier(chefPompier);
+		Simulateur sim = new Simulateur(gui, donneesSimulation);
+		ChefPompier chefPompier = new ChefPompier(donneesSimulation.getRobots(), donneesSimulation.getCarte(), donneesSimulation.getIncendies(), sim);
+		sim.setChefPompier(chefPompier);
 
-        sim.start();
-        //sim.ajouteEvenement(new DebutDeplacement(Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation, sim));
-        //sim.ajouteEvenement(new DebutDeplacement(5, Direction.SUD, donneesSimulation.getRobots().get(0), donneesSimulation, sim));
-        //sim.ajouteEvenement(new DebutDeplacement(6, Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation, sim));
-        //sim.ajouteEvenement(new DebutDeplacement(7, Direction.EST, donneesSimulation.getRobots().get(0), donneesSimulation, sim));
+		sim.start();
+		//sim.ajouteEvenement(new DebutDeplacement(Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation, sim));
+		//sim.ajouteEvenement(new DebutDeplacement(5, Direction.SUD, donneesSimulation.getRobots().get(0), donneesSimulation, sim));
+		//sim.ajouteEvenement(new DebutDeplacement(6, Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation, sim));
+		//sim.ajouteEvenement(new DebutDeplacement(7, Direction.EST, donneesSimulation.getRobots().get(0), donneesSimulation, sim));
 
 
-    }
-	 
-	
+	}
+
+
 	private static void scenario1(GUISimulator gui, DonneesSimulation donnees) {
-		
+
 		Simulateur sim = new Simulateur(gui, donnees);
 		Robot robot = donnees.getRobots().get(1);
 		sim.ajouteEvenement(new DebutDeplacement(Direction.NORD, robot, donnees,sim),robot);
@@ -76,17 +84,17 @@ public class Test {
 		sim.ajouteEvenement(new DebutDeplacement(Direction.EST, robot, donnees, sim),robot);
 		sim.ajouteEvenement(new DebutDeplacement(Direction.EST, robot, donnees, sim),robot);
 		sim.ajouteEvenement(new DebutExtinctionFeu(robot, sim, donnees),robot);
-		
-		
+
+
 		sim.start();
 	}
-	
-	private static void verifiePlusCourtChemin(GUISimulator gui, DonneesSimulation donnees) {
-        Simulateur sim = new Simulateur(gui, donnees);
 
-        PlusCourtChemin chemin = new PlusCourtChemin(sim.getDonneesSimulation().getRobots().get(0), sim.getCarte().getCase(6, 7), sim.getCarte());
-        chemin.deplaceVersCase(sim);
-    }
-	
-	
+	private static void verifiePlusCourtChemin(GUISimulator gui, DonneesSimulation donnees) {
+		Simulateur sim = new Simulateur(gui, donnees);
+
+		PlusCourtChemin chemin = new PlusCourtChemin(sim.getDonneesSimulation().getRobots().get(0), sim.getCarte().getCase(6, 7), sim.getCarte());
+		chemin.deplaceVersCase(sim);
+	}
+
+
 }
