@@ -119,6 +119,8 @@ public class Carte {
 
 	/**
 	 * Gets voisin.
+	 * si le voisin Existe (on appelle voisinExiste(src, dir) qui  va le verifier)
+	 * alors on retourne la case qui caracterise ce voisin
 	 *
 	 * @param src the src
 	 * @param dir the dir
@@ -143,9 +145,9 @@ public class Carte {
 	}
 
 	/**
-	 * Get plateau case [ ] [ ].
+	 * Get plateau
 	 *
-	 * @return the case [ ] [ ]
+	 * @return the plateau
 	 */
 	public Case[][] getPlateau() {
 		return plateau;
@@ -153,10 +155,11 @@ public class Carte {
 
 	/**
 	 * Voisin existe boolean.
+	 * verifie les conditions limites pour l'existence d'un voisin (les bords de l'univers)
 	 *
 	 * @param src the src
 	 * @param dir the dir
-	 * @return the boolean
+	 * @return true si un voisin existe, false sinon
 	 */
 	public boolean voisinExiste(Case src, Direction dir) {
 		return (src.getColonne() != 0 || dir != Direction.OUEST)

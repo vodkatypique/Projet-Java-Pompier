@@ -2,6 +2,7 @@ package game;
 
 /**
  * The type Case.
+ * reprensente une case du plateau qui represente notre univers
  */
 public class Case {
 	private int ligne;
@@ -11,9 +12,9 @@ public class Case {
 	/**
 	 * Instantiates a new Case.
 	 *
-	 * @param ligne   the ligne
-	 * @param colonne the colonne
-	 * @param nature  the nature
+	 * @param ligne   the posX
+	 * @param colonne the posY
+	 * @param nature  the nature de la case
 	 */
 	public Case(int ligne, int colonne, NatureTerrain nature) {
 		this.ligne = ligne;
@@ -22,9 +23,10 @@ public class Case {
 	}
 
 	/**
-	 * Instantiates a new Case.
+	 * Instantiates a new Case depuis une case existante
+	 * recopie la case
 	 *
-	 * @param ca the ca
+	 * @param ca the case a copier
 	 */
 	public Case(Case ca) {
 		this.ligne = ca.ligne;
@@ -51,10 +53,10 @@ public class Case {
 	}
 
 	/**
-	 * Equals boolean.
+	 * Deux cases sont egales si elles sont toutes deux des cases, ont la meme nature, et la meme position.
 	 *
-	 * @param o the o
-	 * @return the boolean
+	 * @param o the Objet a comparé a la Case
+	 * @return true si egale, false sinon
 	 */
 	@Override
 	public boolean equals(Object o) {
@@ -69,14 +71,13 @@ public class Case {
 	}
 
 	/**
-	 * Gets direction.
+	 * Gets direction pour arriver a la case en lig et col voisine.
 	 *
 	 * @param lig the lig
 	 * @param col the col
 	 * @return the direction
 	 */
 	public Direction getDirection(int lig, int col) {
-		// direction pour arriver � la case en lig et col voisine
 		if (this.getLigne() == lig - 1)
 			return Direction.SUD;
 		if (this.getLigne() == lig + 1)
@@ -89,14 +90,14 @@ public class Case {
 	/**
 	 * Gets nature.
 	 *
-	 * @return the nature
+	 * @return the nature de la case
 	 */
 	public NatureTerrain getNature() {
 		return this.nature;
 	}
 
 	/**
-	 * To string string.
+	 * Affiche textuel d'une Case
 	 *
 	 * @return the string
 	 */
