@@ -36,13 +36,16 @@ public class Drone extends Robot {
 		// en minute
 		return 30;
 	}
+	
+	
 	@Override
 	public boolean peutRemplir(Carte carte) {
 		if (carte.getCase(this.getPosition().getLigne(),this.getPosition().getColonne() ).getNature() == NatureTerrain.EAU) {
 			return Boolean.TRUE;
 		}
 		return Boolean.FALSE;
-	}
+	} 
+	
 	@Override
 	public PlusCourtChemin chercherEau(Carte carte) {
     	Double tempsLePlusRapide=Double.MAX_VALUE;
@@ -52,12 +55,18 @@ public class Drone extends Robot {
 					if(endroit.getNature().equals(NatureTerrain.EAU)) {
 						PlusCourtChemin chemin =new PlusCourtChemin(this, endroit, carte);
 						double temps = chemin.getTempsOptim();
-						if(temps<tempsLePlusRapide) {
+						if(temps == -1)
+							continue;
+						if(temps < tempsLePlusRapide) {
 							tempsLePlusRapide=temps;
 							listeChemin.add(chemin);
 						}
 					}
 			}
+		}
+    	if(listeChemin.isEmpty()) {
+			System.err.println("Erreur, Pas d'eau disponible");
+			return null;
 		}
     	return listeChemin.get(listeChemin.size()-1);
 	}

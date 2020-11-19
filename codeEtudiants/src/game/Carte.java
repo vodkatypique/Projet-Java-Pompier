@@ -75,10 +75,10 @@ public class Carte {
 			case EST:
 				return(this.plateau[src.getLigne()][src.getColonne()+1]);
 			case OUEST:
-				return(this.plateau[src.getLigne()-1][src.getColonne()-1]);
+				return(this.plateau[src.getLigne()][src.getColonne()-1]);
 			default:
 				return null;
-			}
+			}  
 		}
 		return null; // TODO ERRRREEEEEUUUUR
 	}

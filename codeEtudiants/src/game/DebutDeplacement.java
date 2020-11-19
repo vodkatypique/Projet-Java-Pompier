@@ -1,7 +1,7 @@
 package game;
 
 
-public class DebutDeplacement extends EvenementDebutAbstrait {//TODO début déplacement fin déplacement, vitesse
+public class DebutDeplacement extends EvenementDebutAbstrait {
 	Direction direction;
 	DonneesSimulation donneesSimulation;
 	
@@ -10,18 +10,19 @@ public class DebutDeplacement extends EvenementDebutAbstrait {//TODO début dép
 		this.direction=direction;
 		this.donneesSimulation=donneesSimulation;
 		double vitesse =this.getRobot().getVitesse(this.getRobot().getPosition().getNature());
-		//System.out.println("Vitesse " + vitesse);
 		this.donneesSimulation.getCarte();
+
 		double distance=Carte.getDistanceEntreCase();
 		long ldateFin;
 		if(vitesse == 0)
 			ldateFin = this.getDate();
 		else
 			ldateFin=(long) (distance / ((vitesse*Math.pow(10,3))/60)) + this.getDate();//ceci parce que la vitesse est en km/h
-		//this.setDateFin(ldateFin);
+		
 		if((ldateFin-this.getDate())>50) {
-			System.err.println("c");
+			System.err.println("c");   
 		}
+		 
 		this.setDate(ldateFin);
 		System.out.println("Date fin Deplacement ::: " + this.getDate() + "  " + this);
 	}
@@ -34,18 +35,19 @@ public class DebutDeplacement extends EvenementDebutAbstrait {//TODO début dép
 		double vitesse =this.getRobot().getVitesse(this.getRobot().getPosition().getNature());
 		System.out.println("Vitesse " + vitesse);
 		this.donneesSimulation.getCarte();
+
 		double distance=Carte.getDistanceEntreCase();
 		long ldateFin;
 		if(vitesse == 0)
 			ldateFin = this.getDate();
 		else
-			ldateFin=(long) (distance / ((vitesse*Math.pow(10,3))/60)) ;//la vitesse est km/h
-		//this.setDateFin(ldateFin);
+			ldateFin= (long) (distance / ((vitesse*Math.pow(10,3))/60)) ;//la vitesse est km/h
+
 		this.setDate(ldateFin);
-		//System.out.println("Date fin Deplacement ::: " + this.getDate() + " " + this);
+		System.out.println("Date fin Deplacement ::: " + this.getDate() + " " + this);
 		
 	}
-	
+	   
 	
 	@Override
 	public void execute() {
@@ -73,15 +75,21 @@ public class DebutDeplacement extends EvenementDebutAbstrait {//TODO début dép
 					break;
 			}
 			if (lig > donneesSimulation.getCarte().getNbLignes() - 1 || lig < 0 || col > donneesSimulation.getCarte().getNbLignes() - 1 || col < 0) {
-				System.err.println("Erreur, Position invalide apr�s le deplacement");
+				System.err.println("Erreur, Position invalide apres le deplacement");
 				System.exit(-1);
-				return;
+				return;  
 			}
 
 			this.getRobot().setPosition(donneesSimulation.getCarte().getCase(lig, col));
-			// System.out.println("Ligne:: " + lig + " Apr�s dedans:: " + this.getRobot().getPosition().getLigne());
-			// apr�s avoir deplac� le robot on le met en �tat non occup�.
+			// System.out.println("Ligne:: " + lig + " Apres dedans:: " + this.getRobot().getPosition().getLigne());
+			// apres avoir deplace le robot on le met en etat non occupe.
 		}
+
+	@Override
+	public void updateDateFin(long date) {
+		// TODO Auto-generated method stub
+		
+	}
 
 
 	

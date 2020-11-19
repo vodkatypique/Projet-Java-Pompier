@@ -17,7 +17,7 @@ public abstract class Robot {
 		// au depart son reservoir n'est pas vide, il est considere plein
 		setResevoir(getReservoirMax());
 		this.reservoirInit = this.reservoir;
-		this.occupationRobot = new OccupationRobot(0);
+		this.occupationRobot = new OccupationRobot();
 	}
 
 	public Robot(Robot r) {
@@ -26,14 +26,14 @@ public abstract class Robot {
 		this.vitesse = r.getVitesse(r.getPosition().getNature());
 		this.reservoir = r.getReservoir();
 		this.reservoirInit = this.reservoir;
-		this.occupationRobot = new OccupationRobot( 0);
+		this.occupationRobot = new OccupationRobot();
 
 	}
 
 	public Robot(Case position) {
 		this.position = new Case(position);
 		this.positionInit = new Case(this.position);
-		this.occupationRobot = new OccupationRobot( 0);
+		this.occupationRobot = new OccupationRobot();
 		setVitesse(this.getVitesseDefault());
 		setResevoir(getReservoirMax());
 		this.reservoirInit = this.reservoir;
@@ -55,6 +55,8 @@ public abstract class Robot {
 						}
 						PlusCourtChemin chemin = new PlusCourtChemin(this, voisin, carte);
 						double temps = chemin.getTempsOptim();
+						if(temps == -1)
+							continue;
 						if (temps < tempsLePlusRapide) {
 							tempsLePlusRapide = temps;
 							listeChemin.add(chemin);
@@ -84,12 +86,13 @@ public abstract class Robot {
 		Boolean peutRemplir = Boolean.FALSE;
 		int lig = this.position.getLigne();
 		int col = this.position.getColonne();
-		
+		   
 		for (Direction d : Direction.values()) {
 			Case voisin =carte.getVoisin(new Case (lig,col, NatureTerrain.TERRAIN_LIBRE), d);
 			if(voisin!=null) {
 				if(voisin.getNature()==NatureTerrain.EAU) {
 					peutRemplir=Boolean.TRUE;
+					break;
 				}
 			}
 		}
@@ -97,12 +100,11 @@ public abstract class Robot {
 
 	}
 
-	abstract double getVitesseMax();// justification :
-									// https://stackoverflow.com/questions/11896955/force-subclasses-to-include-constant-in-abstract-java-class
+	abstract double getVitesseMax();
 
 	abstract double getReservoirMax();
 
-	abstract double tempRemplissage();// pour la totalité du reservoir
+	abstract double tempRemplissage();// pour la totalite du reservoir
 
 	abstract double dureeDeversementUnitaire();// le temps en seconde pour le deversement de 1L
 
@@ -120,10 +122,10 @@ public abstract class Robot {
 
 	public void setResevoir(double resevoir) {
 		if (resevoir < 0) {
-			System.err.println("Erreur, Reservoir négatif ");
+			System.err.println("Erreur, on ne peut pas mettre une quantite d'eau negative dans le reservoir ");
 			this.reservoir = 0;
 		} else if (resevoir > getReservoirMax()) {
-			System.err.println("Erreur, resevoir trop grand");
+			System.err.println("Le resevoir passez assez grand pour cette quantite d'eau");
 			this.reservoir = getReservoirMax();
 		} else {
 			this.reservoir = resevoir;
@@ -132,7 +134,7 @@ public abstract class Robot {
 
 	public void setVitesse(double vitesse) {
 		if (vitesse < 0) {
-			System.err.println("Erreur, Vitesse négative ");
+			System.err.println("Erreur, Vitesse negative ");
 			this.vitesse = 0;
 		} else if (vitesse > getVitesseMax()) {
 			System.err.println("Erreur, Vitesse trop grande");

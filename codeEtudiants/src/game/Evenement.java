@@ -14,7 +14,7 @@ public abstract class Evenement {
 	}
 	
 	public long getDate() {
-		return this.date;
+		return this.date;   
 	}
 	
 	public Robot getRobot() {
@@ -27,5 +27,7 @@ public abstract class Evenement {
 	}
 	
 	public abstract void execute();
+	
+	public abstract void updateDateFin(long date);
 	
 }

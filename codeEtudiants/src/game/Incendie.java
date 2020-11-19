@@ -19,7 +19,7 @@ public class Incendie {
     
     
     public void decrementeIntensite(double intensite) {
-		this.intensite -= intensite;//on décremente
+		this.intensite -= intensite;//on decremente
 	}
 
 	public Case getPosition() {

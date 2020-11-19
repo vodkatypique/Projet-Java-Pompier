@@ -56,7 +56,7 @@ public class DonneesSimulation {
 				break;
 			}
 		}
-    	return incendieRetour;
+    	return incendieRetour;  
     }
     public void initIncendies() {
         this.incendies = new ArrayList<Incendie>();

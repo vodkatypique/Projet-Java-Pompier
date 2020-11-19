@@ -26,16 +26,18 @@ public class Patte extends Robot {
         	return 10;//réduite "A" et non "DE" dans le sujet
         }
         return super.getVitesse(nature);
-    }
+    }  
 
 	@Override
 	public double getVitesseMax() {
 		return Double.MAX_VALUE;
 	}
+	
 	@Override
 	public double getReservoirMax() {
 		return Double.MAX_VALUE;
 	}
+	
 	@Override
 	public double tempRemplissage() {
 		return 0;

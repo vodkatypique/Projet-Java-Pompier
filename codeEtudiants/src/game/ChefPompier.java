@@ -18,6 +18,7 @@ public class ChefPompier {
 		this.setIncendies(incendies);
 		this.carte = ca;
 		this.simulateur = simulateur;
+		this.simulateur.setChefPompier(this);
 	}
 
 	public void setRobots(ArrayList<Robot> robots) {
@@ -31,11 +32,12 @@ public class ChefPompier {
 
 	public void boucleExtinction() {
 		for (Incendie incendie : this.incendies) {
+			if(incendie.getIntensite() <= 0)
+				continue;
 			ArrayList<PlusCourtChemin> listChemin = new ArrayList<PlusCourtChemin>();
 			int index = 0;
 			int indexRobotRapide = 0;
-			Incendie aEteindre = null;
-			aEteindre = incendie;
+			Incendie aEteindre = incendie;
 
 			Robot robotLePlusRapide = null;
 			double temps = Double.MAX_VALUE;
@@ -47,26 +49,30 @@ public class ChefPompier {
 					robot.getOccupationRobot().setOccupationGenerale(true);
 					PlusCourtChemin directionEau=robot.chercherEau(carte);
 					directionEau.deplaceVersCase(this.simulateur);
-					this.simulateur.ajouteEvenement(new DebutRemplissageReservoir(this.simulateur.getDateSimulation(), robot, this.simulateur),robot);
+					this.simulateur.ajouteEvenement(new DebutRemplissageReservoir(robot, this.simulateur));
 					continue;
 				}
 				if (robotLePlusRapide == null) {
-					robotLePlusRapide = robot;
+					
 					PlusCourtChemin plusCourt = new PlusCourtChemin(robot, aEteindre.getPosition(), carte);// TODO temps du plus court chemin
 					indexRobotRapide = 0;
 					listChemin.add(plusCourt);
 					index++;
 					temps = plusCourt.getTempsOptim();
+					if(temps == -1)
+						continue;
+					robotLePlusRapide = robot;
 					continue;
 				}
 				PlusCourtChemin nouveauPlusCourt = new PlusCourtChemin(robot, aEteindre.getPosition(), carte);
 				listChemin.add(nouveauPlusCourt);
 				double nouveauTemps = nouveauPlusCourt.getTempsOptim();
-				
+				if(nouveauTemps == -1)
+					continue;
 				if (temps > nouveauTemps) {
 					robotLePlusRapide = robot;
 					indexRobotRapide = index;
-					temps = nouveauTemps;
+					temps = nouveauTemps;    
 				}
 				index++;
 				System.err.println(temps + " " + nouveauTemps);
@@ -76,7 +82,7 @@ public class ChefPompier {
 			}
 			robotLePlusRapide.getOccupationRobot().setOccupationGenerale(true);
 			listChemin.get(indexRobotRapide).deplaceVersCase(this.simulateur);
-			simulateur.ajouteEvenement(new DebutExtinctionFeu(this.simulateur.getDateSimulation(),robotLePlusRapide, this.simulateur, this.simulateur.getDonneesSimulation()),robotLePlusRapide);
+			simulateur.ajouteEvenement(new DebutExtinctionFeu(robotLePlusRapide, this.simulateur, this.simulateur.getDonneesSimulation()));
 			robotLePlusRapide = null;
 		}
 

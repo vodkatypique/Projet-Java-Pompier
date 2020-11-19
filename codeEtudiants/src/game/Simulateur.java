@@ -5,30 +5,22 @@ import gui.Simulable;
 
 import java.awt.*;
 import java.util.ArrayList;
-//import java.util.Iterator;
 import java.util.Hashtable;
+import java.util.Map;
 
 public class Simulateur implements Simulable {
 	/**
-	 * L'interface graphique associée
+	 * L'interface graphique associee
 	 */
 	private GUISimulator gui;
 	private DonneesSimulation donneesSimulation;
 	private int tailleCase;
 	private long dateSimulation;
-	public long getDateSimulation() {
-		return dateSimulation;
-	}
-
-	public Hashtable<Robot, ArrayList<Evenement>> getEvenements() {
-		return evenements;
-	}
-
 	private int offsetGauche;
 	private int offsetHaut;
-	private Hashtable<Robot, ArrayList<Evenement>> evenements=new Hashtable<Robot, ArrayList<Evenement>>();
-	ChefPompier chefPompier;
-
+	private Hashtable<Robot, ArrayList<Evenement>> evenements;
+	private ChefPompier chefPompier;
+	
 	/**
 	 * Crée un Invader et le dessine.
 	 *
@@ -44,26 +36,29 @@ public class Simulateur implements Simulable {
 		this.dateSimulation = 0;
 		this.offsetGauche = 50;
 		this.offsetHaut=50;
+		this.evenements=new Hashtable<Robot, ArrayList<Evenement>>();
 		this.chefPompier = null;
 	}
 
 	
 	
-	public void ajouteEvenement(Evenement evenement, Robot robot) {
-		// on peut aussi utiliser un hashmap si on veut rendre l'execution parall�le cad donner la possibilite � deux robots
+	public void ajouteEvenement(Evenement evenement) {
+		// on peut aussi utiliser un hashmap si on veut rendre l'execution parallele cad donner la possibilite a deux robots
 		// de pouvoir se deplacer en meme temps
-		// � ce moment on recup�re la date de fin du dernier evenement qui fait intervenir ce robot pour donner la date de fin du nouvel evenement
-		if(evenement.getDate()<this.dateSimulation) {
+		// a ce moment on recupere la date de fin du dernier evenement qui fait intervenir ce robot pour donner la date de fin du nouvel evenement
+		/*if(evenement.getDate()<this.dateSimulation) {
 			System.err.println("Erreur, evenement dans le pass�");
 			return;
-		}
+		}*/
+		Robot robot = evenement.getRobot();
 		ArrayList<Evenement> listeEvenement=this.evenements.get(robot);
-		if(listeEvenement==null){
+		
+		if(listeEvenement == null){
 			listeEvenement=new ArrayList<Evenement>();
-			this.evenements.put(robot, listeEvenement);
-		}
-		if(listeEvenement.size() == 0)
 			listeEvenement.add(evenement);
+			this.evenements.put(robot, listeEvenement);
+			return;
+		}
 		else {
 			long dateLastEvent = listeEvenement.get(listeEvenement.size()-1).getDate();
 			evenement.setDate(evenement.getDate() + dateLastEvent);
@@ -79,8 +74,6 @@ public class Simulateur implements Simulable {
 		gui.setSimulable(this);
 		gui.reset(); // clear the window
 		System.out.println("-------------------------");
-		// int cptX = 0;
-		// int cptY = 0;
 
 		for (int i = 0; i < donneesSimulation.getCarte().getNbLignes(); i++) {
 			for (int j = 0; j < donneesSimulation.getCarte().getNbColonnes(); j++) {
@@ -107,7 +100,6 @@ public class Simulateur implements Simulable {
 						break;
 				}
 			}
-			// cptY++;
 		}
 
 		for (Incendie incendie : donneesSimulation.getIncendies()) {
@@ -135,24 +127,20 @@ public class Simulateur implements Simulable {
 
 		++this.dateSimulation;
 		System.err.println(this.dateSimulation);
-		for (Robot robot : this.chefPompier.getRobots()) {
-			ArrayList<Evenement> listeEvenement=this.evenements.get(robot);
-			if(listeEvenement.isEmpty()) {
-				robot.getOccupationRobot().setOccupationGenerale(false);
-			}
-			ArrayList<Evenement> nouvelListeEvenement=new ArrayList<Evenement>();
-			for (Evenement evenement : listeEvenement) {
-				nouvelListeEvenement.add(evenement);
-			}
-			for(Evenement evenement : nouvelListeEvenement) {
-				if (this.dateSimulation == evenement.getDate()) {
+		for(Map.Entry<Robot, ArrayList<Evenement>> event: this.evenements.entrySet()) {
+			//Robot robot = event.getKey();
+			for(int i = 0; i < event.getValue().size(); i++) {
+				Evenement evenement =  event.getValue().get(i);
+				if(this.dateSimulation == evenement.getDate()) {
 					evenement.execute();
-					listeEvenement.remove(evenement);
-
+					if(i < event.getValue().size()-1) { // nous ne sommes pas au dernier evenement de l'array
+						Evenement suiv = event.getValue().get(i+1);
+						suiv.updateDateFin(this.dateSimulation);
+					}
 				}
 			}
 		}
-
+  
 		this.draw(this.donneesSimulation);
 	}
 	public Carte getCarte() {
@@ -170,15 +158,27 @@ public class Simulateur implements Simulable {
 	}
 	
 	public boolean simulationTerminee() {
-		return this.donneesSimulation.getIncendies().isEmpty();
+		//return this.donneesSimulation.getIncendies().isEmpty();
 		//return this.evenements.isEmpty();
-//		for(Evenement ev: this.evenements)  {
-//			if(ev.getDate() > this.dateSimulation) {
-//				return false;
-//			}
-//		}
-//		return true;
+		for(Map.Entry<Robot, ArrayList<Evenement>> event: this.evenements.entrySet()) {
+			//Robot robot = event.getKey();
+			for(Evenement evenement: event.getValue()) {
+				if(evenement.getDate() > this.dateSimulation) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
+	
+	public long getDateSimulation() {
+		return dateSimulation;
+	}
+
+	public Hashtable<Robot, ArrayList<Evenement>> getEvenements() {
+		return evenements;
+	}
+
 
 	@Override
 	public void restart() {
@@ -198,4 +198,6 @@ public class Simulateur implements Simulable {
 	public void setChefPompier(ChefPompier chefPompier) {
 		this.chefPompier = chefPompier;
 	}
+	
+	
 }
