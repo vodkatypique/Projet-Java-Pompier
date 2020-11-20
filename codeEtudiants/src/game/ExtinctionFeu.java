@@ -51,7 +51,7 @@ public class ExtinctionFeu extends EvenementRobotAbstrait {
 
 		Incendie incendie = this.donneesSimulation.getIncendie(this.getRobot().getPosition());
 		if (incendie == null) {
-			this.getRobot().getOccupationRobot().setOccupationGenerale(false);
+			this.getRobot().setOccupationGenerale(false);
 			return;
 		}
 		if (this.getRobot().getReservoir() <= incendie.getIntensite())

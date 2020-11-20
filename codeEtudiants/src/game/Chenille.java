@@ -1,5 +1,10 @@
 package game;
 
+import java.awt.Color;
+
+import gui.GUISimulator;
+import gui.GraphicalElement;
+
 /**
  * The type Chenille.
  */
@@ -100,6 +105,14 @@ public class Chenille extends Robot {
 	@Override
 	boolean peutAtteindre(Case position) {
 		return position.getNature() != NatureTerrain.EAU && position.getNature() != NatureTerrain.ROCHE;
+	}
+	
+	@Override
+	public GraphicalElement draw(GUISimulator gui, int n) {
+		// TODO Auto-generated method stub
+		int tailleCase = (int) (RESOLUTION / n);
+		return new gui.Oval(this.getPosition().getColonne() * tailleCase + OFFSET_GAUCHE,
+				this.getPosition().getLigne() * tailleCase + OFFSET_HAUT, Color.BLACK, Color.pink, tailleCase);
 	}
 
 

@@ -29,7 +29,7 @@ public class RemplissageReservoir extends EvenementRobotAbstrait {
             return;
         }
         this.getRobot().setResevoir(this.getRobot().getReservoir() + this.volume);
-        this.getRobot().getOccupationRobot().setOccupationGenerale(false);
+        this.getRobot().setOccupationGenerale(false);
 
     }
 

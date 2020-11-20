@@ -73,12 +73,12 @@ public class ChefPompier {
 
 			// on cherche le robot le plus rapide
 			for (Robot robot : this.robots) {
-				if (robot.getOccupationRobot().getOccupationGenerale()) {
+				if (robot.getOccupationGenerale()) {
 					continue;
 				}
 				if (robot.getReservoir() == 0) {
 					// si le robot est vide, on l'envoi se remplir
-					robot.getOccupationRobot().setOccupationGenerale(true);
+					robot.setOccupationGenerale(true);
 					PlusCourtChemin directionEau = robot.chercherEau(carte);
 					directionEau.deplaceVersCase(this.simulateur);
 					this.simulateur.ajouteEvenement(new RemplissageReservoir(robot, this.simulateur), robot);
@@ -110,7 +110,7 @@ public class ChefPompier {
 			if (robotLePlusRapide == null) {
 				continue;
 			}
-			robotLePlusRapide.getOccupationRobot().setOccupationGenerale(true);
+			robotLePlusRapide.setOccupationGenerale(true);
 			listChemin.get(indexRobotRapide).deplaceVersCase(this.simulateur);
 			simulateur.ajouteEvenement(new ExtinctionFeu(robotLePlusRapide, aEteindre.getIntensite(),this.simulateur, this.simulateur.getDonneesSimulation()),robotLePlusRapide);
 			robotLePlusRapide = null;

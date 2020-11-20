@@ -69,8 +69,7 @@ public class Deplacement extends EvenementRobotAbstrait {
 		}
 
 		this.getRobot().setPosition(donneesSimulation.getCarte().getCase(lig, col));
-		// //System.out.println("Ligne:: " + lig + " Apr�s dedans:: " + this.getRobot().getPosition().getLigne());
-		// apr�s avoir deplac� le robot on le met en �tat non occup�.
+		
 	}
 
 

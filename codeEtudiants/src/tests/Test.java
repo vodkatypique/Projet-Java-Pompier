@@ -60,7 +60,7 @@ public class Test {
 	}
 	private static void lanceSimulation(GUISimulator gui, String chemineDonnees) {
 
-		Simulateur sim = new Simulateur(gui, chemineDonnees);
+		Simulateur sim = new Simulateur(gui, chemineDonnees); 
 		sim.start();
 	}
 	

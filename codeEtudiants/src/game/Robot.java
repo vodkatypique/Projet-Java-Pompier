@@ -2,16 +2,18 @@ package game;
 
 import java.util.ArrayList;
 
+import interfaces.Drawable;
+
 /**
  * The type Robot.
  */
-public abstract class Robot {
+public abstract class Robot implements Drawable{
 	private Case position;
 	private Case positionInit;
 	private double vitesse;
 	private double reservoir;
 	private double reservoirInit;
-	private OccupationRobot occupationRobot;
+	private boolean occupationGenerale;
 
 	/**
 	 * Instantiates a new Robot avec une position et la vitesse par defaut du type de robot
@@ -21,7 +23,7 @@ public abstract class Robot {
 	public Robot(Case position) {
 		this.position = new Case(position);
 		this.positionInit = new Case(this.position);
-		this.occupationRobot = new OccupationRobot();
+		this.occupationGenerale = false;
 		setVitesse(this.getVitesseDefault());
 		setResevoir(getReservoirMax());
 		this.reservoirInit = this.reservoir;
@@ -39,7 +41,7 @@ public abstract class Robot {
 		setVitesse(vitesse);
 		setResevoir(getReservoirMax());
 		this.reservoirInit = this.reservoir;
-		this.occupationRobot = new OccupationRobot();
+		this.occupationGenerale = false;
 	}
 
 	/**
@@ -271,8 +273,11 @@ public abstract class Robot {
 	 *
 	 * @return l'occupation du robot
 	 */
-	public OccupationRobot getOccupationRobot() {
-		return this.occupationRobot;
+	public boolean getOccupationGenerale() {
+		return this.occupationGenerale;
 	}
-
+	
+	public void setOccupationGenerale(boolean val) {
+		this.occupationGenerale = val;
+	}
 }

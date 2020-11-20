@@ -1,10 +1,16 @@
 package game;
 
+import java.awt.Color;
+
+import gui.GUISimulator;
+import gui.GraphicalElement;
+import interfaces.Drawable;
+
 /**
  * The type Case.
  * reprensente une case du plateau qui represente notre univers
  */
-public class Case {
+public class Case implements Drawable{
 	private int ligne;
 	private int colonne;
 	private NatureTerrain nature;
@@ -104,5 +110,29 @@ public class Case {
 	@Override
 	public String toString() {
 		return "Case{" + "ligne=" + ligne + ", colonne=" + colonne + ", nature=" + nature + '}';
+	}
+
+	@Override
+	public GraphicalElement draw(GUISimulator gui, int n) {
+		// TODO Auto-generated method stub
+		int tailleCase = (int) (RESOLUTION / n);
+		int i = this.ligne;
+		int j = this.colonne;
+		switch (this.nature) {
+			case FORET:
+				return new gui.Rectangle(j * tailleCase + OFFSET_GAUCHE, i * tailleCase + OFFSET_HAUT, Color.GREEN, Color.GREEN, tailleCase);
+			case TERRAIN_LIBRE:
+				return new gui.Rectangle(j * tailleCase+OFFSET_GAUCHE, i * tailleCase+OFFSET_HAUT, Color.WHITE, Color.WHITE, tailleCase);
+			case HABITAT:
+				return new gui.Rectangle(j * tailleCase+OFFSET_GAUCHE, i * tailleCase+OFFSET_HAUT, Color.CYAN, Color.CYAN, tailleCase);
+			case ROCHE:
+				return new gui.Rectangle(j * tailleCase+OFFSET_GAUCHE, i * tailleCase+OFFSET_HAUT, Color.DARK_GRAY, Color.DARK_GRAY, tailleCase);
+			case EAU:
+				return new gui.Rectangle(j * tailleCase + OFFSET_GAUCHE, i * tailleCase+OFFSET_HAUT, Color.BLUE, Color.BLUE, tailleCase);
+			
+		}
+		return null;
+		
+		
 	}
 }

@@ -60,8 +60,8 @@ public class PlusCourtChemin {
 			fermes.add(courant);
 		}
 
-		if(this.chemin.size() == 0)
-			System.err.println("Pas de plus cours chemin jusqu'� cette destination");
+		/*if(this.chemin.size() == 0)
+			System.err.println("Pas de plus cours chemin jusqu'� cette destination");*/
 
 	}
 

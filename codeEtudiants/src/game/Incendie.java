@@ -1,9 +1,15 @@
 package game;
 
+import java.awt.Color;
+
+import gui.GUISimulator;
+import gui.GraphicalElement;
+import interfaces.Drawable;
+
 /**
  * The type Incendie.
  */
-public class Incendie {
+public class Incendie implements Drawable{
     private Case position;
     private int intensite;
     private int intensiteInit;
@@ -67,4 +73,17 @@ public class Incendie {
                 ", intensite=" + intensite +
                 '}';
     }
+
+
+	@Override
+	public GraphicalElement draw(GUISimulator gui, int n) {
+		// TODO Auto-generated method stub
+		int tailleCase = (int) (RESOLUTION / n);
+		return new gui.Rectangle(this.getPosition().getColonne() * tailleCase + OFFSET_GAUCHE, this.getPosition().getLigne() * tailleCase + OFFSET_HAUT, Color.RED, Color.RED, tailleCase);
+		/*return (new gui.Text(incendie.getPosition().getColonne() * tailleCase + OFFSET_GAUCHE,
+				this.getPosition().getLigne() * tailleCase + this.offsetHaut, Color.WHITE, "" + incendie.getIntensite()));*/
+
+	}
+    
+    
 }

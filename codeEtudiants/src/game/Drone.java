@@ -1,6 +1,10 @@
 package game;
 
+import java.awt.Color;
 import java.util.ArrayList;
+
+import gui.GUISimulator;
+import gui.GraphicalElement;
 
 /**
  * The type Drone.
@@ -136,6 +140,14 @@ public class Drone extends Robot {
 	@Override
 	boolean peutAtteindre(Case position) {
 		return true;
+	}
+	
+	@Override
+	public GraphicalElement draw(GUISimulator gui, int n) {
+		// TODO Auto-generated method stub
+		int tailleCase = (int) (RESOLUTION / n);
+		return new gui.Oval(this.getPosition().getColonne() * tailleCase + OFFSET_GAUCHE,
+				this.getPosition().getLigne() * tailleCase + OFFSET_HAUT, Color.BLACK, Color.magenta, tailleCase);
 	}
 
 

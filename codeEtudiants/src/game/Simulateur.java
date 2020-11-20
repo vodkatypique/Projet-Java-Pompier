@@ -12,7 +12,7 @@ package game;
 import gui.GUISimulator;
 import gui.Simulable;
 
-import java.awt.*;
+
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -30,10 +30,10 @@ public class Simulateur implements Simulable {
 	 */
 	private GUISimulator gui;
 	private DonneesSimulation donneesSimulation;
-	private int tailleCase;
 	private long dateSimulation;
 	private String cheminDonnees;
 	private Boolean joueScenario;
+	private Hashtable<Robot, ArrayList<Evenement>> evenements = new Hashtable<Robot, ArrayList<Evenement>>();
 
 	/**
 	 * The Chef pompier.
@@ -48,10 +48,7 @@ public class Simulateur implements Simulable {
 	 */
 	public Simulateur(GUISimulator gui, String cheminDonnees) {
 		this.gui = gui;
-		this.tailleCase = 30;
 		this.dateSimulation = 0;
-		this.offsetGauche = 15;
-		this.offsetHaut = 15;
 		this.cheminDonnees=cheminDonnees;
 		this.joueScenario=Boolean.FALSE;
 		lectureDonnee();
@@ -63,10 +60,7 @@ public class Simulateur implements Simulable {
 	 */
 	public Simulateur(GUISimulator gui,DonneesSimulation donneesSimulation) {
 		this.gui = gui;
-		this.tailleCase = 30;
 		this.dateSimulation = 0;
-		this.offsetGauche = 15;
-		this.offsetHaut = 15;
 		this.joueScenario=Boolean.TRUE;
 		this.donneesSimulation=donneesSimulation;
 
@@ -79,9 +73,8 @@ public class Simulateur implements Simulable {
 			e.printStackTrace();
 		}
 	}
-	private int offsetGauche;
-	private int offsetHaut;
-	private Hashtable<Robot, ArrayList<Evenement>> evenements = new Hashtable<Robot, ArrayList<Evenement>>();
+	
+	
 
 	/**
 	 * Gets date simulation.
@@ -144,43 +137,15 @@ public class Simulateur implements Simulable {
 
 		for (int i = 0; i < donneesSimulation.getCarte().getNbLignes(); i++) {
 			for (int j = 0; j < donneesSimulation.getCarte().getNbColonnes(); j++) {
-				switch (donneesSimulation.getCarte().getCase(i, j).getNature()) {
-					case FORET:
-						gui.addGraphicalElement(
-								new gui.Rectangle(j * tailleCase + this.offsetGauche, i * tailleCase + this.offsetHaut, Color.GREEN, Color.GREEN, tailleCase));
-						break;
-					case TERRAIN_LIBRE:
-						gui.addGraphicalElement(
-								new gui.Rectangle(j * tailleCase+this.offsetGauche, i * tailleCase+this.offsetHaut, Color.WHITE, Color.WHITE, tailleCase));
-						break;
-					case HABITAT:
-						gui.addGraphicalElement(
-								new gui.Rectangle(j * tailleCase+this.offsetGauche, i * tailleCase+this.offsetHaut, Color.CYAN, Color.CYAN, tailleCase));
-						break;
-					case ROCHE:
-						gui.addGraphicalElement(new gui.Rectangle(j * tailleCase+this.offsetGauche, i * tailleCase+this.offsetHaut, Color.DARK_GRAY,
-								Color.DARK_GRAY, tailleCase));
-						break;
-					case EAU:
-						gui.addGraphicalElement(
-								new gui.Rectangle(j * tailleCase + this.offsetGauche, i * tailleCase+this.offsetHaut, Color.BLUE, Color.BLUE, tailleCase));
-						break;
-				}
+				gui.addGraphicalElement(donneesSimulation.getCarte().getCase(i, j).draw(gui, this.getCarte().getNbLignes()));
 			}
 		}
 
 		for (Incendie incendie : donneesSimulation.getIncendies()) {
-
-			gui.addGraphicalElement(new gui.Rectangle(incendie.getPosition().getColonne() * tailleCase + this.offsetGauche,
-					incendie.getPosition().getLigne() * tailleCase+this.offsetHaut, Color.RED, Color.RED, tailleCase));
-			gui.addGraphicalElement(new gui.Text(incendie.getPosition().getColonne() * tailleCase + this.offsetGauche,
-					incendie.getPosition().getLigne() * tailleCase + this.offsetHaut, Color.WHITE, "" + incendie.getIntensite()));
-
-
+			gui.addGraphicalElement(incendie.draw(gui, this.getCarte().getNbLignes()));
 		}
 		for (Robot robot : donneesSimulation.getRobots()) {
-			gui.addGraphicalElement(new gui.Oval(robot.getPosition().getColonne() * tailleCase + this.offsetGauche,
-					robot.getPosition().getLigne() * tailleCase + this.offsetHaut, Color.BLACK, Color.YELLOW, tailleCase));
+			gui.addGraphicalElement(robot.draw(gui, this.getCarte().getNbLignes()));
 		}
 
 
@@ -202,7 +167,7 @@ public class Simulateur implements Simulable {
 				continue;
 			}
 			if(listeEvenement.isEmpty()) {//TODO ça marche mais c'est pas clean, au pire on peut laisser
-				robot.getOccupationRobot().setOccupationGenerale(false);
+				robot.setOccupationGenerale(false);
 			}
 			ArrayList<Evenement> nouvelListeEvenement=new ArrayList<Evenement>();
 			for (Evenement evenement : listeEvenement) {
