@@ -29,8 +29,12 @@ public class Test {
 	 * @param args le nom de fichier doit être en args[0]
 	 * @throws FileNotFoundException si le fichier n'est pas trouvé
 	 * @throws DataFormatException si les données sont mal formatées dans le dossier
+	 * @throws InvocationTargetException 
+	 * @throws IllegalArgumentException 
+	 * @throws InstantiationException 
+	 * @throws IllegalAccessException 
 	 */
-	public static void main(String[] args) throws FileNotFoundException, DataFormatException {
+	public static void main(String[] args) throws FileNotFoundException, DataFormatException, IllegalAccessException, InstantiationException, IllegalArgumentException, InvocationTargetException {
 
 		if (args.length < 1) {
 			System.err.println("Syntaxe: java tests.TestLecteurDonnees <nomDeFichier>");
@@ -40,31 +44,24 @@ public class Test {
 				 500,
 				 500,
 				Color.BLACK);
-		//Scenario de test
-//		try {
-//			DonneesSimulation donneesSimulation=LecteurDonnees.creeDonnees(args[0]);
-//			scenario0(gui, donneesSimulation);
-//			//scenario1(gui, donneesSimulation);
-//			//verifiePlusCourtChemin(gui, donneesSimulation);
-//		} catch (FileNotFoundException | IllegalAccessException | InstantiationException | IllegalArgumentException
-//				| InvocationTargetException | DataFormatException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-
-
 		
-		//Vrai simulation
-	
-			lanceSimulation(gui, args[0]);
+		//Scenarios de test
+		// faire les tests en les considerant individuellement
+		//scenario0(gui, args[0]);
+		scenario1(gui, args[0]);
+		
+		//Vrai simulation qui fait intervenir le chef pompier
+		//lanceSimulation(gui, args[0]);
+			
 	}
-	private static void lanceSimulation(GUISimulator gui, String chemineDonnees) {
+	private static void lanceSimulation(GUISimulator gui, String cheminDonnees) {
 
-		Simulateur sim = new Simulateur(gui, chemineDonnees); 
+		Simulateur sim = new Simulateur(gui, cheminDonnees); 
 		sim.start();
 	}
 	
-	private static void scenario0(GUISimulator gui, DonneesSimulation donneesSimulation) {
+	private static void scenario0(GUISimulator gui, String cheminDonnees) throws FileNotFoundException, IllegalAccessException, InstantiationException, IllegalArgumentException, InvocationTargetException, DataFormatException {
+		DonneesSimulation donneesSimulation=LecteurDonnees.creeDonnees(cheminDonnees);
 		Simulateur sim = new Simulateur(gui, donneesSimulation);
 		sim.ajouteEvenement(new Deplacement(Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation, sim),donneesSimulation.getRobots().get(0));
 		sim.ajouteEvenement(new Deplacement(Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation, sim),donneesSimulation.getRobots().get(0));
@@ -79,8 +76,8 @@ public class Test {
 	}
 
 
-	private static void scenario1(GUISimulator gui, DonneesSimulation donnees) {
-
+	private static void scenario1(GUISimulator gui, String cheminDonnees) throws FileNotFoundException, IllegalAccessException, InstantiationException, IllegalArgumentException, InvocationTargetException, DataFormatException {
+		DonneesSimulation donnees=LecteurDonnees.creeDonnees(cheminDonnees);
 		Simulateur sim = new Simulateur(gui, donnees);
 		Robot robot = donnees.getRobots().get(1);
 		sim.ajouteEvenement(new Deplacement(Direction.NORD, robot, donnees,sim),robot);
@@ -96,12 +93,6 @@ public class Test {
 		sim.start();
 	}
 
-	private static void verifiePlusCourtChemin(GUISimulator gui, DonneesSimulation donnees) {
-		Simulateur sim = new Simulateur(gui, donnees);
-
-		PlusCourtChemin chemin = new PlusCourtChemin(sim.getDonneesSimulation().getRobots().get(0), sim.getCarte().getCase(6, 7), sim.getCarte());
-		chemin.deplaceVersCase(sim);
-	}
 
 
 }
