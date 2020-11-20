@@ -20,12 +20,7 @@ public class RemplissageReservoir extends EvenementRobotAbstrait {
     public RemplissageReservoir(Robot robot, Simulateur simulateur) {
         super(robot, simulateur);
         this.volume = robot.getReservoirMax() - robot.getReservoir();
-        //this.setDateFin(this.getRobot().dureeRemplissageReservoir(this.volume));
-        if (this.getDate() == 0) {
-            System.err.println("d");
-        }
         this.setDate(this.getDate() + this.getRobot().dureeRemplissageReservoir(this.volume));
-        //System.out.println("Date fin Remplissage ::: " + this.getDate());
     }
 
     /**

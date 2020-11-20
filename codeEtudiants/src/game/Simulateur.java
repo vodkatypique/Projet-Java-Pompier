@@ -48,7 +48,7 @@ public class Simulateur implements Simulable {
 	 */
 	public Simulateur(GUISimulator gui, String cheminDonnees, Boolean joueScenario) {
 		this.gui = gui;
-		this.tailleCase = 10;
+		this.tailleCase = 30;
 		this.dateSimulation = 0;
 		this.offsetGauche = 30;
 		this.offsetHaut = 30;
