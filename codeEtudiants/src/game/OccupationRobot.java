@@ -7,14 +7,6 @@ public class OccupationRobot {
 	private long dateFin;
 	private boolean OccupationGenerale;
 
-	/**
-	 * Instantiates a new Occupation robot.
-	 *
-	 * @param dateFin the date fin de l'occupation
-	 */
-	public OccupationRobot(long dateFin) {
-		this.dateFin = dateFin;
-	}
 
 	public OccupationRobot() {
 
@@ -38,21 +30,4 @@ public class OccupationRobot {
 		OccupationGenerale = occupationGenerale;
 	}
 
-	/**
-	 * Gets date fin.
-	 *
-	 * @return the date fin de l'occupation du Robot
-	 */
-	public long getDateFin() {
-		return this.dateFin;
-	}
-
-	/**
-	 * Sets date fin.
-	 *
-	 * @param date the date
-	 */
-	public void setDateFin(long date) {
-		this.dateFin = date;
-	}
 }
