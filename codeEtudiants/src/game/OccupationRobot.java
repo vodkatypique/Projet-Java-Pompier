@@ -16,6 +16,10 @@ public class OccupationRobot {
 		this.dateFin = dateFin;
 	}
 
+	public OccupationRobot() {
+
+	}
+
 	/**
 	 * Gets occupation generale, utile pour le calcul du plus court chemin pour savoir si un robot est deja occupé
 	 *
