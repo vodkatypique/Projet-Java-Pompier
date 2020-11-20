@@ -10,7 +10,7 @@ public abstract class EvenementRobotAbstrait extends Evenement {
 	/**
 	 * Instantiates a new Evenement robot abstrait.
 	 *
-	 * @param date  the date
+	 * @param date  the date d'execution
 	 * @param robot the robot
 	 */
 	public EvenementRobotAbstrait(long date, Robot robot) {
@@ -36,8 +36,9 @@ public abstract class EvenementRobotAbstrait extends Evenement {
 	public EvenementRobotAbstrait(Robot robot,Simulateur simulateur) {
 		super(robot);
 		this.robot = robot;
-		this.simulateur=simulateur;
+		this.simulateur = simulateur;
 	}
+
 	/**
 	 * Gets robot.
 	 *
@@ -47,6 +48,11 @@ public abstract class EvenementRobotAbstrait extends Evenement {
 		return this.robot;
 	}
 
+	/**
+	 * Gets Simulateur
+	 *
+	 * @return the simulateur
+	 */
 	public Simulateur getSimulateur() {
 		return simulateur;
 	}

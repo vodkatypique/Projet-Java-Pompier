@@ -5,14 +5,14 @@
  *
  * 20/11/2020
  * 
- * Benjamin Cathelineau, Cl�ment Caffin, Brown Ebouky
+ * Benjamin Cathelineau, Cl�ment Caffin, Brown Ebouky
  */
 package game;
 
 import java.util.ArrayList;
 
 /**
- * The type Donnees simulation.
+ * The type Donnees simulation, represente l'integralité des données.
  */
 public class DonneesSimulation {
     private ArrayList<Incendie> incendies;
@@ -42,7 +42,7 @@ public class DonneesSimulation {
     }
 
     /**
-     * Get incendie incendie.
+     * Get incendie a une case specifié
      *
      * @param position the position
      * @return the incendie

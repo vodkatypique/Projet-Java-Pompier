@@ -6,9 +6,6 @@ import java.util.ArrayList;
  * The type Drone.
  */
 public class Drone extends Robot {
-
-
-
 	/**
 	 * Instantiates a new Drone.
 	 *
@@ -28,7 +25,7 @@ public class Drone extends Robot {
 	}
 
 	/**
-	 * Duree deversement double.
+	 * Duree deversement
 	 *
 	 * @param vol the vol
 	 * @return the double
@@ -84,7 +81,7 @@ public class Drone extends Robot {
 	}
 
 	/**
-	 * Chercher eau plus court chemin.
+	 * renvoit le plus court chemin permettant d'aller remplir le drone
 	 *
 	 * @param carte the carte
 	 * @return the plus court chemin

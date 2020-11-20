@@ -27,6 +27,7 @@ public class Chenille extends Robot {
 	}
 	/**
 	 * Gets vitesse.
+	 * si on est sur de la foret, 2 fois moins vite
 	 *
 	 * @param nature the nature
 	 * @return the vitesse

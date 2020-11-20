@@ -10,7 +10,7 @@ public abstract class Evenement {
 	/**
 	 * Instantiates a new Evenement.
 	 *
-	 * @param date  the date
+	 * @param date  the date d'execution de  l'evenement
 	 * @param robot the robot
 	 */
 	public Evenement(long date, Robot robot) {

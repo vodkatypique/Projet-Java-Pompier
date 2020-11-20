@@ -43,7 +43,7 @@ public abstract class Robot {
 	}
 
 	/**
-	 * Chercher eau plus court chemin.
+	 * renvoit le plus court chemin permettant d'aller remplir le robot selon son type
 	 *
 	 * @param carte the carte
 	 * @return the plus court chemin

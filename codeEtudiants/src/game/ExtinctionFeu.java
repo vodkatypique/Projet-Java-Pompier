@@ -1,7 +1,7 @@
 package game;
 
 /**
- * The type Debut extinction feu.
+ * Evenement de debut d'extinction de feu
  */
 public class ExtinctionFeu extends EvenementRobotAbstrait {
 	private DonneesSimulation donneesSimulation;
@@ -11,9 +11,9 @@ public class ExtinctionFeu extends EvenementRobotAbstrait {
 	 * Instantiates a new Debut extinction feu.
 	 *
 	 * @param robot             the robot
-	 * @param intensiteIncendie the intensite incendie
+	 * @param intensiteIncendie the intensite of incendie
 	 * @param simulateur        the simulateur
-	 * @param donneesSimulation the donnees simulation
+	 * @param donneesSimulation the donneesSimulation
 	 */
 	public ExtinctionFeu(Robot robot, double intensiteIncendie, Simulateur simulateur, DonneesSimulation donneesSimulation) {
 		super(robot, simulateur);
@@ -31,7 +31,7 @@ public class ExtinctionFeu extends EvenementRobotAbstrait {
 	 *
 	 * @param robot             the robot
 	 * @param simulateur        the simulateur
-	 * @param donneesSimulation the donnees simulation
+	 * @param donneesSimulation the donneesSimulation
 	 */
 	public ExtinctionFeu(Robot robot, Simulateur simulateur, DonneesSimulation donneesSimulation) {
 		super(robot, simulateur);
@@ -41,7 +41,10 @@ public class ExtinctionFeu extends EvenementRobotAbstrait {
 	}
 
 	/**
-	 * Execute.
+	 * Execute l'evenement de debut d'extinction
+	 * evidemment, le contenu du reservoir est decrementÃ© pour le  robot
+	 * On peut se permettre de le faire pour tout les type de robot, car certains on un reservoir plein
+	 * avec la valeur Maximale gerÃ© par le programme.
 	 */
 	@Override
 	public void execute() {
@@ -57,10 +60,8 @@ public class ExtinctionFeu extends EvenementRobotAbstrait {
 			this.volumeDeverse = incendie.getIntensite();
 		incendie.decrementeIntensite(this.volumeDeverse);
 		this.getRobot().setResevoir(this.getRobot().getReservoir()-this.volumeDeverse);
-		// vu que ceci l'extinction est en relation avec un robot particulier on doit diminuer la
-		// quantité de volume dont il dispose quand on diminue l'intensité de l'incendie
 		if (incendie.getIntensite() <= 0) {
-			System.out.println("Incendie éteinte!!!!!!!!!! ");
+			System.out.println("Incendie eteint!!!!!!!!!! ");
 			donneesSimulation.getIncendies().remove(incendie);
 		}
 

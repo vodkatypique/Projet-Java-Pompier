@@ -14,7 +14,7 @@ public class Deplacement extends EvenementRobotAbstrait {
 	 */
 	DonneesSimulation donneesSimulation;
 	/**
-	 * Instantiates a new Déplacement.
+	 * Instantiates a new Dï¿½placement.
 	 *
 	 * @param direction         the direction
 	 * @param robot             the robot
@@ -39,8 +39,8 @@ public class Deplacement extends EvenementRobotAbstrait {
 
 
 	/**
-	 * Execute.
-	 */
+     * Execute le deplacement en faisant bouger le robot sur la carte
+     */
 	@Override
 	public void execute() {
 		this.getRobot().getOccupationRobot().setDateFin(this.getDate());

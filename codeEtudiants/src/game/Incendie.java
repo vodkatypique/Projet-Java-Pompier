@@ -11,7 +11,7 @@ public class Incendie {
     /**
      * Instantiates a new Incendie.
      *
-     * @param pos       the pos
+     * @param pos       the position
      * @param intensite the intensite
      */
     public Incendie(Case pos, int intensite) {
@@ -21,14 +21,13 @@ public class Incendie {
     }
 
 
-
     /**
-     * Decremente intensite.
+     * Decremente intensite de l'incendie, pour quand on tentera de l'eteindre
      *
      * @param intensite the intensite
      */
     public void decrementeIntensite(double intensite) {
-        this.intensite -= intensite;//on décremente
+        this.intensite -= intensite;
     }
 
     /**
