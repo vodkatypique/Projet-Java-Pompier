@@ -48,7 +48,7 @@ public class ExtinctionFeu extends EvenementRobotAbstrait {
 	 */
 	@Override
 	public void execute() {
-		this.getRobot().getOccupationRobot().setDateFin(this.getDate());
+
 		Incendie incendie = this.donneesSimulation.getIncendie(this.getRobot().getPosition());
 		if (incendie == null) {
 			this.getRobot().getOccupationRobot().setOccupationGenerale(false);

@@ -32,7 +32,6 @@ public class RemplissageReservoir extends EvenementRobotAbstrait {
             System.err.println("Erreur, le robot ne peut pas se remplir");
             return;
         }
-        this.getRobot().getOccupationRobot().setDateFin(this.getDate());
         this.getRobot().setResevoir(this.getRobot().getReservoir() + this.volume);
         this.getRobot().getOccupationRobot().setOccupationGenerale(false);
 

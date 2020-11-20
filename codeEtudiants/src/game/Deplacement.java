@@ -43,11 +43,7 @@ public class Deplacement extends EvenementRobotAbstrait {
      */
 	@Override
 	public void execute() {
-		this.getRobot().getOccupationRobot().setDateFin(this.getDate());
-			/*this.getRobot().getOccupationRobot().setDateFin(this.getDateFin());
-			this.getSimulateur().ajouteEvenement(new FinDeplacement(this.getDateFin(), getRobot(), direction, donneesSimulation));	*/
 
-		//this.getSimulateur().ajouteEvenement(new Fin);
 		int lig = this.getRobot().getPosition().getLigne();
 		int col = this.getRobot().getPosition().getColonne();
 		switch (this.direction) {

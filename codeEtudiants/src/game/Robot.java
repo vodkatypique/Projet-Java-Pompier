@@ -21,7 +21,7 @@ public abstract class Robot {
 	public Robot(Case position) {
 		this.position = new Case(position);
 		this.positionInit = new Case(this.position);
-		this.occupationRobot = new OccupationRobot(0);
+		this.occupationRobot = new OccupationRobot();
 		setVitesse(this.getVitesseDefault());
 		setResevoir(getReservoirMax());
 		this.reservoirInit = this.reservoir;
@@ -39,7 +39,7 @@ public abstract class Robot {
 		setVitesse(vitesse);
 		setResevoir(getReservoirMax());
 		this.reservoirInit = this.reservoir;
-		this.occupationRobot = new OccupationRobot(0);
+		this.occupationRobot = new OccupationRobot();
 	}
 
 	/**
