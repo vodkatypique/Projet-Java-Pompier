@@ -41,20 +41,35 @@ public class Simulateur implements Simulable {
 	ChefPompier chefPompier;
 
 	/**
-	 * Le simulateur principal
+	 * Constructeur pour la simulation
 	 *
-	 * @param gui     l'interface graphique associÃ©e, dans laquelle se fera le dessin              et qui enverra les messages via les mÃ©thodes hÃ©ritÃ©es de              Simulable.
-	 * @param donnees the donnees
+	 * @param gui     l'interface graphique associÃ©e, dans laquelle se fera le dessin et qui enverra les messages via les méthodes héritées de Simulable.
+	 * @param cheminDonnees le chemin du système de fichier vers les données
 	 */
-	public Simulateur(GUISimulator gui, String cheminDonnees, Boolean joueScenario) {
+	public Simulateur(GUISimulator gui, String cheminDonnees) {
 		this.gui = gui;
 		this.tailleCase = 30;
 		this.dateSimulation = 0;
-		this.offsetGauche = 30;
-		this.offsetHaut = 30;
+		this.offsetGauche = 15;
+		this.offsetHaut = 15;
 		this.cheminDonnees=cheminDonnees;
-		this.joueScenario=joueScenario;
-		this.chefPompier = null;
+		this.joueScenario=Boolean.FALSE;
+		lectureDonnee();
+		this.setChefPompier(new ChefPompier(this.donneesSimulation.getRobots(), this.donneesSimulation.getCarte(), this.donneesSimulation.getIncendies(), this));
+	}
+	/** Constructeur pour les scénarios
+	 * @param gui     l'interface graphique associÃ©e, dans laquelle se fera le dessin et qui enverra les messages via les méthodes héritées de Simulable.
+	 * @param donneesSimulation les données de la simulation déjà remplie avec les évènement
+	 */
+	public Simulateur(GUISimulator gui,DonneesSimulation donneesSimulation) {
+		this.gui = gui;
+		this.tailleCase = 30;
+		this.dateSimulation = 0;
+		this.offsetGauche = 15;
+		this.offsetHaut = 15;
+		this.joueScenario=Boolean.TRUE;
+		this.donneesSimulation=donneesSimulation;
+
 	}
 	private void lectureDonnee() {
 		try {
@@ -94,7 +109,7 @@ public class Simulateur implements Simulable {
 	 */
 	public void ajouteEvenement(Evenement evenement, Robot robot) {
 		if (evenement.getDate() < 0) {
-			System.err.println("erreur, date nï¿½gative");
+			System.err.println("erreur, date négative");
 		}
 
 
@@ -119,8 +134,7 @@ public class Simulateur implements Simulable {
 	 * Start.
 	 */
 	public void start() {
-		lectureDonnee();
-		this.setChefPompier(new ChefPompier(this.donneesSimulation.getRobots(), this.donneesSimulation.getCarte(), this.donneesSimulation.getIncendies(), this));
+		
 		draw(this.donneesSimulation);
 	}
 
