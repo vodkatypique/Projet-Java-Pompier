@@ -33,6 +33,7 @@ public class Simulateur implements Simulable {
 	private int tailleCase;
 	private long dateSimulation;
 	private String cheminDonnees;
+	private Boolean joueScenario;
 
 	/**
 	 * The Chef pompier.
@@ -45,13 +46,14 @@ public class Simulateur implements Simulable {
 	 * @param gui     l'interface graphique associée, dans laquelle se fera le dessin              et qui enverra les messages via les méthodes héritées de              Simulable.
 	 * @param donnees the donnees
 	 */
-	public Simulateur(GUISimulator gui, String cheminDonnees) {
+	public Simulateur(GUISimulator gui, String cheminDonnees, Boolean joueScenario) {
 		this.gui = gui;
 		this.tailleCase = 10;
 		this.dateSimulation = 0;
 		this.offsetGauche = 30;
 		this.offsetHaut = 30;
 		this.cheminDonnees=cheminDonnees;
+		this.joueScenario=joueScenario;
 		this.chefPompier = null;
 	}
 	private void lectureDonnee() {
@@ -174,7 +176,7 @@ public class Simulateur implements Simulable {
 	 * Incrememte date.
 	 */
 	void incrememteDate() {
-		if (this.chefPompier != null) {
+		if (this.chefPompier != null&&(!this.joueScenario)) {
 			chefPompier.boucleExtinction();
 		}
 		
@@ -249,7 +251,7 @@ public class Simulateur implements Simulable {
 	 * Restart.
 	 */
 	@Override
-	public void restart() {//TODO marche pas
+	public void restart() {
 		this.dateSimulation = 0;
 		for (Robot robot : this.donneesSimulation.getRobots()) {
 			robot.resetReservoir();

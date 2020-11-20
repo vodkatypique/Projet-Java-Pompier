@@ -49,7 +49,7 @@ public class Test {
 			//scenario1(gui, donneesSimulation);
 			//verifiePlusCourtChemin(gui, donneesSimulation);
 			lanceSimulation(gui, args[0]);
-			//scenario0(gui, donneesSimulation);
+			//scenario0(gui, args[0]);
 
 
 
@@ -58,12 +58,12 @@ public class Test {
 	}
 	private static void lanceSimulation(GUISimulator gui, String chemineDonnees) {
 
-		Simulateur sim = new Simulateur(gui, chemineDonnees);
+		Simulateur sim = new Simulateur(gui, chemineDonnees,Boolean.FALSE);
 		sim.start();
 	}
 	
 	private static void scenario0(GUISimulator gui, DonneesSimulation donneesSimulation, String chemineDonnees) {
-		Simulateur sim = new Simulateur(gui, chemineDonnees);
+		Simulateur sim = new Simulateur(gui, chemineDonnees,Boolean.TRUE);
 		sim.ajouteEvenement(new Deplacement(Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation, sim),donneesSimulation.getRobots().get(0));
 		sim.ajouteEvenement(new Deplacement(Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation, sim),donneesSimulation.getRobots().get(0));
 		sim.ajouteEvenement(new Deplacement(Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation, sim),donneesSimulation.getRobots().get(0));
@@ -79,7 +79,7 @@ public class Test {
 
 	private static void scenario1(GUISimulator gui, DonneesSimulation donnees, String chemineDonnees) {
 
-		Simulateur sim = new Simulateur(gui, chemineDonnees);
+		Simulateur sim = new Simulateur(gui, chemineDonnees, Boolean.TRUE);
 		Robot robot = donnees.getRobots().get(1);
 		sim.ajouteEvenement(new Deplacement(Direction.NORD, robot, donnees,sim),robot);
 		sim.ajouteEvenement(new ExtinctionFeu(robot, sim, donnees),robot);
@@ -95,7 +95,7 @@ public class Test {
 	}
 
 	private static void verifiePlusCourtChemin(GUISimulator gui, DonneesSimulation donnees, String chemineDonnees) {
-		Simulateur sim = new Simulateur(gui, chemineDonnees);
+		Simulateur sim = new Simulateur(gui, chemineDonnees, Boolean.TRUE);
 
 		PlusCourtChemin chemin = new PlusCourtChemin(sim.getDonneesSimulation().getRobots().get(0), sim.getCarte().getCase(6, 7), sim.getCarte());
 		chemin.deplaceVersCase(sim);
