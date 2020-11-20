@@ -38,39 +38,32 @@ public class Test {
 		}
 
 		DonneesSimulation donneesSimulation;
-		try {
 
-			donneesSimulation = LecteurDonnees.creeDonnees(args[0]);
+
 			GUISimulator gui = new GUISimulator(
-					donneesSimulation.getCarte().getNbLignes() * 20,
-					donneesSimulation.getCarte().getNbLignes() * 20,
+					 500,
+					 500,
 					Color.BLACK);
 
 			//scenario0(gui, donneesSimulation);
 			//scenario1(gui, donneesSimulation);
 			//verifiePlusCourtChemin(gui, donneesSimulation);
-			lanceSimulation(gui, donneesSimulation);
+			lanceSimulation(gui, args[0]);
 			//scenario0(gui, donneesSimulation);
 
 
-		} catch (FileNotFoundException | IllegalAccessException | InstantiationException | IllegalArgumentException
-				| InvocationTargetException | DataFormatException e) {
-			e.printStackTrace();
-		}
+
 
 
 	}
-	private static void lanceSimulation(GUISimulator gui, DonneesSimulation donneesSimulation) {
+	private static void lanceSimulation(GUISimulator gui, String chemineDonnees) {
 
-		Simulateur sim = new Simulateur(gui, donneesSimulation);
-		ChefPompier chefPompier = new ChefPompier(donneesSimulation.getRobots(), donneesSimulation.getCarte(), donneesSimulation.getIncendies(), sim);
-		sim.setChefPompier(chefPompier);
-
+		Simulateur sim = new Simulateur(gui, chemineDonnees);
 		sim.start();
 	}
 	
-	private static void scenario0(GUISimulator gui, DonneesSimulation donneesSimulation) {
-		Simulateur sim = new Simulateur(gui, donneesSimulation);
+	private static void scenario0(GUISimulator gui, DonneesSimulation donneesSimulation, String chemineDonnees) {
+		Simulateur sim = new Simulateur(gui, chemineDonnees);
 		sim.ajouteEvenement(new Deplacement(Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation, sim),donneesSimulation.getRobots().get(0));
 		sim.ajouteEvenement(new Deplacement(Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation, sim),donneesSimulation.getRobots().get(0));
 		sim.ajouteEvenement(new Deplacement(Direction.NORD, donneesSimulation.getRobots().get(0), donneesSimulation, sim),donneesSimulation.getRobots().get(0));
@@ -84,9 +77,9 @@ public class Test {
 	}
 
 
-	private static void scenario1(GUISimulator gui, DonneesSimulation donnees) {
+	private static void scenario1(GUISimulator gui, DonneesSimulation donnees, String chemineDonnees) {
 
-		Simulateur sim = new Simulateur(gui, donnees);
+		Simulateur sim = new Simulateur(gui, chemineDonnees);
 		Robot robot = donnees.getRobots().get(1);
 		sim.ajouteEvenement(new Deplacement(Direction.NORD, robot, donnees,sim),robot);
 		sim.ajouteEvenement(new ExtinctionFeu(robot, sim, donnees),robot);
@@ -101,8 +94,8 @@ public class Test {
 		sim.start();
 	}
 
-	private static void verifiePlusCourtChemin(GUISimulator gui, DonneesSimulation donnees) {
-		Simulateur sim = new Simulateur(gui, donnees);
+	private static void verifiePlusCourtChemin(GUISimulator gui, DonneesSimulation donnees, String chemineDonnees) {
+		Simulateur sim = new Simulateur(gui, chemineDonnees);
 
 		PlusCourtChemin chemin = new PlusCourtChemin(sim.getDonneesSimulation().getRobots().get(0), sim.getCarte().getCase(6, 7), sim.getCarte());
 		chemin.deplaceVersCase(sim);

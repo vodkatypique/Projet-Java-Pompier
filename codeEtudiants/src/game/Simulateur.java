@@ -13,9 +13,13 @@ import gui.GUISimulator;
 import gui.Simulable;
 
 import java.awt.*;
+import java.io.FileNotFoundException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.zip.DataFormatException;
 
+import io.LecteurDonnees;
 
 /**
  * The type Simulateur.
@@ -28,6 +32,7 @@ public class Simulateur implements Simulable {
 	private DonneesSimulation donneesSimulation;
 	private int tailleCase;
 	private long dateSimulation;
+	private String cheminDonnees;
 
 	/**
 	 * The Chef pompier.
@@ -40,16 +45,23 @@ public class Simulateur implements Simulable {
 	 * @param gui     l'interface graphique associée, dans laquelle se fera le dessin              et qui enverra les messages via les méthodes héritées de              Simulable.
 	 * @param donnees the donnees
 	 */
-	public Simulateur(GUISimulator gui, DonneesSimulation donnees) {
+	public Simulateur(GUISimulator gui, String cheminDonnees) {
 		this.gui = gui;
-		this.donneesSimulation = donnees;
 		this.tailleCase = 10;
 		this.dateSimulation = 0;
 		this.offsetGauche = 30;
 		this.offsetHaut = 30;
+		this.cheminDonnees=cheminDonnees;
 		this.chefPompier = null;
 	}
-
+	private void lectureDonnee() {
+		try {
+			this.donneesSimulation=LecteurDonnees.creeDonnees(this.cheminDonnees);
+		} catch (FileNotFoundException | IllegalAccessException | InstantiationException | IllegalArgumentException
+				| InvocationTargetException | DataFormatException e) {
+			e.printStackTrace();
+		}
+	}
 	private int offsetGauche;
 	private int offsetHaut;
 	private Hashtable<Robot, ArrayList<Evenement>> evenements = new Hashtable<Robot, ArrayList<Evenement>>();
@@ -105,6 +117,8 @@ public class Simulateur implements Simulable {
 	 * Start.
 	 */
 	public void start() {
+		lectureDonnee();
+		this.setChefPompier(new ChefPompier(this.donneesSimulation.getRobots(), this.donneesSimulation.getCarte(), this.donneesSimulation.getIncendies(), this));
 		draw(this.donneesSimulation);
 	}
 
@@ -242,9 +256,8 @@ public class Simulateur implements Simulable {
 			robot.resetPosition(this.donneesSimulation);
 			this.evenements.remove(robot);
 		}
-		for (Incendie inc : this.donneesSimulation.getIncendies())
-			inc.resetIntensite();
-
+		lectureDonnee();
+		this.setChefPompier(new ChefPompier(this.donneesSimulation.getRobots(), this.donneesSimulation.getCarte(), this.donneesSimulation.getIncendies(), this));
 		this.draw(this.donneesSimulation);
 
 	}
