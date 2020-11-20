@@ -48,10 +48,10 @@ public class Test {
 		//Scenarios de test
 		// faire les tests en les considerant individuellement
 		//scenario0(gui, args[0]);
-		scenario1(gui, args[0]);
+		//scenario1(gui, args[0]);
 		
 		//Vrai simulation qui fait intervenir le chef pompier
-		//lanceSimulation(gui, args[0]);
+		lanceSimulation(gui, args[0]);
 			
 	}
 	private static void lanceSimulation(GUISimulator gui, String cheminDonnees) {

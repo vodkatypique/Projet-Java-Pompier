@@ -14,7 +14,7 @@ public class Deplacement extends EvenementRobotAbstrait {
 	 */
 	DonneesSimulation donneesSimulation;
 	/**
-	 * Instantiates a new D�placement.
+	 * Instantiates a new Deplacement.
 	 *
 	 * @param direction         the direction
 	 * @param robot             the robot
@@ -63,7 +63,7 @@ public class Deplacement extends EvenementRobotAbstrait {
 				break;
 		}
 		if (lig > donneesSimulation.getCarte().getNbLignes() - 1 || lig < 0 || col > donneesSimulation.getCarte().getNbLignes() - 1 || col < 0) {
-			System.err.println("Erreur, Position invalide apr�s le deplacement");
+			System.err.println("Erreur, Position invalide apres le deplacement");
 			System.exit(-1);
 			return;
 		}

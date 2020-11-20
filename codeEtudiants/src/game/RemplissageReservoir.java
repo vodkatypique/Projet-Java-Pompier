@@ -5,7 +5,6 @@ package game;
  * The type Evenement Debut remplissage reservoir.
  */
 public class RemplissageReservoir extends EvenementRobotAbstrait {
-    private double volume;
 
     /**
      * Instantiates a new Debut remplissage reservoir.
@@ -15,8 +14,7 @@ public class RemplissageReservoir extends EvenementRobotAbstrait {
      */
     public RemplissageReservoir(Robot robot, Simulateur simulateur) {
         super(robot, simulateur);
-        this.volume = robot.getReservoirMax() - robot.getReservoir();
-        this.setDate(this.getDate() + this.getRobot().dureeRemplissageReservoir(this.volume));
+        this.setDate(this.getDate() + this.getRobot().dureeRemplissageReservoir(this.getRobot().getReservoirMax()));
     }
 
     /**
@@ -28,7 +26,7 @@ public class RemplissageReservoir extends EvenementRobotAbstrait {
             System.err.println("Erreur, le robot ne peut pas se remplir");
             return;
         }
-        this.getRobot().setResevoir(this.getRobot().getReservoir() + this.volume);
+        this.getRobot().setResevoir(this.getRobot().getReservoirMax());
         this.getRobot().setOccupationGenerale(false);
 
     }
