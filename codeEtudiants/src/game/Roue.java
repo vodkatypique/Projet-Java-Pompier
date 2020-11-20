@@ -4,10 +4,6 @@ package game;
  * The type Roue.
  */
 public class Roue extends Robot {
-
-
-
-
 	/**
 	 * Instantiates a new Roue.
 	 *
@@ -29,7 +25,8 @@ public class Roue extends Robot {
 	}
 
 	/**
-	 * Gets vitesse max.
+	 * Gets vitesse max
+	 * non specifié, donc consideré sans limite
 	 *
 	 * @return the vitesse max
 	 */
@@ -50,9 +47,9 @@ public class Roue extends Robot {
 	}
 
 	/**
-	 * Temp remplissage double.
+	 * Temp remplissage
 	 *
-	 * @return the double
+	 * @return duree du remplissage
 	 */
 	@Override
 	public double tempRemplissage() {
@@ -62,7 +59,7 @@ public class Roue extends Robot {
 	/**
 	 * Duree deversement unitaire double.
 	 *
-	 * @return the double
+	 * @return the temps de deversement unitaire
 	 */
 	@Override
 	public double dureeDeversementUnitaire() {
@@ -80,10 +77,10 @@ public class Roue extends Robot {
 	}
 
 	/**
-	 * Peut atteindre boolean.
+	 * Peut atteindre une case specifié, uniquement un terrain libre ou un habitat
 	 *
 	 * @param position the position
-	 * @return the boolean
+	 * @return vrai si terrain_libre ou habitat, faux sinon
 	 */
 	@Override
 	public boolean peutAtteindre(Case position) {

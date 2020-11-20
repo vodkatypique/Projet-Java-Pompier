@@ -54,7 +54,7 @@ public class Chenille extends Robot {
 	/**
 	 * Gets reservoir max.
 	 *
-	 * @return the reservoir max
+	 * @return the capacité du reservoir max
 	 */
 	@Override
 	double getReservoirMax() {
@@ -64,7 +64,7 @@ public class Chenille extends Robot {
 	/**
 	 * Temp remplissage double.
 	 *
-	 * @return the double
+	 * @return temps du remplissage
 	 */
 	@Override
 	double tempRemplissage() {
@@ -74,7 +74,7 @@ public class Chenille extends Robot {
 	/**
 	 * Duree deversement unitaire double.
 	 *
-	 * @return the double
+	 * @return temps de deversement unitaire
 	 */
 	@Override
 	double dureeDeversementUnitaire() {
@@ -84,7 +84,7 @@ public class Chenille extends Robot {
 	/**
 	 * Gets vitesse default.
 	 *
-	 * @return the vitesse default
+	 * @return the vitesse par default
 	 */
 	@Override
 	double getVitesseDefault() {
@@ -92,10 +92,10 @@ public class Chenille extends Robot {
 	}
 
 	/**
-	 * Peut atteindre boolean.
+	 * Peut atteindre une case, vraie pour tout sauf EAU et ROCHE.
 	 *
 	 * @param position the position
-	 * @return the boolean
+	 * @return vrai si on peut atteindre la case, faux sinon
 	 */
 	@Override
 	boolean peutAtteindre(Case position) {

@@ -28,7 +28,7 @@ public class Drone extends Robot {
 	 * Duree deversement
 	 *
 	 * @param vol the vol
-	 * @return the double
+	 * @return the duree du deversement du reservoir
 	 */
 	@Override
 	public double dureeDeversement(double vol) {
@@ -56,9 +56,9 @@ public class Drone extends Robot {
 	}
 
 	/**
-	 * Temp remplissage double.
+	 * Temp remplissage
 	 *
-	 * @return the double
+	 * @return le temps de remplissage
 	 */
 	@Override
 	double tempRemplissage() {
@@ -67,10 +67,10 @@ public class Drone extends Robot {
 	}
 
 	/**
-	 * Peut remplir boolean.
+	 * Dit si on Peut remplir le drone a la position courante
 	 *
 	 * @param carte the carte
-	 * @return the boolean
+	 * @return vrai si on est sur de l'eau, faux sinon
 	 */
 	@Override
 	public boolean peutRemplir(Carte carte) {
@@ -82,6 +82,8 @@ public class Drone extends Robot {
 
 	/**
 	 * renvoit le plus court chemin permettant d'aller remplir le drone
+	 *
+	 * /!\ VOIR la meme methode dans la Classe Robot, qui partage les memes remarques.
 	 *
 	 * @param carte the carte
 	 * @return the plus court chemin
@@ -106,9 +108,9 @@ public class Drone extends Robot {
 	}
 
 	/**
-	 * Duree deversement unitaire double.
+	 * Get Duree deversement unitaire.
 	 *
-	 * @return the double
+	 * @return la duree de deversement unitaire
 	 */
 	@Override
 	public double dureeDeversementUnitaire() {
@@ -116,9 +118,9 @@ public class Drone extends Robot {
 	}
 
 	/**
-	 * Gets vitesse default.
+	 * Gets vitesse par default.
 	 *
-	 * @return the vitesse default
+	 * @return the vitesse par default
 	 */
 	@Override
 	public double getVitesseDefault() {
@@ -126,10 +128,10 @@ public class Drone extends Robot {
 	}
 
 	/**
-	 * Peut atteindre boolean.
+	 * Peut atteindre, toujours vraie, le drone peut aller partout
 	 *
 	 * @param position the position
-	 * @return the boolean
+	 * @return toujours vrai
 	 */
 	@Override
 	boolean peutAtteindre(Case position) {

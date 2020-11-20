@@ -2,14 +2,10 @@ package game;
 
 
 /**
- * The type Debut remplissage reservoir.
+ * The type Evenement Debut remplissage reservoir.
  */
 public class RemplissageReservoir extends EvenementRobotAbstrait {
     private double volume;
-
-
-
-
 
     /**
      * Instantiates a new Debut remplissage reservoir.
@@ -24,7 +20,7 @@ public class RemplissageReservoir extends EvenementRobotAbstrait {
     }
 
     /**
-     * Execute.
+     * Execute l'evenement de debut de remplissage
      */
     @Override
     public void execute() {

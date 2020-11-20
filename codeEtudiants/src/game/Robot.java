@@ -14,9 +14,9 @@ public abstract class Robot {
 	private OccupationRobot occupationRobot;
 
 	/**
-	 * Instantiates a new Robot.
+	 * Instantiates a new Robot avec une position et la vitesse par defaut du type de robot
 	 *
-	 * @param position the position
+	 * @param position the position du robot
 	 */
 	public Robot(Case position) {
 		this.position = new Case(position);
@@ -26,12 +26,12 @@ public abstract class Robot {
 		setResevoir(getReservoirMax());
 		this.reservoirInit = this.reservoir;
 	}
-	
+
 	/**
-	 * Instantiates a new Robot.
+	 * Instantiates a new Robot avec sa position et sa vitesse
 	 *
-	 * @param position the position
-	 * @param int vitesse
+	 * @param position the position du robot
+	 * @param vitesse la vitesse du robot
 	 */
 	public Robot(Case position, int vitesse) {//TODO cleanup les constructeurs
 		this.position = position;
@@ -44,6 +44,11 @@ public abstract class Robot {
 
 	/**
 	 * renvoit le plus court chemin permettant d'aller remplir le robot selon son type
+	 *
+	 * a ameliorer, gros soucis de complexité visible pour la Carte 50x50, pas visible sinon
+	 * On a preferer rester optimal, mais on pourrait ne tester les chemins que pour une certaine
+	 * proportion de case d'eau, ou alors faire une recherche de chemin approximative (avec A* par exemple)
+	 * ou combiner les deux
 	 *
 	 * @param carte the carte
 	 * @return the plus court chemin
@@ -85,9 +90,9 @@ public abstract class Robot {
 	 * Duree remplissage reservoir long.
 	 *
 	 * @param volume the volume
-	 * @return the long
+	 * @return the duree du remplissage
 	 */
-	public long dureeRemplissageReservoir(double volume) {// retourne la duree du remplissage
+	public long dureeRemplissageReservoir(double volume) {
 		long dureeRemplissage = (long) ((volume / getReservoirMax()) * tempRemplissage());
 		return dureeRemplissage;
 	}
@@ -96,7 +101,7 @@ public abstract class Robot {
 	 * Duree deversement double.
 	 *
 	 * @param vol the vol
-	 * @return the double
+	 * @return la duree de deversement en seconde
 	 */
 	public double dureeDeversement(double vol) {// en seconde
 		return vol * dureeDeversementUnitaire();
@@ -106,7 +111,7 @@ public abstract class Robot {
 	 * Peut remplir boolean.
 	 *
 	 * @param carte the carte
-	 * @return the boolean
+	 * @return si on peut remplir le reservoir ou non a la position courante
 	 */
 	public boolean peutRemplir(Carte carte) {
 		Boolean peutRemplir = Boolean.FALSE;
@@ -130,8 +135,7 @@ public abstract class Robot {
 	 *
 	 * @return the vitesse max
 	 */
-	abstract double getVitesseMax();// justification :
-	// https://stackoverflow.com/questions/11896955/force-subclasses-to-include-constant-in-abstract-java-class
+	abstract double getVitesseMax();
 
 	/**
 	 * Gets reservoir max.
@@ -143,14 +147,12 @@ public abstract class Robot {
 	/**
 	 * Temp remplissage double.
 	 *
-	 * @return the double
+	 * @return temps du remplissage du reservoir
 	 */
 	abstract double tempRemplissage();// pour la totalité du reservoir
 
 	/**
-	 * Duree deversement unitaire double.
-	 *
-	 * @return the double
+	 * voir classe fille
 	 */
 	abstract double dureeDeversementUnitaire();// le temps en seconde pour le deversement de 1L
 
@@ -162,17 +164,14 @@ public abstract class Robot {
 	abstract double getVitesseDefault();
 
 	/**
-	 * Peut atteindre boolean.
-	 *
-	 * @param position the position
-	 * @return the boolean
+	 * voir classe fille
 	 */
 	abstract boolean peutAtteindre(Case position);
 
 	/**
 	 * Gets position.
 	 *
-	 * @return the position
+	 * @return the position courante
 	 */
 	public Case getPosition() {
 		return this.position;
@@ -232,7 +231,7 @@ public abstract class Robot {
 	}
 
 	/**
-	 * Reset reservoir.
+	 * Reset l'etat du reservoir.
 	 */
 	public void resetReservoir() {
 		this.reservoir = this.reservoirInit;
@@ -249,9 +248,9 @@ public abstract class Robot {
 	}
 
 	/**
-	 * To string string.
+	 * To string
 	 *
-	 * @return the string
+	 * @return l'objet formaté sous forme de string
 	 */
 	@Override
 	public String toString() {
@@ -261,7 +260,7 @@ public abstract class Robot {
 	/**
 	 * Gets reservoir.
 	 *
-	 * @return the reservoir
+	 * @return the l'etat du reservoir
 	 */
 	public double getReservoir() {
 		return reservoir;
@@ -270,7 +269,7 @@ public abstract class Robot {
 	/**
 	 * Gets occupation robot.
 	 *
-	 * @return the occupation robot
+	 * @return l'occupation du robot
 	 */
 	public OccupationRobot getOccupationRobot() {
 		return this.occupationRobot;

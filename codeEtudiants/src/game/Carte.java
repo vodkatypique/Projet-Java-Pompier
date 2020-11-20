@@ -5,7 +5,7 @@
  *
  * 20/11/2020
  * 
- * Benjamin Cathelineau, Clément Caffin, Brown Ebouky
+ * Benjamin Cathelineau, Clï¿½ment Caffin, Brown Ebouky
  */
 package game;
 
@@ -86,7 +86,7 @@ public class Carte {
 	 *
 	 * @param lig the lig
 	 * @param col the col
-	 * @return the case
+	 * @return la case du plateau en (lig, col)
 	 */
 	public Case getCase(int lig, int col) {
 		if (lig < 0 || lig > (this.nbLignes - 1) || col < 0 || col > (this.nbColonnes - 1)) {
@@ -102,7 +102,7 @@ public class Carte {
 	 *
 	 * @param src the src
 	 * @param dir the dir
-	 * @return the voisin
+	 * @return the voisins
 	 */
 	public Case getVoisin(Case src, Direction dir) {
 		if (this.voisinExiste(src, dir)) {

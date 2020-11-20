@@ -30,7 +30,7 @@ public abstract class Evenement {
 	/**
 	 * Gets date.
 	 *
-	 * @return the date
+	 * @return the date du debut de l'evenement
 	 */
 	public long getDate() {
 		return this.date;

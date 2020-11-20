@@ -25,17 +25,6 @@ public class PlusCourtChemin {
 	 * @param carte the carte
 	 */
 	public PlusCourtChemin(Robot robot, Case ca, Carte carte) {
-
-		// Initialisation
-		// sommets = new ArrayList<Sommet>();
-		/*for(int i = 0; i < carte.getNbLignes(); i++) {
-			for(int j = 0; j < carte.getNbColonnes(); j++) {
-				Case temp = carte.getCase(i, j);
-				if(!temp.equals(ca))
-					sommets.add(new Sommet(temp, Double.MAX_VALUE));
-			}
-		}*/
-		// sommets.add(new Sommet(ca, 0));
 		this.chemin = new LinkedList<>();
 		this.depart = new Sommet(robot.getPosition(), 0);
 		this.carte = carte;
@@ -44,11 +33,7 @@ public class PlusCourtChemin {
 		plusCourtChemin();
 	}
 	/**
-	 * Impl�mentation de dijkstra
-	 *
-	 * 
-	 * 
-	 * 
+	 * Implémentation de dijkstra
 	 */
 	private void plusCourtChemin() {
 		ArrayList<Sommet> ouverts = new ArrayList<>();
@@ -76,11 +61,14 @@ public class PlusCourtChemin {
 		}
 
 		if(this.chemin.size() == 0)
-			System.err.println("Pas de plus cours chemin jusqu'� cette destination");
+			System.err.println("Pas de plus cours chemin jusqu'� cette destination");
 
 	}
+
 	/**
-	 * 
+	 * Mise a jour des temps de trajet pour chaque sommet de proche en proche,
+	 * utile pour le calcul du temps du trajet au total en fin d'algorithme
+	 *
 	 * @param pere
 	 * @param enfant
 	 * @param temps
@@ -100,7 +88,6 @@ public class PlusCourtChemin {
 				fermes.remove(enfantExact);
 				return;
 			}
-			// dans le cas contraire on ne fait rien
 			return;
 		}
 		if(ouverts.contains(enfant)) {
@@ -111,7 +98,6 @@ public class PlusCourtChemin {
 				enfantExact.setParent(pere);
 				return;
 			}
-			// dans le cas contraire on ne fait rien
 			return;
 		}
 		if (enfant.getTemps() > pere.getTemps() + temps) {
@@ -123,7 +109,7 @@ public class PlusCourtChemin {
 	}
 
 	/**
-	 * Deplace vers case.
+	 * On ajoute les etapes du trajet dans les evenement de la simulation
 	 *
 	 * @param sim le Simulateur
 	 */
@@ -132,22 +118,24 @@ public class PlusCourtChemin {
 			// on sort de la fonction s'il n'ya pas de chemin optim
 			return;
 		}
-		//int i = 1;
 		Case temp = this.chemin.pop().getPosition();
 
 		LinkedList<Sommet> s = this.chemin;
 		while (s.size() >= 1) {
-			// on prend l'�l�ment suivant de la liste
-			Sommet suivant= s.pop();
+			// on prend l'élément suivant de la liste
+			Sommet suivant = s.pop();
 			Case suiv = suivant.getPosition();
-			sim.ajouteEvenement(new Deplacement( temp.getDirection(suiv.getLigne(), suiv.getColonne()), this.robot,sim.getDonneesSimulation(),sim),this.robot);
-			//i++;
+			sim.ajouteEvenement(new Deplacement(temp.getDirection(suiv.getLigne(), suiv.getColonne()), this.robot, sim.getDonneesSimulation(), sim), this.robot);
 			temp = suiv;
 		}
 	}
 
+	/**
+	 * on constitue la liste chainee qui a les différents sommets à parcourir connaissant les parents
+	 *
+	 * @param s sommet de depart de la reconstruction
+	 */
 	private void constitueChemin(Sommet s) {
-		// on constitue la liste chainee qui a les diff�rents sommets � parcourir connaissant les parents
 		Sommet temp = s;
 		while (temp != null) {
 			this.chemin.addFirst(temp);
@@ -156,7 +144,13 @@ public class PlusCourtChemin {
 
 	}
 
-	private  Sommet getSommetProche(ArrayList<Sommet> sommets) {
+	/**
+	 * renvoit le sommet le plus proche -en terme de temps de trajet- d'un sommet donné parmis un ArrayList de sommets
+	 *
+	 * @param sommets
+	 * @return le sommet le plus proche parmis la liste des sommets donné en parametre
+	 */
+	private Sommet getSommetProche(ArrayList<Sommet> sommets) {
 		Sommet optim = null;
 		double tempsMin = Double.MAX_VALUE;
 		for (Sommet s : sommets) {
@@ -170,9 +164,9 @@ public class PlusCourtChemin {
 	}
 
 	/**
-	 * Gets temps optim.
+	 * Gets temps du plus court chemin calculé
 	 *
-	 * @return the temps optim
+	 * @return the temps du trajet le plus court
 	 */
 	public double getTempsOptim() {
 		return this.tempsOptim;

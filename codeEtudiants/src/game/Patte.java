@@ -4,9 +4,6 @@ package game;
  * The type Patte.
  */
 public class Patte extends Robot {
-
-
-
 	/**
 	 * Instantiates a new Patte.
 	 *
@@ -62,6 +59,7 @@ public class Patte extends Robot {
 
 	/**
 	 * Gets reservoir max.
+	 * le reservoir est consideré infini
 	 *
 	 * @return the reservoir max
 	 */
@@ -71,9 +69,9 @@ public class Patte extends Robot {
 	}
 
 	/**
-	 * Temp remplissage double.
+	 * Temp remplissage
 	 *
-	 * @return the double
+	 * @return the temps de remplissage
 	 */
 	@Override
 	public double tempRemplissage() {
@@ -81,10 +79,10 @@ public class Patte extends Robot {
 	}
 
 	/**
-	 * Peut remplir boolean.
+	 * Peut remplir le reservoir.
 	 *
 	 * @param carte the carte
-	 * @return the boolean
+	 * @return toujours faux, le reservoir est consideré infini
 	 */
 	@Override
 	public boolean peutRemplir(Carte carte) {
@@ -94,7 +92,7 @@ public class Patte extends Robot {
 	/**
 	 * Duree deversement unitaire double.
 	 *
-	 * @return the double
+	 * @return la duree du deversement unitaire
 	 */
 	@Override
 	public double dureeDeversementUnitaire() {
@@ -114,10 +112,10 @@ public class Patte extends Robot {
 
 
 	/**
-	 * Peut atteindre boolean.
+	 * Peut atteindre une case specifié, soit vraie pour tout sauf les case d'eau
 	 *
 	 * @param position the position
-	 * @return the boolean
+	 * @return vrai si on peut se rendre sur la case, faux sinon
 	 */
 	@Override
 	boolean peutAtteindre(Case position) {

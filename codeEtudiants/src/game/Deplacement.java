@@ -39,8 +39,8 @@ public class Deplacement extends EvenementRobotAbstrait {
 
 
 	/**
-     * Execute le deplacement en faisant bouger le robot sur la carte
-     */
+	 * Execute le deplacement en faisant bouger le robot sur la carte avec le deplacement courant
+	 */
 	@Override
 	public void execute() {
 		this.getRobot().getOccupationRobot().setDateFin(this.getDate());

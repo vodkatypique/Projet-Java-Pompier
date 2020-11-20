@@ -35,18 +35,18 @@ public class Case {
 	}
 
 	/**
-	 * Gets colonne.
+	 * Gets indice colonne.
 	 *
-	 * @return the colonne
+	 * @return the colonne indice
 	 */
 	public int getColonne() {
 		return this.colonne;
 	}
 
 	/**
-	 * Gets ligne.
+	 * Gets index ligne.
 	 *
-	 * @return the ligne
+	 * @return the ligne index
 	 */
 	public int getLigne() {
 		return this.ligne;
@@ -75,7 +75,7 @@ public class Case {
 	 *
 	 * @param lig the lig
 	 * @param col the col
-	 * @return the direction
+	 * @return the direction a prendre
 	 */
 	public Direction getDirection(int lig, int col) {
 		if (this.getLigne() == lig - 1)
@@ -99,7 +99,7 @@ public class Case {
 	/**
 	 * Affiche textuel d'une Case
 	 *
-	 * @return the string
+	 * @return une case formaté sous forme de string
 	 */
 	@Override
 	public String toString() {

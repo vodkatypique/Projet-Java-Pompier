@@ -24,7 +24,7 @@ public class Incendie {
     /**
      * Decremente intensite de l'incendie, pour quand on tentera de l'eteindre
      *
-     * @param intensite the intensite
+     * @param intensite the intensite de l'incendie
      */
     public void decrementeIntensite(double intensite) {
         this.intensite -= intensite;
@@ -56,9 +56,9 @@ public class Incendie {
     }
 
     /**
-     * To string string.
+     * To string.
      *
-     * @return the string
+     * @return l'objet formaté sous forme de String
      */
     @Override
     public String toString() {

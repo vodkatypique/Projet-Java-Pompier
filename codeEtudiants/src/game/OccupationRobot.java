@@ -10,16 +10,16 @@ public class OccupationRobot {
 	/**
 	 * Instantiates a new Occupation robot.
 	 *
-	 * @param dateFin the date fin
+	 * @param dateFin the date fin de l'occupation
 	 */
 	public OccupationRobot(long dateFin) {
 		this.dateFin = dateFin;
 	}
 
 	/**
-	 * Gets occupation generale.
+	 * Gets occupation generale, utile pour le calcul du plus court chemin pour savoir si un robot est deja occupé
 	 *
-	 * @return the occupation generale
+	 * @return l'etat d'occupation du robot
 	 */
 	public boolean getOccupationGenerale() {
 		return OccupationGenerale;
@@ -37,7 +37,7 @@ public class OccupationRobot {
 	/**
 	 * Gets date fin.
 	 *
-	 * @return the date fin
+	 * @return the date fin de l'occupation du Robot
 	 */
 	public long getDateFin() {
 		return this.dateFin;
